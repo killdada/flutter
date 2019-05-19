@@ -9,7 +9,7 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return new Center(
-      child: new Text('登录'),
+      child: new Text('登录555'),
     );
   }
 }

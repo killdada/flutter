@@ -31,12 +31,12 @@ class PageContainerState extends State<PageContainer> {
     if (tabImages == null) {
       tabImages = [
         [
-          getTabImage('assets/images/ic_nav_news_normal.png'),
-          getTabImage('assets/images/ic_nav_news_actived.png')
+          getTabImage('assets/images/nav/ic_nav_news_normal.png'),
+          getTabImage('assets/images/nav/ic_nav_news_actived.png')
         ],
         [
-          getTabImage('assets/images/ic_nav_my_normal.png'),
-          getTabImage('assets/images/ic_nav_my_pressed.png')
+          getTabImage('assets/images/nav/ic_nav_my_normal.png'),
+          getTabImage('assets/images/nav/ic_nav_my_pressed.png')
         ]
       ];
     }

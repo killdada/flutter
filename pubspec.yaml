@@ -69,6 +69,8 @@ flutter:
   # 图片和一些mock假数据
   assets:
     - assets/images/
+    - assets/images/nav/
+    - assets/images/my/
     - mock/
   # To add assets to your application, add an assets section, like this:
   # assets:
