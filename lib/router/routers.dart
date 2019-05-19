@@ -1,0 +1,24 @@
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
+import 'package:myapp/router/route_handlers.dart';
+
+class Routes {
+  static String root = "/";
+  static String my = "/my";
+  static String login = "/login";
+  static String course = "/course";
+  static String counter = "/counter";
+
+  // 对路由进行配置，define进行定义handler是回调
+  static void configureRoutes(Router router) {
+    router.notFoundHandler = Handler(
+        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      print("该路由没有找到");
+    });
+    router.define(root, handler: rootHandler);
+    router.define(my, handler: myRouteHandler);
+    router.define(login, handler: loginRouterHandler);
+    router.define(course, handler: courseRouterHandler);
+    router.define(counter, handler: counterRouterHandler);
+  }
+}
