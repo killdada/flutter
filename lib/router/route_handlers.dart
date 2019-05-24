@@ -1,6 +1,8 @@
 import 'package:myapp/page/my.dart';
 import 'package:myapp/page/login.dart';
 import 'package:myapp/page/course.dart';
+import 'package:myapp/page/learn_rank.dart';
+import 'package:myapp/page/learn_record.dart';
 
 /// 测试mobx
 import 'package:myapp/store/counter_widgets.dart';
@@ -39,4 +41,14 @@ Handler courseRouterHandler = Handler(
 Handler counterRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return CounterExample();
+});
+
+Handler learnRankRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return LearnRank();
+});
+
+Handler learnRecordRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return LearnRecord();
 });

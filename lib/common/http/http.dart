@@ -39,8 +39,13 @@ class HttpManager {
    * header 请求头
    * option 请求配置
    */
-  fetch(url, params, Map<String, dynamic> header, Options option,
-      {noTip = false}) async {
+  fetch(
+    url, {
+    params,
+    Map<String, dynamic> header,
+    Options option,
+    bool noTip = false,
+  }) async {
     Map<String, dynamic> headers = new HashMap();
     if (header != null) {
       headers.addAll(header);

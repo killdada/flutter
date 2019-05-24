@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    // AppSize.initDesignSize(context: context);
     return MaterialApp(
       title: 'myapp',
       theme: ThemeData(

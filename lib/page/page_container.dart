@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:myapp/common/utils/appsize.dart';
+
 import './course.dart';
 import './my.dart';
 
@@ -62,15 +64,12 @@ class PageContainerState extends State<PageContainer> {
 
   @override
   Widget build(BuildContext context) {
+    AppSize.initDesignSize(context: context);
     _body = IndexedStack(
       children: pages,
       index: _tabIndex,
     );
     return Scaffold(
-      appBar: AppBar(
-          title: Text(appBarTitles[_tabIndex],
-              style: TextStyle(color: Colors.white)),
-          iconTheme: IconThemeData(color: Colors.white)),
       body: _body,
       bottomNavigationBar: CupertinoTabBar(
         items: <BottomNavigationBarItem>[
