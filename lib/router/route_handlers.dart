@@ -3,6 +3,7 @@ import 'package:myapp/page/login.dart';
 import 'package:myapp/page/course.dart';
 import 'package:myapp/page/learn_rank.dart';
 import 'package:myapp/page/learn_record.dart';
+import 'package:myapp/page/page_container.dart';
 
 import 'package:myapp/common/utils/fluro_convert_util.dart';
 
@@ -19,6 +20,11 @@ import 'package:flutter/material.dart';
 //   return Detail(
 //       title: FluroConvertUtils.fluroCnParamsDecode(params["title"]?.first));
 // });
+
+Handler homeHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return PageContainer();
+});
 
 Handler rootHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {

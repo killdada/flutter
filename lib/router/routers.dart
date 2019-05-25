@@ -4,6 +4,7 @@ import 'package:myapp/router/route_handlers.dart';
 
 class Routes {
   static String root = "/";
+  static String home = "/home";
   static String my = "/my";
   static String login = "/login";
   static String course = "/course";
@@ -18,6 +19,7 @@ class Routes {
       print("该路由没有找到");
     });
     router.define(root, handler: rootHandler);
+    router.define(home, handler: homeHandler);
     router.define(my, handler: myRouteHandler);
     router.define(login, handler: loginRouterHandler);
     router.define(course, handler: courseRouterHandler);

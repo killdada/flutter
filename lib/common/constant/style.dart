@@ -1,4 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:myapp/common/utils/appsize.dart';
 
 /// 颜色
@@ -36,3 +39,54 @@ class Dimens {
 
   static Radius radius_15 = Radius.circular(AppSize.width(15.0));
 }
+
+class SystemStyles {
+  static void setStatusBarStyle(
+      {statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark}) {
+    if (Platform.isAndroid) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: statusBarColor,
+        statusBarIconBrightness: statusBarIconBrightness,
+      ));
+    }
+  }
+}
+
+class TextStyles {
+  static TextStyle style = TextStyle(
+    fontSize: Dimens.sp_42,
+    color: Colours.textFirst,
+    fontWeight: FontWeight.normal,
+  );
+
+  static TextStyle style2 = TextStyle(
+    fontSize: Dimens.sp_36,
+    color: Color(0xFF666666),
+    fontWeight: FontWeight.normal,
+  );
+
+  static TextStyle hintStyle = style.copyWith(
+    color: Colours.textThird,
+  );
+}
+
+class InputStyles {
+  static InputDecoration inputDecoration = InputDecoration(
+    hintStyle: TextStyles.hintStyle,
+    border: InputBorder.none,
+    counterText: '',
+    contentPadding: EdgeInsets.symmetric(
+      vertical: AppSize.height(30.0),
+      horizontal: AppSize.width(30.0),
+    ),
+  );
+
+  static BoxDecoration underlineDecoration = BoxDecoration(
+    color: Colours.background,
+    border: Border(
+        bottom: BorderSide(color: Colours.divider, width: Dimens.divider)),
+  );
+}
+
+class ButtonStyles {}

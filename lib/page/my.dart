@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluro/fluro.dart';
+import 'package:myapp/router/application.dart';
 
 import 'package:myapp/common/constant/style.dart';
-import 'package:myapp/router/application.dart';
 import 'package:myapp/common/utils/data_utils.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/common/utils/fluro_convert_util.dart';
@@ -37,7 +37,7 @@ class MyPageState extends State<My> {
 
   UserInfo userinfo = UserInfo();
 
-  bool isLogin = true;
+  bool isLogin = false;
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class MyPageState extends State<My> {
       });
     } else {
       setState(() {
-        isLogin = true;
+        isLogin = false;
       });
     }
   }
