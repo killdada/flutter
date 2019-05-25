@@ -33,8 +33,9 @@ dependencies:
   dio: ^2.1.5
   # 事件总栈
   event_bus: ^1.1.0
-  # 路由
-  fluro: "^1.4.0"
+  # 路由  fluro: "^1.4.0" git上更新了 CupertinoPageRoute 侧滑返回，但还没发布
+  fluro:
+   git: git://github.com/theyakka/fluro.git
   # 加载指示器
   flutter_spinkit: "^3.1.0"
   # store管理，组件页面级别的,复杂页面并且不需要全局共享的store使用这个
@@ -72,8 +73,6 @@ flutter:
   # 图片和一些mock假数据
   assets:
     - assets/images/
-    - assets/images/nav/
-    - assets/images/my/
     - mock/
   # To add assets to your application, add an assets section, like this:
   # assets:

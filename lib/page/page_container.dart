@@ -11,55 +11,48 @@ class PageContainer extends StatefulWidget {
   State<StatefulWidget> createState() => PageContainerState();
 }
 
-class PageContainerState extends State<PageContainer> {
-  final appBarTitles = ['课程', '我的'];
-  final tabTextStyleSelected = TextStyle(color: const Color(0xff63ca6c));
-  final tabTextStyleNormal = TextStyle(color: const Color(0xff969696));
+class _NavItem {
+  String title, tabImageActive, tabImage;
+  _NavItem(this.title, this.tabImage, this.tabImageActive);
+}
 
+class PageContainerState extends State<PageContainer> {
   int _tabIndex = 0;
 
-  var tabImages;
   var _body;
   var pages;
 
+  final tabItems = [
+    _NavItem('上课', 'assets/images/tab_class_nor.png',
+        'assets/images/tab_class_sel.png'),
+    _NavItem('我的', 'assets/images/tab_personal_nor.png',
+        'assets/images/tab_personal_sel.png'),
+  ];
+
   Image getTabImage(path) {
-    return Image.asset(path, width: 20.0, height: 20.0);
+    return Image.asset(
+      path,
+      width: AppSize.width(75.0),
+      height: AppSize.width(75.0),
+    );
   }
 
   @override
   void initState() {
     super.initState();
     pages = <Widget>[Course(), My()];
-    if (tabImages == null) {
-      tabImages = [
-        [
-          getTabImage('assets/images/nav/ic_nav_news_normal.png'),
-          getTabImage('assets/images/nav/ic_nav_news_actived.png')
-        ],
-        [
-          getTabImage('assets/images/nav/ic_nav_my_normal.png'),
-          getTabImage('assets/images/nav/ic_nav_my_pressed.png')
-        ]
-      ];
-    }
   }
 
-  TextStyle getTabTextStyle(int curIndex) {
-    if (curIndex == _tabIndex) {
-      return tabTextStyleSelected;
-    }
-    return tabTextStyleNormal;
-  }
-
-  Image getTabIcon(int curIndex) {
-    if (curIndex == _tabIndex) {
-      return tabImages[curIndex][1];
-    }
-    return tabImages[curIndex][0];
-  }
-
-  Text getTabTitle(int curIndex) {
-    return Text(appBarTitles[curIndex], style: getTabTextStyle(curIndex));
+  BottomNavigationBarItem _getBarItem(_NavItem item, int index) {
+    return BottomNavigationBarItem(
+      icon: index == _tabIndex
+          ? getTabImage(item.tabImageActive)
+          : getTabImage(item.tabImage),
+      title: Text(
+        item.title,
+        style: TextStyle(fontSize: AppSize.sp(20)),
+      ),
+    );
   }
 
   @override
@@ -69,13 +62,16 @@ class PageContainerState extends State<PageContainer> {
       children: pages,
       index: _tabIndex,
     );
+    List<BottomNavigationBarItem> navitems = [];
+
+    for (int i = 0; i < tabItems.length; i++) {
+      navitems.add(_getBarItem(tabItems[i], i));
+    }
+
     return Scaffold(
       body: _body,
       bottomNavigationBar: CupertinoTabBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: getTabIcon(0), title: getTabTitle(0)),
-          BottomNavigationBarItem(icon: getTabIcon(1), title: getTabTitle(1)),
-        ],
+        items: navitems,
         currentIndex: _tabIndex,
         onTap: (int index) {
           setState(() {

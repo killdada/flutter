@@ -4,6 +4,8 @@ import 'package:myapp/page/course.dart';
 import 'package:myapp/page/learn_rank.dart';
 import 'package:myapp/page/learn_record.dart';
 
+import 'package:myapp/common/utils/fluro_convert_util.dart';
+
 /// 测试mobx
 import 'package:myapp/store/counter_widgets.dart';
 
@@ -45,7 +47,8 @@ Handler counterRouterHandler = Handler(
 
 Handler learnRankRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return LearnRank();
+  return LearnRank(
+      title: FluroConvertUtils.fluroCnParamsDecode(params["title"]?.first));
 });
 
 Handler learnRecordRouterHandler = Handler(

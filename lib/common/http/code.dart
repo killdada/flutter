@@ -17,7 +17,7 @@ class Code {
     if (noTip) {
       return message;
     }
-    eventBus.event.fire(new HttpErrorEvent(code, message));
+    MyEventBus.event.fire(new HttpErrorEvent(code, message));
     return message;
   }
 }

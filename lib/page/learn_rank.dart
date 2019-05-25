@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LearnRank extends StatefulWidget {
+  final String title;
+  LearnRank({@required this.title}) : assert(title != null);
+
   @override
   _LearnRankState createState() => _LearnRankState();
 }
