@@ -14,6 +14,11 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
+  bool showPwd = false;
+  final FocusNode _passwordFocusNode = FocusNode();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -55,9 +60,9 @@ class LoginState extends State<Login> {
               Container(
                 margin: EdgeInsets.only(
                     top: AppSize.height(165.0), bottom: AppSize.height(27.0)),
-                child: _usernameInput(context),
+                child: _usernameInput(),
               ),
-              _pwdInput(context),
+              _pwdInput(),
               Container(
                 margin: EdgeInsets.only(top: AppSize.height(120.0)),
                 child: Row(
@@ -97,42 +102,36 @@ class LoginState extends State<Login> {
       ),
     );
   }
-}
 
-final FocusNode _passwordFocusNode = FocusNode();
-final TextEditingController _usernameController = TextEditingController();
-final TextEditingController _passwordController = TextEditingController();
-bool showPwd = false;
+  Widget _usernameInput() {
+    return Container(
+      height: AppSize.height(140.0),
+      alignment: Alignment.center,
+      decoration: InputStyles.underlineDecoration,
+      child: ClearTextField(
+        controller: _usernameController,
+        onChanged: (input) {
+          if (input.isNotEmpty) {}
+        },
+        style: TextStyles.style,
+        keyboardType: TextInputType.emailAddress,
+        inputFormatters: [
+          BlacklistingTextInputFormatter(RegExp("[\u4e00-\u9fa5]")),
+        ],
+        autofocus: false,
+        maxLines: 1,
+        maxLength: 15,
+        decoration: InputStyles.inputDecoration.copyWith(hintText: '请输入账号'),
+        textInputAction: TextInputAction.next,
+        onEditingComplete: () {
+          FocusScope.of(context).requestFocus(_passwordFocusNode);
+        },
+      ),
+    );
+  }
 
-Widget _usernameInput(BuildContext context) {
-  return Container(
-    height: AppSize.height(140.0),
-    alignment: Alignment.center,
-    decoration: InputStyles.underlineDecoration,
-    child: ClearTextField(
-      controller: _usernameController,
-      onChanged: (input) {
-        if (input.isNotEmpty) {}
-      },
-      style: TextStyles.style,
-      keyboardType: TextInputType.emailAddress,
-      inputFormatters: [
-        BlacklistingTextInputFormatter(RegExp("[\u4e00-\u9fa5]")),
-      ],
-      autofocus: false,
-      maxLines: 1,
-      maxLength: 15,
-      decoration: InputStyles.inputDecoration.copyWith(hintText: '请输入账号'),
-      textInputAction: TextInputAction.next,
-      onEditingComplete: () {
-        FocusScope.of(context).requestFocus(_passwordFocusNode);
-      },
-    ),
-  );
-}
-
-Widget _pwdInput(BuildContext context) {
-  return Container(
+  Widget _pwdInput() {
+    return Container(
       height: AppSize.height(140.0),
       alignment: Alignment.center,
       decoration: InputStyles.underlineDecoration,
@@ -168,29 +167,33 @@ Widget _pwdInput(BuildContext context) {
               ),
             ),
             onTap: () {
-              showPwd = !showPwd;
+              setState(() {
+                showPwd = !showPwd;
+              });
             },
           ),
         ],
-      ));
-}
-
-Widget _loginBtn() {
-  return FlatButton(
-    onPressed: () {},
-    child: Text(
-      '登录',
-      style: TextStyle(
-        fontSize: Dimens.sp_30,
       ),
-    ),
-    padding: EdgeInsets.all(AppSize.width(15.0)),
-    color: Colors.blue,
-    textColor: Colors.white,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(5.0)),
-    ),
-  );
-}
+    );
+  }
 
-void _doLogin() {}
+  Widget _loginBtn() {
+    return FlatButton(
+      onPressed: () {},
+      child: Text(
+        '登录',
+        style: TextStyle(
+          fontSize: Dimens.sp_30,
+        ),
+      ),
+      padding: EdgeInsets.all(AppSize.width(15.0)),
+      color: Colors.blue,
+      textColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+      ),
+    );
+  }
+
+  void _doLogin() {}
+}
