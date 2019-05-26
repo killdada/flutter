@@ -12,7 +12,6 @@ class CourseState extends State<Course> {
   Widget build(BuildContext context) {
     final store = Provider.of<Counter>(context);
     final value = store.value;
-    print("22>>>$value");
     return new Center(
       child: new Text('课程'),
     );

@@ -1,8 +1,8 @@
 class Address {
   static const String host = "https://peiban-beta.mypaas.com.cn/api/v1/";
 
-//   static const String _login = "login"; // 登录
-//   static const String _userInfo = "user"; // 用户信息
+  static const String _login = "login"; // 登录
+  static const String _userInfo = "user"; // 用户信息
 //   static const String _banner = "carouse"; // 首页banner
 //   static const String _category = "cateory"; // 首页课程类别
 //   static const String _courseList = "course"; // 课程列表
@@ -11,7 +11,12 @@ class Address {
 
   /// 获取用户信息
   static getUserInfo() {
-    return "${host}user";
+    return "$host$_userInfo";
+  }
+
+  /// 登录
+  static doLogin() {
+    return "$host$_login";
   }
 
 //  static getAuthorization() {

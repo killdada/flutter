@@ -17,6 +17,8 @@ class TokenInterceptors extends InterceptorsWrapper {
       var authorizationCode = await getAuthorization();
       if (authorizationCode != null) {
         _token = authorizationCode;
+        options.queryParameters = options.queryParameters ?? {};
+        options.queryParameters['token'] = _token;
       }
     }
     options.headers["Authorization"] = _token;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluro/fluro.dart';
@@ -8,9 +9,12 @@ import 'package:myapp/router/application.dart';
 import 'package:myapp/common/constant/style.dart';
 import 'package:myapp/common/utils/data_utils.dart';
 import 'package:myapp/common/utils/appsize.dart';
+import 'package:myapp/common/utils/date_utils.dart';
 import 'package:myapp/common/utils/fluro_convert_util.dart';
 import 'package:myapp/common/model/userinfo.dart';
 import 'package:myapp/common/dao/user_dao.dart';
+import 'package:myapp/common/event/event_bus.dart';
+import 'package:myapp/common/event/login_event.dart';
 
 class My extends StatefulWidget {
   @override
@@ -43,39 +47,49 @@ class MyPageState extends State<My> {
   void initState() {
     super.initState();
     initUserInfo();
+
+    MyEventBus.event.on<LogoutEvent>().listen((event) {
+      // 收到退出登录的消息，刷新个人信息显示
+      _loginOut();
+    });
+    MyEventBus.event.on<LoginEvent>().listen((event) {
+      // 收到登录的消息，重新获取个人信息
+      debugger();
+      _refreshUserInfo();
+    });
   }
 
-  // 初始化用户信息
-  initUserInfo({String type}) async {
-    if (type == 'refresh') {
-      var a = await UserDao.getUserInfo();
-      print(a);
-    }
-    UserInfo userInfoLocal = await DataUtils.getUserInfo();
-    print("111${userInfoLocal}");
+  void _refreshUserInfo() async {
+    var userInfoLocal = await UserDao.getUserInfo();
+    debugger();
     if (userInfoLocal != null) {
+      debugger();
       setState(() {
         isLogin = true;
         userinfo = userInfoLocal;
       });
     } else {
+      debugger();
+
       setState(() {
         isLogin = false;
       });
     }
   }
 
-  // 跳转到登录页面，并且如果登录成功以后，登录页面pop返回一个参数refresh，告知页面刷新用户信息
-  login() async {
-    /// 使用
-    Application.router
-        .navigateTo(context, "/login", transition: TransitionType.native)
-        .then((result) {
-      if (result != null && result == "refresh") {
-        // 刷新用户信息
-        initUserInfo(type: result);
-      }
-    });
+  @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  // 初始化用户信息
+  initUserInfo() async {
+    bool logined = await DataUtils.isLogin();
+    debugger();
+
+    if (logined) {
+      _refreshUserInfo();
+    }
   }
 
   // 用户头像, 如果存在使用缓存图片，不存在使用本地默认图片
@@ -116,12 +130,12 @@ class MyPageState extends State<My> {
         children: <Widget>[
           CircleAvatar(
               radius: AppSize.width(85.0),
-              child: _avatar(userinfo.avatar ?? '')),
+              child: _avatar(userinfo.userAvater ?? '')),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(left: AppSize.width(45)),
               child: Text(
-                '${userinfo.name ?? '未登录'}',
+                '${userinfo.userShowName ?? '未登录'}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: AppSize.sp(35)),
@@ -133,12 +147,19 @@ class MyPageState extends State<My> {
     );
   }
 
-  void gotoPage(String address) {
+  void gotoPage(String address, {bool replace = false}) {
     Application.router.navigateTo(
       context,
       address,
       transition: TransitionType.cupertino,
     );
+  }
+
+  void _loginOut() {
+    setState(() {
+      isLogin = false;
+      userinfo = UserInfo();
+    });
   }
 
   void _showLoginDialog() {
@@ -152,14 +173,17 @@ class MyPageState extends State<My> {
                 child: Text('取消'),
                 onPressed: () {
                   Navigator.pop(context);
-                  print('取消退出登录');
                 },
               ),
               CupertinoDialogAction(
                 child: Text('确定'),
                 onPressed: () {
-                  Navigator.pop(context);
-                  print('退出登录');
+                  // 本地state
+                  _loginOut();
+                  // 存储data
+                  DataUtils.logout();
+                  Navigator.of(context);
+                  gotoPage('/login');
                 },
               ),
             ],
@@ -168,9 +192,9 @@ class MyPageState extends State<My> {
   }
 
   Widget _menuItemRightText(String name) {
-    if (name == '累计学习时长' && userinfo.account != '') {
+    if (name == '累计学习时长' && isLogin) {
       return Text(
-        '3分50秒',
+        DateUtil.formatTime(userinfo.studyTimeWeek),
         style: TextStyle(
           fontSize: AppSize.sp(25),
           color: Colours.textSecond,

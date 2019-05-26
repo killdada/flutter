@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 
 import './local_storage.dart';
 import '../config/config.dart';
@@ -18,10 +20,19 @@ class DataUtils {
     await LocalStorage.save(Config.USER_INFO, '');
   }
 
-  /// 保存用户个人信息
-  static saveUserInfo(Map data) async {
-    if (data != null) {
-      await LocalStorage.save(Config.USER_INFO, data);
+  static getUserInstance() async {
+    try {
+      String user = await LocalStorage.get(Config.USER_INFO);
+      debugger();
+      if (user != null && user != '') {
+        Map userMap = json.decode(user);
+        UserInfo userInfo = UserInfo.fromJson(userMap);
+        return userInfo;
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
     }
   }
 
@@ -29,16 +40,10 @@ class DataUtils {
   static getUserInfo() async {
     bool isLogin = await DataUtils.isLogin();
     if (!isLogin) {
+      print(111);
       return null;
     }
-    UserInfo userInfo = UserInfo(
-      id: 212332,
-      account: 'yen',
-      name: '叶宁',
-      email: 'yen@mingyuan.com.cn',
-      avatar: '',
-    );
-    return userInfo;
+    return await getUserInstance();
   }
 
   /// 是否登录

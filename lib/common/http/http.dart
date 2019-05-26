@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:myapp/common/http/code.dart';
-
 import 'dart:collection';
 
 import 'package:myapp/common/http/interceptors/error_interceptor.dart';
@@ -10,6 +9,19 @@ import 'package:myapp/common/http/interceptors/log_interceptor.dart';
 import 'package:myapp/common/http/interceptors/response_interceptor.dart';
 import 'package:myapp/common/http/interceptors/token_interceptor.dart';
 import 'package:myapp/common/http/result_data.dart';
+
+class BaseResp<T> {
+  int code;
+  String msg;
+  T data;
+
+  BaseResp(this.code, this.msg, this.data);
+
+  @override
+  String toString() {
+    return 'BaseResp{code: $code, msg: $msg, data: $data}';
+  }
+}
 
 // http请求
 class HttpManager {
@@ -78,6 +90,12 @@ class HttpManager {
           errorResponse.statusCode);
     }
     return response.data;
+  }
+
+  static decodeJson<T>(Map response) {
+    BaseResp resp =
+        BaseResp(response['code'], response['msg'], response['data']);
+    return resp.data;
   }
 
   // 清除授权

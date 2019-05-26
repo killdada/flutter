@@ -1,0 +1,3 @@
+class LogoutEvent {}
+
+class LoginEvent {}

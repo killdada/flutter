@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluro/fluro.dart';
+import 'package:myapp/router/application.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/common/constant/style.dart';
 import 'package:myapp/widget/clear_text_field.dart';
-
-import 'package:fluro/fluro.dart';
-import 'package:myapp/router/application.dart';
+import 'package:myapp/common/dao/user_dao.dart';
+import 'package:myapp/widget/loading_dialog.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -14,7 +16,7 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-  bool showPwd = false;
+  bool showPwd = true;
   final FocusNode _passwordFocusNode = FocusNode();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -26,6 +28,10 @@ class LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    return _content();
+  }
+
+  Widget _content() {
     return new Scaffold(
       body: SafeArea(
         top: true,
@@ -179,7 +185,9 @@ class LoginState extends State<Login> {
 
   Widget _loginBtn() {
     return FlatButton(
-      onPressed: () {},
+      onPressed: () {
+        _doLogin();
+      },
       child: Text(
         '登录',
         style: TextStyle(
@@ -195,5 +203,37 @@ class LoginState extends State<Login> {
     );
   }
 
-  void _doLogin() {}
+  void _doLogin() async {
+    var username = _usernameController.text;
+    var pwd = _passwordController.text;
+    if (username.isEmpty) {
+      Fluttertoast.showToast(msg: '请输入账号');
+      return;
+    }
+    if (pwd.isEmpty) {
+      Fluttertoast.showToast(msg: '请输入密码');
+      return;
+    }
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return LoadingDialog(
+            text: '正在登录',
+          );
+        });
+    print('登录');
+    try {
+      await UserDao.login(username, pwd);
+      Application.router.navigateTo(
+        context,
+        '/home',
+        replace: true,
+        transition: TransitionType.native,
+      );
+    } catch (e) {
+      print('登录失败$e');
+      Navigator.pop(context);
+    }
+  }
 }
