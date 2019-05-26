@@ -25,11 +25,10 @@ class UserDao {
     if (res != null && res.result) {
       var data = HttpManager.decodeJson(res.data);
       UserInfo userData = UserInfo.fromJson(data);
-      debugger();
       LocalStorage.save(Config.USER_INFO, json.encode(userData.toJson()));
       return userData;
     } else {
-      return UserInfo();
+      return null;
     }
   }
 

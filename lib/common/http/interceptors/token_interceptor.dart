@@ -20,6 +20,7 @@ class TokenInterceptors extends InterceptorsWrapper {
         options.queryParameters = options.queryParameters ?? {};
         options.queryParameters['token'] = _token;
       }
+      print(options.queryParameters.toString());
     }
     options.headers["Authorization"] = _token;
     return options;

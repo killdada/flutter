@@ -9,6 +9,7 @@ import 'package:myapp/common/http/interceptors/log_interceptor.dart';
 import 'package:myapp/common/http/interceptors/response_interceptor.dart';
 import 'package:myapp/common/http/interceptors/token_interceptor.dart';
 import 'package:myapp/common/http/result_data.dart';
+import 'dart:developer';
 
 class BaseResp<T> {
   int code;
@@ -73,6 +74,7 @@ class HttpManager {
     Response response;
     try {
       response = await _dio.request(url, data: params, options: option);
+      debugger();
     } on DioError catch (e) {
       Response errorResponse;
       if (e.response != null) {

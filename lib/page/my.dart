@@ -54,23 +54,18 @@ class MyPageState extends State<My> {
     });
     MyEventBus.event.on<LoginEvent>().listen((event) {
       // 收到登录的消息，重新获取个人信息
-      debugger();
       _refreshUserInfo();
     });
   }
 
   void _refreshUserInfo() async {
     var userInfoLocal = await UserDao.getUserInfo();
-    debugger();
     if (userInfoLocal != null) {
-      debugger();
       setState(() {
         isLogin = true;
         userinfo = userInfoLocal;
       });
     } else {
-      debugger();
-
       setState(() {
         isLogin = false;
       });
@@ -85,8 +80,6 @@ class MyPageState extends State<My> {
   // 初始化用户信息
   initUserInfo() async {
     bool logined = await DataUtils.isLogin();
-    debugger();
-
     if (logined) {
       _refreshUserInfo();
     }
@@ -182,8 +175,9 @@ class MyPageState extends State<My> {
                   _loginOut();
                   // 存储data
                   DataUtils.logout();
-                  Navigator.of(context);
-                  gotoPage('/login');
+                  Navigator.of(context)
+                    ..pop()
+                    ..pushReplacementNamed('/login');
                 },
               ),
             ],
