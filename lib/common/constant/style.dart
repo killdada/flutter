@@ -21,10 +21,10 @@ class Colours {
 }
 
 ///文本样式
-class myConstant {}
+class MyConstant {}
 
 // icon
-class myICons {}
+class MyICons {}
 
 class Dimens {
   Dimens._();

@@ -33,6 +33,7 @@ class LoginState extends State<Login> {
 
   Widget _content() {
     return new Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         top: true,
         child: Container(

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:myapp/common/config/config.dart';
 
-// Log 拦截器
 class LogsInterceptors extends InterceptorsWrapper {
   @override
   onRequest(RequestOptions options) {

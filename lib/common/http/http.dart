@@ -1,22 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:myapp/common/http/code.dart';
 import 'dart:collection';
+import 'dart:io';
 
-import 'package:myapp/common/http/interceptors/error_interceptor.dart';
-import 'package:myapp/common/http/interceptors/header_interceptor.dart';
 import 'package:myapp/common/http/interceptors/log_interceptor.dart';
 
-import 'package:myapp/common/http/interceptors/response_interceptor.dart';
 import 'package:myapp/common/http/interceptors/token_interceptor.dart';
-import 'package:myapp/common/http/result_data.dart';
-import 'dart:developer';
 
-class BaseResp<T> {
+class DataResult<T> {
   int code;
   String msg;
   T data;
 
-  BaseResp(this.code, this.msg, this.data);
+  DataResult(this.code, this.msg, this.data);
 
   @override
   String toString() {
@@ -28,21 +24,20 @@ class BaseResp<T> {
 class HttpManager {
   static const CONTENT_TYPE_JSON = "application/json";
   static const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
+  static BaseOptions options = new BaseOptions(
+    baseUrl: '',
+    connectTimeout: 5000,
+    receiveTimeout: 5000,
+    contentType: ContentType.json,
+    queryParameters: {},
+  );
 
-  Dio _dio = new Dio(); // 使用默认配置
-
-  final TokenInterceptors _tokenInterceptors = new TokenInterceptors();
+  Dio _dio = new Dio(options); // 使用默认配置
 
   HttpManager() {
-    _dio.interceptors.add(new HeaderInterceptors());
-
-    _dio.interceptors.add(_tokenInterceptors);
+    _dio.interceptors.add(new TokenInterceptors());
 
     _dio.interceptors.add(new LogsInterceptors());
-
-    _dio.interceptors.add(new ErrorInterceptors(_dio));
-
-    _dio.interceptors.add(new ResponseInterceptors());
   }
 
   /**
@@ -74,40 +69,28 @@ class HttpManager {
     Response response;
     try {
       response = await _dio.request(url, data: params, options: option);
-      debugger();
+      return response.data;
     } on DioError catch (e) {
       Response errorResponse;
       if (e.response != null) {
         errorResponse = e.response;
       } else {
-        errorResponse = new Response(statusCode: 666);
+        errorResponse = Response(statusCode: 666);
       }
       if (e.type == DioErrorType.CONNECT_TIMEOUT ||
           e.type == DioErrorType.RECEIVE_TIMEOUT) {
         errorResponse.statusCode = Code.NETWORK_TIMEOUT;
       }
-      return new ResultData(
-          Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip),
-          false,
-          errorResponse.statusCode);
+      Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip);
+      return {'code': errorResponse.statusCode, 'msg': e.message, 'data': null};
     }
-    return response.data;
   }
 
+  // 解析返回结果，最终只返回data数据
   static decodeJson<T>(Map response) {
-    BaseResp resp =
-        BaseResp(response['code'], response['msg'], response['data']);
+    DataResult resp =
+        DataResult(response['code'], response['msg'], response['data']);
     return resp.data;
-  }
-
-  // 清除授权
-  clearAuthorization() {
-    _tokenInterceptors.clearAuthorization();
-  }
-
-  // 获取授权token
-  getAuthorization() async {
-    return _tokenInterceptors.getAuthorization();
   }
 }
 

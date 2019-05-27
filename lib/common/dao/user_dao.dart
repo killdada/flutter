@@ -10,45 +10,46 @@ import 'package:myapp/common/http/http.dart';
 import 'package:myapp/common/utils/data_utils.dart';
 import 'package:myapp/common/utils/local_storage.dart';
 import 'package:myapp/common/model/userinfo.dart';
-import 'dao_result.dart';
-import 'dart:developer';
 
 class UserDao {
   ///获取用户详细信息
   static Future getUserInfo() async {
     UserInfo user = await DataUtils.getUserInstance();
     if (user != null) {
+      // 存储里面有直接拿
       return user;
     }
-    var res = await httpManager.fetch(Address.getUserInfo());
-
-    if (res != null && res.result) {
-      var data = HttpManager.decodeJson(res.data);
-      UserInfo userData = UserInfo.fromJson(data);
-      LocalStorage.save(Config.USER_INFO, json.encode(userData.toJson()));
-      return userData;
-    } else {
-      return null;
-    }
+    var result;
+    try {
+      var res = await httpManager.fetch(Address.getUserInfo());
+      var data = HttpManager.decodeJson(res);
+      if (data != null) {
+        UserInfo userData = UserInfo.fromJson(data);
+        LocalStorage.save(Config.USER_INFO, json.encode(userData.toJson()));
+        result = userData;
+      }
+    } catch (e) {}
+    return result;
   }
 
   static Future login(String username, String password) async {
-    var res = await httpManager.fetch(
-      Address.doLogin(),
-      params: {
-        'username': username,
-        'password': password,
-      },
-      option: Options(method: "post"),
-    );
+    try {
+      var res = await httpManager.fetch(
+        Address.doLogin(),
+        params: {
+          'username': username,
+          'password': password,
+        },
+        option: Options(method: "post"),
+      );
 
-    if (res != null && res.result) {
-      var data = HttpManager.decodeJson(res.data);
-      await DataUtils.login(data['access_token']);
-      MyEventBus.event.fire(LoginEvent());
-      return new DataResult(res.data, true);
-    } else {
-      return new DataResult(null, false);
+      var data = HttpManager.decodeJson(res);
+      if (data != null) {
+        await DataUtils.login(data['access_token']);
+        MyEventBus.event.fire(LoginEvent());
+      }
+    } catch (e) {
+      throw (e);
     }
   }
 }

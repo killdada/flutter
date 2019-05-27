@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import './local_storage.dart';
 import '../config/config.dart';
@@ -20,18 +18,17 @@ class DataUtils {
   }
 
   static getUserInstance() async {
+    var result;
     try {
       String user = await LocalStorage.get(Config.USER_INFO);
       if (user != null && user != '') {
         Map userMap = json.decode(user);
-        UserInfo userInfo = UserInfo.fromJson(userMap);
-        return userInfo;
+        result = UserInfo.fromJson(userMap);
       }
-      return null;
     } catch (e) {
       print(e);
-      return null;
     }
+    return result;
   }
 
   /// 获取用户信息
