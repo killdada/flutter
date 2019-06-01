@@ -14,9 +14,11 @@ import 'package:myapp/store/counter.dart';
 
 // 主题的utils
 import 'package:myapp/common/constant/theme.dart';
+import 'package:myapp/common/constant/style.dart';
 
-// APP整个的页面布局的container
-import 'package:myapp/page/page_container.dart';
+// // APP整个的页面布局的container
+// import 'package:myapp/page/page_container.dart';
+import 'package:myapp/page/splash_page.dart';
 
 import 'package:myapp/common/event/event_bus.dart';
 import 'package:myapp/common/event/http_error_event.dart';
@@ -63,6 +65,7 @@ class _MyAppState extends State<MyApp> {
     stream = MyEventBus.event.on<HttpErrorEvent>().listen((event) {
       errorHandleFunction(event.code, event.message);
     });
+    SystemStyles.setStatusBarStyle();
   }
 
   @override
@@ -106,7 +109,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primaryColor: ThemeUtils.currentColorTheme,
       ),
-      home: new PageContainer(),
+      home: SplashPage(),
       onGenerateRoute: Application.router.generator,
     );
   }
