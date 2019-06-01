@@ -1,0 +1,92 @@
+{
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "username": "lul02",
+        "userAvater": "",
+        "value": 51932,
+        "rank": 1,
+        "user_show_name": "鹿琳",
+        "is_mine": false
+      },
+      {
+        "username": "huangj07",
+        "userAvater": "",
+        "value": 8471,
+        "rank": 2,
+        "user_show_name": "黄静",
+        "is_mine": false
+      },
+      {
+        "username": "longzh",
+        "userAvater": "",
+        "value": 3290,
+        "rank": 3,
+        "user_show_name": "龙章辉",
+        "is_mine": false
+      },
+      {
+        "username": "yuxy",
+        "userAvater": "",
+        "value": 1939,
+        "rank": 4,
+        "user_show_name": "余晓雅",
+        "is_mine": false
+      },
+      {
+        "username": "yangxj1",
+        "userAvater": "",
+        "value": 1193,
+        "rank": 5,
+        "user_show_name": "杨晓皎",
+        "is_mine": false
+      },
+      {
+        "username": "zhouyn",
+        "userAvater": "",
+        "value": 1131,
+        "rank": 6,
+        "user_show_name": "周宜宁",
+        "is_mine": false
+      },
+      {
+        "username": "yuanlt01",
+        "userAvater": "",
+        "value": 879,
+        "rank": 7,
+        "user_show_name": "袁莉婷(云业务)",
+        "is_mine": false
+      },
+      {
+        "username": "xiagr",
+        "userAvater": "",
+        "value": 804,
+        "rank": 8,
+        "user_show_name": "夏国荣",
+        "is_mine": false
+      },
+      {
+        "username": "jiangy03",
+        "userAvater": "",
+        "value": 262,
+        "rank": 9,
+        "user_show_name": "江艳",
+        "is_mine": false
+      },
+      {
+        "username": "Wangxm",
+        "userAvater": "",
+        "value": 250,
+        "rank": 10,
+        "user_show_name": "王雪明",
+        "is_mine": false
+      }
+    ]
+  },
+  "code": 200,
+  "sql": [
+    "select * from `uni_learning_total_times` where `uni_learning_total_times`.`deleted_at` is null order by `total_time` desc limit 10",
+    "select * from `uni_users` where `username` in ('lul02', 'huangj07', 'longzh', 'yuxy', 'yangxj1', 'zhouyn', 'yuanlt01', 'xiagr', 'jiangy03', 'Wangxm') and `uni_users`.`deleted_at` is null"
+  ]
+}

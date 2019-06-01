@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:myapp/common/http/code.dart';
 import 'dart:collection';
 import 'dart:io';
+import 'dart:developer';
 
 import 'package:myapp/common/http/interceptors/log_interceptor.dart';
 
@@ -52,6 +53,7 @@ class HttpManager {
     params,
     Map<String, dynamic> header,
     Options option,
+    Map<String, dynamic> query,
     bool noTip = false,
   }) async {
     Map<String, dynamic> headers = new HashMap();
@@ -68,7 +70,8 @@ class HttpManager {
 
     Response response;
     try {
-      response = await _dio.request(url, data: params, options: option);
+      response = await _dio.request(url,
+          data: params, options: option, queryParameters: query);
       return response.data;
     } on DioError catch (e) {
       Response errorResponse;

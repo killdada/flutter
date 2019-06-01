@@ -1,3 +1,25 @@
 {
-    "username": "yen"
+  "msg": "ok",
+  "data": {
+    "username": "yen",
+    "userShowName": "叶宁",
+    "userAvater": "",
+    "studyTimeTotal": 231,
+    "studyTimeNum": 7,
+    "studyTimeWeek": 0,
+    "exerciseCountTotal": 0,
+    "exerciseCountWeek": 0,
+    "rankStudyTimeInWeek": 0,
+    "rankExerciseInWeek": 0,
+    "rankStudyTimeInTotal": 1
+  },
+  "code": 200,
+  "sql": [
+    "select * from `uni_learning_total_times` where `username` = 'yen' and `uni_learning_total_times`.`deleted_at` is null",
+    "select * from `uni_learning_total_times` where `username` = 'yen' and `total_time` >= 231 and `uni_learning_total_times`.`deleted_at` is null",
+    "select * from `uni_learning_total_times` where `username` = 'yen' and `total_num` >= 7 and `uni_learning_total_times`.`deleted_at` is null",
+    "select * from `uni_learning_week_times` where `username` = 'yen' and `week` = '201922' and `uni_learning_week_times`.`deleted_at` is null",
+    "select * from `uni_practice_sta_totals` where `username` = 'yen' and `uni_practice_sta_totals`.`deleted_at` is null",
+    "select * from `uni_practice_sta_weeks` where `username` = 'yen' and `week` = '201922' and `uni_practice_sta_weeks`.`deleted_at` is null"
+  ]
 }
