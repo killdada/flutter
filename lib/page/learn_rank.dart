@@ -45,6 +45,21 @@ class _LearnRankState extends State<LearnRank> {
     );
   }
 
+  // 用户头像, 如果存在使用缓存图片，不存在使用本地默认图片
+  Widget _avatar(String img) {
+    if (img != '') {
+      return CachedNetworkImage(
+        fit: BoxFit.fill,
+        imageUrl: img,
+        placeholder: (context, url) =>
+            Image.asset('assets/images/user_avatar.png'),
+        errorWidget: (context, url, error) =>
+            Image.asset('assets/images/user_avatar.png'),
+      );
+    }
+    return Image.asset('assets/images/user_avatar.png');
+  }
+
   Widget _renderItem(int index, LearnRankItem item) {
     return Padding(
       padding: EdgeInsets.all(AppSize.width(20.0)),
@@ -94,14 +109,7 @@ class _LearnRankState extends State<LearnRank> {
             ),
             CircleAvatar(
               radius: AppSize.width(46.0),
-              child: CachedNetworkImage(
-                fit: BoxFit.fill,
-                imageUrl: item.userAvater ?? '',
-                placeholder: (context, url) =>
-                    Image.asset('assets/images/user_avatar.png'),
-                errorWidget: (context, url, error) =>
-                    Image.asset('assets/images/user_avatar.png'),
-              ),
+              child: _avatar(item.userAvater ?? ''),
             ),
             SizedBox(
               width: AppSize.width(27.0),
