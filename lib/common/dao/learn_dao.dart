@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:myapp/common/http/address.dart';
 import 'package:myapp/common/http/http.dart';
-import 'package:myapp/common/model/learn_rank.dart';
+import 'package:myapp/common/model/learn_rank_item.dart';
 import 'package:myapp/common/model/learn_record_model.dart';
 
 class LearnDao {
@@ -15,7 +15,9 @@ class LearnDao {
 
       var data = HttpManager.decodeJson(res);
       if (data != null) {
-        return LearnRankModel.fromJson(data);
+        return data['list']
+            .map((item) => LearnRankItem.fromJson(item))
+            .toList();
       } else {
         throw ('请求结果返回为null');
       }
@@ -30,10 +32,9 @@ class LearnDao {
       var res = await httpManager.fetch(Address.getLearnRecord());
 
       var data = HttpManager.decodeJson(res);
+
       if (data != null) {
-        return {
-          'list': data.map((json) => LearnRecordModel.fromJson(json)).toList()
-        };
+        return data.map((json) => LearnRecordModel.fromJson(json)).toList();
       } else {
         throw ('请求结果返回为null');
       }

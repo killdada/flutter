@@ -31,7 +31,6 @@ class _LearnRecordState extends State<LearnRecord> {
       body: PageWrapper.pageBuilder(
         LearnDao.getLearnRecordList(),
         _content,
-        isListPage: true,
       ),
     );
   }

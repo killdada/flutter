@@ -7,7 +7,7 @@ import 'dart:developer';
 import 'package:myapp/widget/list_placeholder.dart';
 
 class PageWrapper {
-  static pageBuilder(Future future, pageBuildFunc, {isListPage = true}) {
+  static pageBuilder(Future future, pageBuildFunc) {
     return FutureBuilder(
       future: future,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -24,20 +24,9 @@ class PageWrapper {
                 '${snapshot.error}',
                 style: TextStyle(color: Colors.red),
               );
-            } else if (isListPage) {
-              // 列表
-              try {
-                if (snapshot.data['list'].isEmpty) {
-                  // 列表没有数据
-                  return ListPlaceholder.empty();
-                }
-                return pageBuildFunc(data: snapshot.data['list']);
-              } catch (e) {
-                return Text(
-                  '列表没有返回对应的数据结构',
-                  style: TextStyle(color: Colors.red),
-                );
-              }
+            }
+            if (snapshot.data.length == 0) {
+              return ListPlaceholder.empty();
             }
             return pageBuildFunc(data: snapshot.data);
         }

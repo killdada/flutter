@@ -7,6 +7,7 @@ import 'package:myapp/common/dao/learn_dao.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/common/utils/date_utils.dart';
 import 'package:myapp/common/constant/style.dart';
+import 'dart:developer';
 
 class LearnRank extends StatefulWidget {
   final String title;
@@ -31,12 +32,11 @@ class _LearnRankState extends State<LearnRank> {
       body: PageWrapper.pageBuilder(
         LearnDao.getLearnRankList(type),
         _content,
-        isListPage: true,
       ),
     );
   }
 
-  Widget _content({List<LearnRankItem> data}) {
+  Widget _content({List data}) {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index) {
