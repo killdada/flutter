@@ -7,9 +7,6 @@ import 'package:myapp/page/page_container.dart';
 
 import 'package:myapp/common/utils/fluro_convert_util.dart';
 
-/// 测试mobx
-import 'package:myapp/store/counter_widgets.dart';
-
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
@@ -44,11 +41,6 @@ Handler loginRouterHandler = Handler(
 Handler courseRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return Course();
-});
-
-Handler counterRouterHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return CounterExample();
 });
 
 Handler learnRankRouterHandler = Handler(

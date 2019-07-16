@@ -10,7 +10,6 @@ import 'package:myapp/router/application.dart';
 
 // mobx测试
 import 'package:provider/provider.dart';
-import 'package:myapp/store/counter.dart';
 
 // 主题的utils
 import 'package:myapp/common/constant/theme.dart';
@@ -26,11 +25,7 @@ void main() {
   runZoned(() {
     runApp(MultiProvider(
       // 装载共用同一个实例的store
-      providers: [
-        Provider<Counter>(
-          builder: (_) => Counter(),
-        )
-      ],
+      providers: [],
       child: MyApp(),
     ));
     // 图片缓存个数 100

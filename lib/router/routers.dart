@@ -23,7 +23,6 @@ class Routes {
     router.define(my, handler: myRouteHandler);
     router.define(login, handler: loginRouterHandler);
     router.define(course, handler: courseRouterHandler);
-    router.define(counter, handler: counterRouterHandler);
     router.define(learnRank, handler: learnRankRouterHandler);
     router.define(learnRecord, handler: learnRecordRouterHandler);
   }
