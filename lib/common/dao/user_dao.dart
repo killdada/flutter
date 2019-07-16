@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
@@ -42,6 +43,7 @@ class UserDao {
         },
         option: Options(method: "post"),
       );
+      // debugger();
 
       var data = HttpManager.decodeJson(res);
       if (data != null) {
@@ -49,6 +51,7 @@ class UserDao {
         MyEventBus.event.fire(LoginEvent());
       }
     } catch (e) {
+      // debugger();
       throw (e);
     }
   }

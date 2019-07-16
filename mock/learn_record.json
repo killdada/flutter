@@ -1,0 +1,47 @@
+{
+  "msg": "ok",
+  "data": [
+    {
+      "courses": [
+        {
+          "id": 31,
+          "name": "从个人管理到团队管理",
+          "img_media_id": "media/ecf909105662bda60ff97db5ca2044e4.jpg",
+          "lecturer": "姜海洋",
+          "remark": "研发“双A”leader进阶之路 – 转型，从颠覆思维到付诸行动",
+          "category_id": 40,
+          "catalog_num": 6,
+          "status": 1,
+          "created_at": "2018-09-28 09:39:33",
+          "modified_at": "2018-10-30 20:11:34",
+          "deleted_at": null,
+          "img_url": "https://b2c-test.oss-cn-hangzhou.aliyuncs.com/media/ecf909105662bda60ff97db5ca2044e4.jpg",
+          "course_catalog_id": 37,
+          "learning_info": "1830"
+        },
+        {
+          "id": 32,
+          "name": "教师节视频",
+          "img_media_id": "media/21b631b7f212eb0d16a3164a569d926e.jpg",
+          "lecturer": "-",
+          "remark": "",
+          "category_id": 39,
+          "catalog_num": 4,
+          "status": 1,
+          "created_at": "2018-10-12 17:34:08",
+          "modified_at": "2018-10-31 16:35:28",
+          "deleted_at": null,
+          "img_url": "https://b2c-test.oss-cn-hangzhou.aliyuncs.com/media/21b631b7f212eb0d16a3164a569d926e.jpg",
+          "course_catalog_id": 38,
+          "learning_info": "13"
+        }
+      ],
+      "show_date": "04月10日"
+    }
+  ],
+  "code": 200,
+  "sql": [
+    "select * from `uni_learning_records` where `username` = 'yen' and `uni_learning_records`.`deleted_at` is null order by `lastest_learning_time` desc",
+    "select * from `uni_courses` where `id` in (31, 32) and `uni_courses`.`deleted_at` is null"
+  ]
+}
