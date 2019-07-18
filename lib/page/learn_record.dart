@@ -105,7 +105,8 @@ class _LearnRecordState extends State<LearnRecord> {
               SizedBox(
                 height: AppSize.height(6.0),
               ),
-              Text('${DateUtil.formatTime(int.parse(course.learningInfo))}',
+              Text(
+                  '${DateUtil.formatTime(int.parse((course.learningInfo == null || course.learningInfo.isEmpty ? '0' : course.learningInfo)))}',
                   style: TextStyle(
                     fontSize: Dimens.sp_36,
                     color: Colours.textSecond,

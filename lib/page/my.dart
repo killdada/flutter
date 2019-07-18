@@ -59,15 +59,17 @@ class MyPageState extends State<My> {
 
   void _refreshUserInfo() async {
     var userInfoLocal = await UserDao.getUserInfo();
-    if (userInfoLocal != null) {
-      setState(() {
-        isLogin = true;
-        userinfo = userInfoLocal;
-      });
-    } else {
-      setState(() {
-        isLogin = false;
-      });
+    if (mounted) {
+      if (userInfoLocal != null) {
+        setState(() {
+          isLogin = true;
+          userinfo = userInfoLocal;
+        });
+      } else {
+        setState(() {
+          isLogin = false;
+        });
+      }
     }
   }
 
@@ -143,7 +145,7 @@ class MyPageState extends State<My> {
     Application.router.navigateTo(
       context,
       address,
-      transition: TransitionType.cupertino,
+      transition: TransitionType.native,
     );
   }
 

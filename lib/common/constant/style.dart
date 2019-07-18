@@ -32,12 +32,17 @@ class Dimens {
   static double sp_30 = AppSize.sp(30.0);
   static double sp_36 = AppSize.sp(36.0);
   static double sp_42 = AppSize.sp(42.0);
+  static double sp_40 = AppSize.sp(40.0);
   static double sp_45 = AppSize.sp(45.0);
+  static double sp_46 = AppSize.sp(46.0);
   static double sp_48 = AppSize.sp(48.0);
 
-  static double divider = AppSize.width(1.0);
+  static double divider = AppSize.width(2.0);
 
+  static Radius radius_12 = Radius.circular(AppSize.width(12.0));
   static Radius radius_15 = Radius.circular(AppSize.width(15.0));
+
+  static double appBarHeight = AppSize.height(127);
 }
 
 class SystemStyles {

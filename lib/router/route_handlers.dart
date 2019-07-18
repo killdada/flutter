@@ -4,6 +4,8 @@ import 'package:myapp/page/course.dart';
 import 'package:myapp/page/learn_rank.dart';
 import 'package:myapp/page/learn_record.dart';
 import 'package:myapp/page/page_container.dart';
+import 'package:myapp/page/search_page/page.dart';
+import 'package:myapp/page/course_detail_page/page.dart';
 
 import 'package:myapp/common/utils/fluro_convert_util.dart';
 
@@ -52,4 +54,14 @@ Handler learnRankRouterHandler = Handler(
 Handler learnRecordRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return LearnRecord();
+});
+
+Handler searchRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return SearchPage().buildPage(null);
+});
+
+Handler courseDetailRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return CourseDetailPage().buildPage(null);
 });

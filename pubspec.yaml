@@ -39,7 +39,7 @@ dependencies:
   # 加载指示器
   flutter_spinkit: "^3.1.0"
   # store管理，组件页面级别的,复杂页面并且不需要全局共享的store使用这个
-  fish_redux: "^0.1.7"
+  fish_redux: "^0.2.4"
   # 用于包裹Mobx,mobx应用级别的store
   provider: ^2.0.1
   # mobx
