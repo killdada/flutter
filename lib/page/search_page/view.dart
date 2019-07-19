@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(SearchState state, Dispatch dispatch, ViewService viewService) {
-  return Container();
+Widget buildView(
+    SearchState state, Dispatch dispatch, ViewService viewService) {
+  return Text('search page');
 }

@@ -1,16 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/page/course_page/banner_component/state.dart';
 import 'package:myapp/page/course_page/search_component/state.dart';
 import 'package:myapp/page/course_page/tabbar_component/state.dart';
 
+import 'package:myapp/common/model/course/banner.dart';
+import 'package:myapp/common/model/course/category.dart';
+
 class CourseState implements Cloneable<CourseState> {
+  int categoryId;
   String keyword;
-  List<BannerState> bannerList;
-  List<TabbarState> tabbarList;
+  List<BannerModel> bannerList;
+  List<CategoryModel> tabbarList;
 
   @override
   CourseState clone() {
-    return CourseState()..keyword = keyword;
+    return CourseState()
+      ..keyword = keyword
+      ..bannerList = bannerList
+      ..tabbarList = tabbarList
+      ..categoryId = categoryId;
   }
 }
 
@@ -52,10 +61,12 @@ class BannerConnector extends Reselect1<CourseState, BannerState, List> {
   }
 }
 
-class TabbarConnector extends Reselect1<CourseState, TabbarState, List> {
+class TabbarConnector extends Reselect2<CourseState, TabbarState, List, int> {
   @override
-  TabbarState computed(List sub0) {
-    return TabbarState()..tabbarList = sub0;
+  TabbarState computed(List sub0, int sub1) {
+    return TabbarState()
+      ..tabbarList = sub0
+      ..categoryId;
   }
 
   @override

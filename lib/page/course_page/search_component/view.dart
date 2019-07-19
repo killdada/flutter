@@ -5,21 +5,13 @@ import 'action.dart';
 import 'state.dart';
 
 import 'package:myapp/common/utils/appsize.dart';
-import 'package:myapp/common/utils/date_utils.dart';
 import 'package:myapp/common/constant/style.dart';
-
-import 'package:fluro/fluro.dart';
-import 'package:myapp/router/application.dart';
 
 Widget buildView(
     SearchState state, Dispatch dispatch, ViewService viewService) {
-  GestureTapCallback toSearch = () {
-    // Application.router.navigateTo(
-    //   context,
-    //   '/search',
-    //   transition: TransitionType.native,
-    // );
-  };
+  GestureTapCallback toSearch =
+      () => dispatch(SearchActionCreator.gotoSearchPage());
+
   return Padding(
     padding: EdgeInsets.symmetric(
       horizontal: AppSize.width(52.0),

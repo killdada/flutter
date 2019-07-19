@@ -1,0 +1,31 @@
+{
+  "msg": "ok",
+  "data": [
+    {
+      "categoryId": 33,
+      "categoryName": "产品能力"
+    },
+    {
+      "categoryId": 34,
+      "categoryName": "通用能力"
+    },
+    {
+      "categoryId": 35,
+      "categoryName": "表达能力"
+    },
+    {
+      "categoryId": 36,
+      "categoryName": "协作能力"
+    },
+    {
+      "categoryId": 37,
+      "categoryName": "知识之窗"
+    },
+    {
+      "categoryId": 39,
+      "categoryName": "测试专属"
+    }
+  ],
+  "code": 200,
+  "sql": []
+}

@@ -4,9 +4,8 @@ import 'state.dart';
 
 Effect<TabbarState> buildEffect() {
   return combineEffects(<Object, Effect<TabbarState>>{
-    TabbarAction.action: _onAction,
+    Lifecycle.initState: _init,
   });
 }
 
-void _onAction(Action action, Context<TabbarState> ctx) {
-}
+void _init(Action action, Context<TabbarState> ctx) {}

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +15,21 @@ Widget buildView(
         viewService.buildComponent('search'),
         viewService.buildComponent('banner'),
         viewService.buildComponent('tabbar'),
-        Expanded(
-          flex: 1,
-          child: Text('test'),
-        ),
+        // Expanded(
+        //   flex: 1,
+        //   child: NestedScrollView(
+        //     controller: state.controller,
+        //     headerSliverBuilder:
+        //         (BuildContext context, bool innerBoxIsScrolled) {
+        //       return <Widget>[
+        //         SliverToBoxAdapter(
+        //           child: viewService.buildComponent('banner'),
+        //         )
+        //       ];
+        //     },
+        //     body: Text('111'),
+        //   ),
+        // ),
       ],
     ),
   );

@@ -1,0 +1,16 @@
+{
+  "msg": "ok",
+  "data": [
+    {
+      "courseId": 28,
+      "author": "姜海洋",
+      "desc": "",
+      "imgUrl": "http://peiban-test.mypaas.com.cn/d0a6427dfd99065d3615ee2b5a8be433?e=1566114679&token=LpNTKHe9PCPaA6XrPvc61qks-CQka7ma4SPUlJj-:IyMHl27kRkw8uuvazhKWF1LcgFk=",
+      "cateoryName": "产品能力",
+      "totalVedioTime": 7625,
+      "courseName": "产品&研发Leader进阶课"
+    }
+  ],
+  "code": 200,
+  "sql": []
+}
