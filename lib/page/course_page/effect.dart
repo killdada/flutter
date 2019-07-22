@@ -20,8 +20,7 @@ void _init(Action action, Context<CourseState> ctx) async {
     ctx.dispatch(CourseActionCreator.fetchBanner(banners));
     List categories = await CourseDao.getCategories();
     ctx.dispatch(CourseActionCreator.fetchCategory(categories));
-    List courses =
-        await CourseDao.getCourseList(categoryId: ctx.state.categoryId);
-    ctx.dispatch(CourseActionCreator.fetchCourseList(courses));
-  } catch (e) {}
+  } catch (e) {
+    print('叶宁>>>>${e}');
+  }
 }

@@ -11,10 +11,6 @@ class CourseActionCreator {
     return Action(CourseAction.loadBanner, payload: banners);
   }
 
-  static Action fetchCourseList(List<CourseModel> courses) {
-    return Action(CourseAction.loadCourseList, payload: courses);
-  }
-
   static Action fetchCategory(List<CategoryModel> categories) {
     return Action(CourseAction.loadCategory, payload: categories);
   }

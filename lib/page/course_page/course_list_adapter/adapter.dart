@@ -6,7 +6,8 @@ import 'state.dart';
 class CourseListAdapter extends DynamicFlowAdapter<CourseListState> {
   CourseListAdapter()
       : super(
-          pool: <String, Component<Object>>{},
+          pool: <String, Component<Object>>{
+          },
           connector: _CourseListConnector(),
           reducer: buildReducer(),
         );
@@ -19,7 +20,8 @@ class _CourseListConnector extends ConnOp<CourseListState, List<ItemBean>> {
   }
 
   @override
-  void set(CourseListState state, List<ItemBean> items) {}
+  void set(CourseListState state, List<ItemBean> items) {
+  }
 
   @override
   subReducer(reducer) {

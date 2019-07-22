@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/material.dart';
 import 'package:myapp/page/course_page/banner_component/state.dart';
 import 'package:myapp/page/course_page/search_component/state.dart';
 import 'package:myapp/page/course_page/tabbar_component/state.dart';
@@ -12,6 +12,7 @@ class CourseState implements Cloneable<CourseState> {
   String keyword;
   List<BannerModel> bannerList;
   List<CategoryModel> tabbarList;
+  ScrollController scrollController = new ScrollController();
 
   @override
   CourseState clone() {
@@ -19,6 +20,7 @@ class CourseState implements Cloneable<CourseState> {
       ..keyword = keyword
       ..bannerList = bannerList
       ..tabbarList = tabbarList
+      ..scrollController = scrollController
       ..categoryId = categoryId;
   }
 }
@@ -61,17 +63,29 @@ class BannerConnector extends Reselect1<CourseState, BannerState, List> {
   }
 }
 
-class TabbarConnector extends Reselect2<CourseState, TabbarState, List, int> {
+class TabbarConnector
+    extends Reselect3<CourseState, TabbarState, List, int, ScrollController> {
   @override
-  TabbarState computed(List sub0, int sub1) {
+  TabbarState computed(List sub0, int sub1, ScrollController sub2) {
     return TabbarState()
       ..tabbarList = sub0
-      ..categoryId;
+      ..categoryId = sub1
+      ..pageController = sub2;
   }
 
   @override
   List getSub0(CourseState state) {
     return state.tabbarList;
+  }
+
+  @override
+  int getSub1(CourseState state) {
+    return state.categoryId;
+  }
+
+  @override
+  ScrollController getSub2(CourseState state) {
+    return state.scrollController;
   }
 
   @override

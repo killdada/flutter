@@ -15,7 +15,6 @@ Reducer<CourseState> buildReducer() {
     <Object, Reducer<CourseState>>{
       CourseAction.loadBanner: _loadBanner,
       CourseAction.loadCategory: _loadCategory,
-      CourseAction.loadCourseList: _loadCourseList,
     },
   );
 }
@@ -30,16 +29,17 @@ CourseState _loadBanner(CourseState state, Action action) {
 CourseState _loadCategory(CourseState state, Action action) {
   final CourseState newState = state.clone();
   List<CategoryModel> categories = action.payload;
-  newState.tabbarList = categories;
-  if (categories.isNotEmpty) {
-    newState.categoryId = categories[0].categoryId;
+  try {
+    newState.tabbarList = categories;
+    // if (categories.isNotEmpty) {
+    //   newState.categoryId = categories[0].categoryId;
+    //   debugger();
+    //   print('yenin>>>>${newState.categoryId}');
+    // }
+  } catch (e) {
+    // debugger();
+    print('yenin111>>>>${e}');
   }
-  return newState;
-}
 
-CourseState _loadCourseList(CourseState state, Action action) {
-  final CourseState newState = state.clone();
-  List<CourseModel> courses = action.payload;
-  newState.courseList = courses;
   return newState;
 }

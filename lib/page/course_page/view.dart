@@ -13,23 +13,21 @@ Widget buildView(
     child: Column(
       children: <Widget>[
         viewService.buildComponent('search'),
-        viewService.buildComponent('banner'),
-        viewService.buildComponent('tabbar'),
-        // Expanded(
-        //   flex: 1,
-        //   child: NestedScrollView(
-        //     controller: state.controller,
-        //     headerSliverBuilder:
-        //         (BuildContext context, bool innerBoxIsScrolled) {
-        //       return <Widget>[
-        //         SliverToBoxAdapter(
-        //           child: viewService.buildComponent('banner'),
-        //         )
-        //       ];
-        //     },
-        //     body: Text('111'),
-        //   ),
-        // ),
+        Expanded(
+          flex: 1,
+          child: NestedScrollView(
+            controller: state.scrollController,
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverToBoxAdapter(
+                  child: viewService.buildComponent('banner'),
+                )
+              ];
+            },
+            body: viewService.buildComponent('tabbar'),
+          ),
+        ),
       ],
     ),
   );
