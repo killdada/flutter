@@ -28,8 +28,10 @@ class MyICons {}
 
 class Dimens {
   Dimens._();
-
+  static double sp_24 = AppSize.sp(24.0);
+  static double sp_28 = AppSize.sp(28.0);
   static double sp_30 = AppSize.sp(30.0);
+  static double sp_32 = AppSize.sp(32.0);
   static double sp_36 = AppSize.sp(36.0);
   static double sp_42 = AppSize.sp(42.0);
   static double sp_40 = AppSize.sp(40.0);
@@ -40,6 +42,7 @@ class Dimens {
   static double divider = AppSize.width(2.0);
 
   static Radius radius_12 = Radius.circular(AppSize.width(12.0));
+  static Radius radius_8 = Radius.circular(AppSize.width(8.0));
   static Radius radius_15 = Radius.circular(AppSize.width(15.0));
 
   static double appBarHeight = AppSize.height(127);

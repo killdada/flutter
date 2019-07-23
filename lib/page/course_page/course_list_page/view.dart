@@ -31,20 +31,20 @@ Widget buildView(
 Widget _renderItem(int index, CourseModel course) {
   return Padding(
     padding: EdgeInsets.symmetric(
-      horizontal: AppSize.width(46.0),
-      vertical: AppSize.height(29.0),
+      horizontal: AppSize.width(32.0),
+      vertical: AppSize.height(30.0),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         CustomImageView.square(
           path: course.imgUrl,
-          size: AppSize.width(228.0),
+          size: AppSize.width(158.0),
         ),
         Expanded(
           flex: 1,
           child: Padding(
-            padding: EdgeInsets.only(left: AppSize.width(37.0)),
+            padding: EdgeInsets.only(left: AppSize.width(26.0)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -52,14 +52,18 @@ Widget _renderItem(int index, CourseModel course) {
                   '${course.courseName}',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyles.style.copyWith(fontSize: Dimens.sp_45),
+                  style: TextStyles.style.copyWith(fontSize: Dimens.sp_30),
                 ),
                 SizedBox(
                   height: AppSize.height(10.0),
                 ),
                 Text(
                   '${course.author}',
-                  style: TextStyles.style2,
+                  style: TextStyle(
+                    fontSize: Dimens.sp_24,
+                    color: Color(0xFF666666),
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
                 Offstage(
                   offstage: course.totalVedioTime <= 0,
@@ -69,12 +73,15 @@ Widget _renderItem(int index, CourseModel course) {
                         padding: EdgeInsets.only(right: AppSize.width(9.0)),
                         child: Image.asset(
                           'assets/images/icn_time.png',
-                          width: AppSize.width(35.0),
+                          width: AppSize.width(24.0),
                         ),
                       ),
                       Text(
                         '${DateUtil.formatTime(course.totalVedioTime)}',
-                        style: TextStyles.style2,
+                        style: TextStyle(
+                          fontSize: Dimens.sp_24,
+                          color: Color(0xFF666666),
+                        ),
                       )
                     ],
                   ),

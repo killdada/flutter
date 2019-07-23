@@ -26,16 +26,16 @@ class ListPlaceholder extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SizedBox.fromSize(
-            size: Size.square(AppSize.width(450.0)),
+            size: Size.square(AppSize.width(270.0)),
             child: Image.asset(assetsIcon),
           ),
           Padding(
-            padding: EdgeInsets.only(top: AppSize.height(100.0)),
+            padding: EdgeInsets.only(top: AppSize.height(80.0)),
             child: Text(
               hint,
               style: TextStyle(
                 color: const Color(0xFFC6C8D1),
-                fontSize: Dimens.sp_45,
+                fontSize: Dimens.sp_32,
               ),
             ),
           ),

@@ -23,12 +23,12 @@ Widget buildView(
       children: <Widget>[
         Container(
           padding: EdgeInsets.fromLTRB(
-            AppSize.width(52.0),
-            AppSize.width(32.0),
-            AppSize.width(52.0),
-            AppSize.width(12.0),
+            AppSize.width(40.0),
+            AppSize.height(22.0),
+            AppSize.width(40.0),
+            AppSize.height(8.0),
           ),
-          height: AppSize.height(127.0),
+          height: AppSize.height(88.0),
           child: TabBar(
             isScrollable: true,
             indicatorColor: Colours.blue,
@@ -36,9 +36,9 @@ Widget buildView(
             indicatorSize: TabBarIndicatorSize.label,
             labelPadding: EdgeInsets.symmetric(horizontal: AppSize.width(20.0)),
             labelColor: Colours.textFirst,
-            labelStyle: TextStyle(fontSize: Dimens.sp_45),
+            labelStyle: TextStyle(fontSize: Dimens.sp_32),
             unselectedLabelColor: Colours.textSecond,
-            unselectedLabelStyle: TextStyle(fontSize: Dimens.sp_40),
+            unselectedLabelStyle: TextStyle(fontSize: Dimens.sp_28),
             tabs: categories
                 .map((category) => Text(category.categoryName ?? '空'))
                 .toList(),

@@ -16,16 +16,16 @@ import 'dart:developer';
 Widget buildView(
     BannerState state, Dispatch dispatch, ViewService viewService) {
   final List banners = state.bannerList == null ? [] : state.bannerList;
-
+  if (state.bannerList == null) {
+    return Container();
+  }
   return Padding(
-    padding: EdgeInsets.fromLTRB(
-      AppSize.width(52.0),
-      AppSize.width(25.0),
-      AppSize.width(52.0),
-      AppSize.width(14.0),
+    padding: EdgeInsets.symmetric(
+      horizontal: AppSize.width(36.0),
+      vertical: AppSize.height(10.0),
     ),
     child: ClipRRect(
-      borderRadius: BorderRadius.all(Dimens.radius_12),
+      borderRadius: BorderRadius.all(Dimens.radius_8),
       child: AspectRatio(
         aspectRatio: 3.39,
         child: Swiper(

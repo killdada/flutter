@@ -9,7 +9,7 @@ class Course extends StatefulWidget {
 class CourseState extends State<Course> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
       child: CoursePage().buildPage(null),
     );
   }
