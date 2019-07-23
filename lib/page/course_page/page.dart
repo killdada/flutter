@@ -4,7 +4,6 @@ import 'effect.dart';
 import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
-import 'course_list_adapter/adapter.dart';
 import 'search_component/component.dart';
 import 'banner_component/component.dart';
 import 'tabbar_component/component.dart';

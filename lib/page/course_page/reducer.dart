@@ -29,17 +29,6 @@ CourseState _loadBanner(CourseState state, Action action) {
 CourseState _loadCategory(CourseState state, Action action) {
   final CourseState newState = state.clone();
   List<CategoryModel> categories = action.payload;
-  try {
-    newState.tabbarList = categories;
-    // if (categories.isNotEmpty) {
-    //   newState.categoryId = categories[0].categoryId;
-    //   debugger();
-    //   print('yenin>>>>${newState.categoryId}');
-    // }
-  } catch (e) {
-    // debugger();
-    print('yenin111>>>>${e}');
-  }
-
+  newState.tabbarList = categories;
   return newState;
 }

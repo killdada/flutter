@@ -5,15 +5,18 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class CourseListComponent extends Component<CourseListState> {
-  CourseListComponent()
+class CourseListPage extends Page<CourseListState, Map<String, dynamic>> {
+  CourseListPage()
       : super(
+            initState: initState,
             effect: buildEffect(),
             reducer: buildReducer(),
             view: buildView,
             dependencies: Dependencies<CourseListState>(
                 adapter: null,
                 slots: <String, Dependent<CourseListState>>{
-                }),);
+                }),
+            middleware: <Middleware<CourseListState>>[
+            ],);
 
 }

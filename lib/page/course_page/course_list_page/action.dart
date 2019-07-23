@@ -1,12 +1,14 @@
-import 'package:fish_redux/fish_redux.dart';
-import 'package:myapp/common/model/course/course.dart';
 import 'dart:developer';
 
-//TODO replace with your own action
-enum TabbarAction { loadData }
+import 'package:fish_redux/fish_redux.dart';
 
-class TabbarActionCreator {
+import 'package:myapp/common/model/course/course.dart';
+
+//TODO replace with your own action
+enum CourseListAction { loadData }
+
+class CourseListActionCreator {
   static Action loadData(List<CourseModel> courseList) {
-    return Action(TabbarAction.loadData, payload: courseList);
+    return Action(CourseListAction.loadData, payload: courseList);
   }
 }
