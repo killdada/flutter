@@ -1,0 +1,16 @@
+{
+  "msg": "ok",
+  "data": [
+    {
+      "courseId": 30,
+      "author": "万机安",
+      "desc": "",
+      "imgUrl": "http://peiban-test.mypaas.com.cn/d56f5819400290f771387e177166b6ff?e=1566467566&token=LpNTKHe9PCPaA6XrPvc61qks-CQka7ma4SPUlJj-:LMemBguNL8SJnppFyNFbC4WDaWw=",
+      "cateoryName": "测试专属",
+      "totalVedioTime": 880,
+      "courseName": "测试基础课程"
+    }
+  ],
+  "code": 200,
+  "sql": []
+}

@@ -160,29 +160,29 @@ class MyPageState extends State<My> {
     showDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-            title: Text('提示'),
-            content: Text('是否退出当前账号'),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text('取消'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              CupertinoDialogAction(
-                child: Text('确定'),
-                onPressed: () {
-                  // 本地state
-                  _loginOut();
-                  // 存储data
-                  DataUtils.logout();
-                  Navigator.of(context)
-                    ..pop()
-                    ..pushReplacementNamed('/login');
-                },
-              ),
-            ],
+        title: Text('提示'),
+        content: Text('是否退出当前账号'),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: Text('取消'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
+          CupertinoDialogAction(
+            child: Text('确定'),
+            onPressed: () {
+              // 本地state
+              _loginOut();
+              // 存储data
+              DataUtils.logout();
+              Navigator.of(context)
+                ..pop()
+                ..pushReplacementNamed('/login');
+            },
+          ),
+        ],
+      ),
     );
   }
 

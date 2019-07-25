@@ -6,12 +6,13 @@ import 'state.dart';
 Reducer<SearchState> buildReducer() {
   return asReducer(
     <Object, Reducer<SearchState>>{
-      SearchAction.action: _onAction,
+      SearchAction.changeIndexedStack: _onChangeIndexedStack,
     },
   );
 }
 
-SearchState _onAction(SearchState state, Action action) {
+SearchState _onChangeIndexedStack(SearchState state, Action action) {
   final SearchState newState = state.clone();
+  newState.index = action.payload;
   return newState;
 }

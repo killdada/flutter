@@ -4,9 +4,10 @@ import 'state.dart';
 
 Effect<SearchState> buildEffect() {
   return combineEffects(<Object, Effect<SearchState>>{
-    SearchAction.action: _onAction,
+    SearchAction.changeIndexedStack: _onchangeIndexedStack,
   });
 }
 
-void _onAction(Action action, Context<SearchState> ctx) {
+void _onchangeIndexedStack(Action action, Context<SearchState> ctx) {
+  ctx.dispatch(SearchActionCreator.changeIndexedStack(action.payload));
 }
