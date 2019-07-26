@@ -1,10 +1,16 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 
 //TODO replace with your own action
-enum SearchHeaderAction { action }
+enum SearchHeaderAction { onCancel, onDoSearch }
 
 class SearchHeaderActionCreator {
-  static Action onAction() {
-    return const Action(SearchHeaderAction.action);
+  static Action onCancel() {
+    return const Action(SearchHeaderActionCreator.onCancel);
+  }
+
+  static Action onDoSearch(String key) {
+    return Action(SearchHeaderAction.onDoSearch, payload: key);
   }
 }

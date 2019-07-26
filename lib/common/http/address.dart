@@ -58,4 +58,9 @@ class Address {
   static getCourseList() {
     return "$host$_courseList";
   }
+
+  /// 根据关键字搜索课程
+  static getSearch() {
+    return "$host$_search";
+  }
 }

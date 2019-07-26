@@ -9,5 +9,6 @@ import 'state.dart';
 Widget buildView(
     SearchCourseListState state, Dispatch dispatch, ViewService viewService) {
   debugger();
+  return Text('1');
   return CourseListItem(state.course);
 }

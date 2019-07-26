@@ -6,7 +6,7 @@ import 'state.dart';
 Reducer<SearchHeaderState> buildReducer() {
   return asReducer(
     <Object, Reducer<SearchHeaderState>>{
-      SearchHeaderAction.action: _onAction,
+      //   SearchHeaderAction.action: _onAction,
     },
   );
 }

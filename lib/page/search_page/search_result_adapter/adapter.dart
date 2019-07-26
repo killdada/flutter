@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/page/search_page/search_course_list_component/component.dart';
 
@@ -20,7 +22,8 @@ class _SearchResultConnector extends ConnOp<SearchState, List<ItemBean>> {
   List<ItemBean> get(SearchState state) {
     List<ItemBean> items = [];
     items.add(ItemBean("courselist", state.courseList));
-    return <ItemBean>[];
+    debugger();
+    return items;
   }
 
   @override

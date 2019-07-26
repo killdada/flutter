@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -59,7 +61,9 @@ Widget buildView(
                       ),
                     ),
                     textInputAction: TextInputAction.search,
-                    onSubmitted: _doSearch,
+                    onSubmitted: (String text) {
+                      dispatch(SearchHeaderActionCreator.onDoSearch(text));
+                    },
                   ),
                 ),
               ],
@@ -69,6 +73,7 @@ Widget buildView(
         ),
         InkWell(
           onTap: () {
+            dispatch(SearchHeaderActionCreator.onCancel());
             // if (index != 0) {
             //   setState(() {
             //     index = 0;
@@ -95,6 +100,7 @@ _doSearch(String text) {
     showToast('请输入有效关键词');
     return;
   }
+
   // bloc.addHistory(text);
   // bloc.search(text);
   // setState(() {
@@ -112,5 +118,5 @@ showToast(String msg) {
       timeInSecForIos: 1,
       backgroundColor: Color(0xFF999999),
       textColor: Colors.white,
-      fontSize: AppSize.sp(40));
+      fontSize: AppSize.sp(30));
 }
