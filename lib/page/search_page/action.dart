@@ -5,7 +5,7 @@ enum SearchAction {
   onChangeIndexedStack,
   changeIndexedStack,
   fetchCourseList,
-  loadSearchResult
+  loadSearchResult,
 }
 
 class SearchActionCreator {

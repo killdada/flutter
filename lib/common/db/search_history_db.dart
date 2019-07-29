@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:path/path.dart';
 import 'dart:async';
 
@@ -58,11 +60,19 @@ class SearchHistoryDb extends BaseDbProvider {
 
   Future deleteHistory() async {
     Database db = await getDataBase();
+    debugger();
     return await db.delete('history');
   }
 
   Future addHistory(String value) async {
     Database db = await getDataBase();
+    List<Map> list =
+        await db.rawQuery('SELECT * FROM history WHERE value = ?', [value]);
+    if (list.isNotEmpty) {
+      return await db.rawUpdate(
+          'UPDATE history SET value = ?, date = ? WHERE value = ?',
+          [value, DateTime.now().toString(), value]);
+    }
     return await db.execute(
       'REPLACE INTO history(value, date) values(?, ?)',
       [

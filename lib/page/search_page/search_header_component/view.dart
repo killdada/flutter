@@ -74,13 +74,6 @@ Widget buildView(
         InkWell(
           onTap: () {
             dispatch(SearchHeaderActionCreator.onCancel());
-            // if (index != 0) {
-            //   setState(() {
-            //     index = 0;
-            //   });
-            //   return;
-            // }
-            // Navigator.of(context).pop();
           },
           child: Text(
             '取消',

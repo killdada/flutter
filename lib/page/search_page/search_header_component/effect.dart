@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter/material.dart' as prefix0;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/common/dao/search_dao.dart';
 import 'package:myapp/common/db/search_history_db.dart';
 import 'package:myapp/common/utils/appsize.dart';
+import 'package:myapp/page/search_page/history_component/action.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -29,7 +31,13 @@ showToast(String msg) {
       fontSize: AppSize.sp(30));
 }
 
-void _onCancel(Action action, Context<SearchHeaderState> ctx) {}
+void _onCancel(Action action, Context<SearchHeaderState> ctx) {
+  if (ctx.state.index != 0) {
+    ctx.dispatch(SearchActionCreator.changeIndexedStack(0));
+    return;
+  }
+  Navigator.of(ctx.context).pop();
+}
 
 void _onDoSearch(Action action, Context<SearchHeaderState> ctx) async {
   String text = action.payload;
@@ -38,9 +46,11 @@ void _onDoSearch(Action action, Context<SearchHeaderState> ctx) async {
     showToast('请输入有效关键词');
     return;
   }
-  SearchHistoryDb provider = new SearchHistoryDb();
-  provider.addHistory(text);
   List data = await SearchDao.search(text);
   ctx.dispatch(SearchActionCreator.changeIndexedStack(1));
   ctx.dispatch(SearchActionCreator.loadSearchResult(data));
+  SearchHistoryDb provider = new SearchHistoryDb();
+  await provider.addHistory(text);
+  List list = await provider.loadHistory();
+  ctx.dispatch(HistoryActionCreator.loadHistory(list));
 }

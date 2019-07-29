@@ -16,6 +16,6 @@ void _gotoSearchPage(Action action, Context<SearchState> ctx) {
   Application.router.navigateTo(
     ctx.context,
     Routes.search,
-    transition: TransitionType.native,
+    transition: TransitionType.fadeIn,
   );
 }

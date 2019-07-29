@@ -6,12 +6,12 @@ import 'state.dart';
 Reducer<SearchHeaderState> buildReducer() {
   return asReducer(
     <Object, Reducer<SearchHeaderState>>{
-      //   SearchHeaderAction.action: _onAction,
+      // SearchHeaderAction.setInputState: _onsetInputState,
     },
   );
 }
 
-SearchHeaderState _onAction(SearchHeaderState state, Action action) {
+SearchHeaderState _onsetInputState(SearchHeaderState state, Action action) {
   final SearchHeaderState newState = state.clone();
   return newState;
 }

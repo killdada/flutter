@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:myapp/common/model/course/course.dart';
 import 'package:myapp/page/search_page/search_course_list_component/component.dart';
 
 import '../reducer.dart';
@@ -20,10 +21,13 @@ class SearchResultAdapter extends DynamicFlowAdapter<SearchState> {
 class _SearchResultConnector extends ConnOp<SearchState, List<ItemBean>> {
   @override
   List<ItemBean> get(SearchState state) {
-    List<ItemBean> items = [];
-    items.add(ItemBean("courselist", state.courseList));
-    debugger();
-    return items;
+    if (state.courseList?.isNotEmpty == true) {
+      return state.courseList
+          .map<ItemBean>((CourseModel data) => ItemBean('courselist', data))
+          .toList(growable: true);
+    } else {
+      return <ItemBean>[];
+    }
   }
 
   @override

@@ -11,11 +11,7 @@ class SearchDao {
         'keyword': key,
       });
       var data = HttpManager.decodeJson(res);
-      if (data != null) {
-        return data;
-      } else {
-        throw ('请求结果返回为null');
-      }
+      return data;
     } catch (e) {
       throw (e);
     }

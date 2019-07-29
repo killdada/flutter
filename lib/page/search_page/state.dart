@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/model/course/course.dart';
@@ -5,21 +7,15 @@ import 'package:myapp/page/search_page/history_component/state.dart';
 import 'package:myapp/page/search_page/search_header_component/state.dart';
 
 class SearchState implements Cloneable<SearchState> {
-  String keyword = '';
-  List historyList = [];
   List<CourseModel> courseList;
   int index = 0;
-  TextEditingController editingController = TextEditingController();
-  FocusNode focusNode = FocusNode();
+  List<Map> historyList = [];
 
   @override
   SearchState clone() {
     return SearchState()
-      ..keyword = keyword
-      ..historyList = historyList
-      ..editingController = editingController
-      ..focusNode = focusNode
       ..courseList = courseList
+      ..historyList = historyList
       ..index = index;
   }
 }
@@ -29,15 +25,15 @@ SearchState initState(Map<String, dynamic> args) {
 }
 
 class SearchHeaderConnector
-    extends Reselect1<SearchState, SearchHeaderState, String> {
+    extends Reselect1<SearchState, SearchHeaderState, int> {
   @override
-  SearchHeaderState computed(String sub0) {
-    return SearchHeaderState()..keyword = sub0;
+  SearchHeaderState computed(int sub0) {
+    return SearchHeaderState()..index = sub0;
   }
 
   @override
-  String getSub0(SearchState state) {
-    return state.keyword;
+  int getSub0(SearchState state) {
+    return state.index;
   }
 
   @override
@@ -59,6 +55,6 @@ class HistoryConnector extends Reselect1<SearchState, HistoryState, List> {
 
   @override
   void set(SearchState state, HistoryState subState) {
-    throw Exception('Unexcepted to set SearchState from HistoryState');
+    state.historyList = subState.historyList;
   }
 }

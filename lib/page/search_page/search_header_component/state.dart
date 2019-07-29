@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class SearchHeaderState implements Cloneable<SearchHeaderState> {
   String keyword = '';
+  int index = 0;
   TextEditingController editingController = TextEditingController();
   FocusNode focusNode = FocusNode();
   @override
@@ -10,7 +11,8 @@ class SearchHeaderState implements Cloneable<SearchHeaderState> {
     return SearchHeaderState()
       ..keyword = keyword
       ..editingController = editingController
-      ..focusNode = focusNode;
+      ..focusNode = focusNode
+      ..index = index;
   }
 }
 

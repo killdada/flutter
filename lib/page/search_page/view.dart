@@ -9,6 +9,7 @@ import 'state.dart';
 Widget buildView(
     SearchState state, Dispatch dispatch, ViewService viewService) {
   return Scaffold(
+    resizeToAvoidBottomPadding: false,
     body: WillPopScope(
       child: SafeArea(
         top: true,

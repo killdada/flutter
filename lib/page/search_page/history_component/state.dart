@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 
 class HistoryState implements Cloneable<HistoryState> {
-  List historyList = [];
+  List<Map> historyList = [];
   @override
   HistoryState clone() {
     return HistoryState()..historyList = historyList;

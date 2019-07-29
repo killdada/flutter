@@ -17,8 +17,6 @@ void _onchangeIndexedStack(Action action, Context<SearchState> ctx) {
 }
 
 void _onfetchCourseList(Action action, Context<SearchState> ctx) async {
-  debugger();
   var data = await SearchDao.search(action.payload);
-  debugger();
   ctx.dispatch(SearchActionCreator.fetchCourseList(action.payload));
 }

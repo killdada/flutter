@@ -7,7 +7,7 @@ enum SearchHeaderAction { onCancel, onDoSearch }
 
 class SearchHeaderActionCreator {
   static Action onCancel() {
-    return const Action(SearchHeaderActionCreator.onCancel);
+    return const Action(SearchHeaderAction.onCancel);
   }
 
   static Action onDoSearch(String key) {
