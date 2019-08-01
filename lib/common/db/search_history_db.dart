@@ -60,7 +60,6 @@ class SearchHistoryDb extends BaseDbProvider {
 
   Future deleteHistory() async {
     Database db = await getDataBase();
-    debugger();
     return await db.delete('history');
   }
 

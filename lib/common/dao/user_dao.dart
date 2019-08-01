@@ -43,15 +43,15 @@ class UserDao {
         },
         option: Options(method: "post"),
       );
-      // debugger();
 
       var data = HttpManager.decodeJson(res);
       if (data != null) {
         await DataUtils.login(data['access_token']);
         MyEventBus.event.fire(LoginEvent());
+      } else {
+        throw (res['msg']);
       }
     } catch (e) {
-      // debugger();
       throw (e);
     }
   }

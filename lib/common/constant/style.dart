@@ -63,20 +63,19 @@ class SystemStyles {
 
 class TextStyles {
   static TextStyle style = TextStyle(
-    fontSize: Dimens.sp_42,
+    fontSize: Dimens.sp_32,
     color: Colours.textFirst,
     fontWeight: FontWeight.normal,
   );
 
   static TextStyle style2 = TextStyle(
-    fontSize: Dimens.sp_36,
+    fontSize: Dimens.sp_28,
     color: Color(0xFF666666),
     fontWeight: FontWeight.normal,
   );
 
-  static TextStyle hintStyle = style.copyWith(
-    color: Colours.textThird,
-  );
+  static TextStyle hintStyle =
+      TextStyle(color: Colours.textThird, fontSize: Dimens.sp_30);
 }
 
 class InputStyles {
@@ -85,8 +84,8 @@ class InputStyles {
     border: InputBorder.none,
     counterText: '',
     contentPadding: EdgeInsets.symmetric(
-      vertical: AppSize.height(30.0),
-      horizontal: AppSize.width(30.0),
+      vertical: AppSize.height(20.0),
+      horizontal: AppSize.width(20.0),
     ),
   );
 

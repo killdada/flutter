@@ -23,17 +23,17 @@ class PageContainerState extends State<PageContainer> {
   var pages;
 
   final tabItems = [
-    _NavItem('上课', 'assets/images/tab_class_nor.png',
-        'assets/images/tab_class_sel.png'),
-    _NavItem('我的', 'assets/images/tab_personal_nor.png',
-        'assets/images/tab_personal_sel.png'),
+    _NavItem('首页', 'assets/images/icn_home_nor.png',
+        'assets/images/icn_home_sel.png'),
+    _NavItem('我的', 'assets/images/icn_profile_nor.png',
+        'assets/images/icn_profile_sel.png'),
   ];
 
   Image getTabImage(path) {
     return Image.asset(
       path,
-      width: AppSize.width(75.0),
-      height: AppSize.width(75.0),
+      width: AppSize.height(45.0),
+      height: AppSize.height(45.0),
     );
   }
 

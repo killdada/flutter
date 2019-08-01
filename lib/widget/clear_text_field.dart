@@ -106,7 +106,7 @@ class _ClearTextFieldState extends State<ClearTextField> {
               padding: EdgeInsets.all(AppSize.width(15.0)),
               child: Icon(
                 CupertinoIcons.clear_thick_circled,
-                size: AppSize.width(55.0),
+                size: AppSize.width(35.0),
                 color: Color(0xFFBDBDBD),
               ),
             ),

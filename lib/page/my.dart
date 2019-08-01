@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluro/fluro.dart';
 import 'package:myapp/router/application.dart';
+import 'package:myapp/router/routers.dart';
 
 import 'package:myapp/common/constant/style.dart';
 import 'package:myapp/common/utils/data_utils.dart';
@@ -29,13 +32,16 @@ class _MenuItems {
 
 class MyPageState extends State<My> {
   final myMenus = [
-    _MenuItems(
-        '学习记录', 'assets/images/icon_personal_record.png', '/learnrecord'),
-    _MenuItems('本周学习时长', 'assets/images/icon_personal_week.png',
+    _MenuItems('我的下载', 'assets/images/icn_download.png', Routes.learnRecord),
+    _MenuItems('我的收藏', 'assets/images/icn_collect.png', Routes.learnRecord),
+
+    _MenuItems('本周学习时长', 'assets/images/icn_duration.png',
         '/learnrank?title=${FluroConvertUtils.fluroCnParamsEncode('本周排行榜')}'),
-    _MenuItems('累计学习时长', 'assets/images/icon_personal_total.png',
-        '/learnrank?title=${FluroConvertUtils.fluroCnParamsEncode('累计排行榜')}'),
-    _MenuItems('退出登录', 'assets/images/icon_personal_setting.png', ''),
+    // _MenuItems('累计学习时长', 'assets/images/icn_duration.png',
+    //     '/learnrank?title=${FluroConvertUtils.fluroCnParamsEncode('累计排行榜')}'),
+    _MenuItems('学习记录', 'assets/images/icn_record.png', Routes.learnRecord),
+    _MenuItems('意见反馈', 'assets/images/icn_guide.png', Routes.learnRecord),
+    _MenuItems('退出登录', 'assets/images/icn_logout.png', ''),
   ];
 
   UserInfo userinfo = UserInfo();
@@ -104,35 +110,23 @@ class MyPageState extends State<My> {
   // 页面头部，展示用户信息
   Widget _header() {
     return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: AppSize.width(57.0),
-      ),
       padding: EdgeInsets.symmetric(
-        horizontal: AppSize.width(23.0),
-        vertical: AppSize.height(60.0),
-      ),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colours.divider,
-            width: Dimens.divider,
-            style: BorderStyle.solid,
-          ),
-        ),
+        horizontal: AppSize.width(40.0),
+        vertical: AppSize.height(75.0),
       ),
       child: Row(
         children: <Widget>[
           CircleAvatar(
-              radius: AppSize.width(85.0),
+              radius: AppSize.width(55.0),
               child: _avatar(userinfo.userAvater ?? '')),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: AppSize.width(45)),
+              padding: EdgeInsets.only(left: AppSize.width(24)),
               child: Text(
                 '${userinfo.userShowName ?? '未登录'}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: AppSize.sp(35)),
+                style: TextStyle(fontSize: AppSize.sp(40)),
               ),
             ),
           ),
@@ -191,12 +185,20 @@ class MyPageState extends State<My> {
       return Text(
         DateUtil.formatTime(userinfo.studyTimeWeek),
         style: TextStyle(
-          fontSize: AppSize.sp(25),
+          fontSize: AppSize.sp(28),
           color: Colours.textSecond,
         ),
       );
     }
     return Text('');
+  }
+
+  Widget _divider({double height, double indent = 0.0}) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: indent),
+      height: height,
+      color: Color(0xFFF7F7FA),
+    );
   }
 
   Widget _renderMenuItem(_MenuItems item) {
@@ -214,15 +216,15 @@ class MyPageState extends State<My> {
       },
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSize.width(50.0),
-          vertical: AppSize.height(50.0),
+          horizontal: AppSize.width(32.0),
+          vertical: AppSize.height(30.0),
         ),
         child: Row(
           children: <Widget>[
             Image.asset(
               item.icon,
-              width: AppSize.width(50.0),
-              height: AppSize.height(50.0),
+              width: AppSize.width(36.0),
+              height: AppSize.height(36.0),
             ),
             SizedBox(
               width: AppSize.width(20),
@@ -239,7 +241,7 @@ class MyPageState extends State<My> {
             _menuItemRightText(item.name),
             Icon(
               Icons.navigate_next,
-              size: AppSize.sp(35.0),
+              size: AppSize.sp(40.0),
               color: Color(0xFFBCBCBC),
             ),
           ],
@@ -253,10 +255,26 @@ class MyPageState extends State<My> {
     final List<Widget> children = <Widget>[];
 
     children.add(_header());
-    myMenus.forEach((item) {
+    for (int i = 0; i < myMenus.length; i++) {
+      _MenuItems item = myMenus[i];
+      if (i == 4) {
+        children.add(
+          // 灰色的分割线
+          _divider(
+            height: AppSize.height(20.0),
+          ),
+        );
+      } else if (i != 0 && i != 6) {
+        // 底部边框
+        children.add(
+          _divider(
+            height: Dimens.divider,
+            indent: AppSize.width(32.0),
+          ),
+        );
+      }
       children.add(_renderMenuItem(item));
-    });
-
+    }
     return SafeArea(top: true, child: Column(children: children));
   }
 }

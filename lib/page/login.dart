@@ -50,7 +50,7 @@ class LoginState extends State<Login> {
               Text(
                 '域账号密码登录',
                 style: TextStyle(
-                  fontSize: AppSize.sp(40.0),
+                  fontSize: AppSize.sp(56.0),
                   color: Colours.textFirst,
                 ),
               ),
@@ -61,7 +61,7 @@ class LoginState extends State<Login> {
                 '域帐号格式如：Lisw01',
                 style: TextStyle(
                   color: Colours.textSecond,
-                  fontSize: AppSize.sp(25.0),
+                  fontSize: AppSize.sp(32.0),
                 ),
               ),
               Container(
@@ -94,7 +94,7 @@ class LoginState extends State<Login> {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      '去逛逛',
+                      '先逛逛',
                       style: TextStyle(
                         color: Colours.textThird,
                         fontSize: AppSize.sp(25.0),
@@ -112,7 +112,7 @@ class LoginState extends State<Login> {
 
   Widget _usernameInput() {
     return Container(
-      height: AppSize.height(140.0),
+      height: AppSize.height(120.0),
       alignment: Alignment.center,
       decoration: InputStyles.underlineDecoration,
       child: ClearTextField(
@@ -120,7 +120,11 @@ class LoginState extends State<Login> {
         onChanged: (input) {
           if (input.isNotEmpty) {}
         },
-        style: TextStyles.style,
+        style: TextStyle(
+          fontSize: Dimens.sp_30,
+          color: Colours.textFirst,
+          fontWeight: FontWeight.normal,
+        ),
         keyboardType: TextInputType.emailAddress,
         inputFormatters: [
           BlacklistingTextInputFormatter(RegExp("[\u4e00-\u9fa5]")),
@@ -139,7 +143,7 @@ class LoginState extends State<Login> {
 
   Widget _pwdInput() {
     return Container(
-      height: AppSize.height(140.0),
+      height: AppSize.height(120.0),
       alignment: Alignment.center,
       decoration: InputStyles.underlineDecoration,
       child: Row(
@@ -150,7 +154,11 @@ class LoginState extends State<Login> {
               controller: _passwordController,
               focusNode: _passwordFocusNode,
               obscureText: !showPwd,
-              style: TextStyles.style,
+              style: TextStyle(
+                fontSize: Dimens.sp_30,
+                color: Colours.textFirst,
+                fontWeight: FontWeight.normal,
+              ),
               keyboardType: TextInputType.emailAddress,
               inputFormatters: [
                 BlacklistingTextInputFormatter(RegExp("[\u4e00-\u9fa5]")),
@@ -165,8 +173,8 @@ class LoginState extends State<Login> {
           ),
           InkWell(
             child: Container(
-              width: AppSize.width(80.0),
-              height: AppSize.width(80.0),
+              width: AppSize.width(60.0),
+              height: AppSize.width(60.0),
               child: Image.asset(
                 showPwd
                     ? 'assets/images/icon_pwd_show.png'
@@ -192,10 +200,10 @@ class LoginState extends State<Login> {
       child: Text(
         '登录',
         style: TextStyle(
-          fontSize: Dimens.sp_30,
+          fontSize: Dimens.sp_32,
         ),
       ),
-      padding: EdgeInsets.all(AppSize.width(15.0)),
+      padding: EdgeInsets.all(AppSize.width(20.0)),
       color: Colors.blue,
       textColor: Colors.white,
       shape: RoundedRectangleBorder(
@@ -234,6 +242,7 @@ class LoginState extends State<Login> {
       );
     } catch (e) {
       print('登录失败$e');
+      Fluttertoast.showToast(msg: e);
       Navigator.pop(context);
     }
   }
