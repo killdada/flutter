@@ -16,74 +16,48 @@ class CollectionPage extends StatefulWidget {
 
 class _CollectionPageState extends State<CollectionPage> {
   List data = [];
-
   @override
   void initState() {
     super.initState();
-    // CollectionDao.getMyCollection();
+    _initData
   }
+  void _initData() async {
+    var data = await CollectionDao.getMyCollection();
+    if (mounted) {
+      print('323123${data}');
+    }
+  }
+   
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: CollectionDao.getMyCollection(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return Text('');
-            case ConnectionState.waiting:
-              return Center(child: CupertinoActivityIndicator());
-            case ConnectionState.active:
-              return Text('');
-            case ConnectionState.done:
-              if (snapshot.hasError) {
-                return Text(
-                  '${snapshot.error}',
-                  style: TextStyle(color: Colors.red),
-                );
-              }
-              if (snapshot.data.length == 0) {
-                return ListPlaceholder.empty();
-              }
-              return Text('22');
-          }
-        });
-    // return CommonScaffold(
-    //   backgroundColor: Colors.white,
-    //   appBar: CommonAppBar(
-    //     title: '我的收藏',
-    //     trailing: Offstage(
-    //       offstage: data.isEmpty,
-    //       child: CommonCheckBox(
-    //         onChanged: (checked) => {},
-    //         checkBoxBuilder: (bool checked) {
-    //           return Padding(
-    //             padding: EdgeInsets.fromLTRB(
-    //               0,
-    //               AppSize.height(20.0),
-    //               AppSize.width(46.0),
-    //               AppSize.height(20.0),
-    //             ),
-    //             child: Text(
-    //               checked ? '取消' : '管理',
-    //               style: TextStyles.style,
-    //             ),
-    //           );
-    //         },
-    //       ),
-    //     ),
-    //   ),
-    //   body: PageWrapper.pageBuilder(
-    //     CollectionDao.getMyCollection(),
-    //     _body,
-    //     doneCallback: (res) {
-    //       print('>>?${res}');
-    //       //   setState(() {
-    //       //     data = res;
-    //       //   });
-    //     },
-    //   ),
-    // );
+    return CommonScaffold(
+      backgroundColor: Colors.white,
+      appBar: CommonAppBar(
+        title: '我的收藏',
+        trailing: Offstage(
+          offstage: data.isEmpty,
+          child: CommonCheckBox(
+            onChanged: (checked) => {},
+            checkBoxBuilder: (bool checked) {
+              return Padding(
+                padding: EdgeInsets.fromLTRB(
+                  0,
+                  AppSize.height(20.0),
+                  AppSize.width(46.0),
+                  AppSize.height(20.0),
+                ),
+                child: Text(
+                  checked ? '取消' : '管理',
+                  style: TextStyles.style,
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+      body: _body(),
+    );
   }
 
   Widget _body({List data}) {
