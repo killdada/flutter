@@ -6,19 +6,14 @@ import 'package:myapp/page/learn_record.dart';
 import 'package:myapp/page/page_container.dart';
 import 'package:myapp/page/search_page/page.dart';
 import 'package:myapp/page/course_detail_page/page.dart';
+import 'package:myapp/page/download_page.dart';
+import 'package:myapp/page/feedback_page.dart';
+import 'package:myapp/page/collection_page.dart';
 
 import 'package:myapp/common/utils/fluro_convert_util.dart';
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-
-// import 'package:myapp/common//fluro_convert_util.dart';
-
-// Handler detailRouterHandler = Handler(
-//     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-//   return Detail(
-//       title: FluroConvertUtils.fluroCnParamsDecode(params["title"]?.first));
-// });
 
 Handler homeHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -64,4 +59,19 @@ Handler searchRouterHandler = Handler(
 Handler courseDetailRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return CourseDetailPage().buildPage(null);
+});
+
+Handler downLoadRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return DownloadPage();
+});
+
+Handler feedbackRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return FeedbackPage();
+});
+
+Handler collectionRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return CollectionPage();
 });

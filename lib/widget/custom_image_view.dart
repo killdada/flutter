@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +79,14 @@ class CustomImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (path == '') {
+      print(width);
+      return Image.asset(
+        'assets/images/user_avatar.png',
+        width: width,
+        height: height,
+      );
+    }
     Widget content = SizedBox(
       width: width,
       height: height,

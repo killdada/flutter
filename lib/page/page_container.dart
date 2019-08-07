@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:myapp/common/utils/appsize.dart';
 
@@ -69,7 +70,10 @@ class PageContainerState extends State<PageContainer> {
     }
 
     return Scaffold(
-      body: _body,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: _body,
+      ),
       bottomNavigationBar: CupertinoTabBar(
         items: navitems,
         currentIndex: _tabIndex,

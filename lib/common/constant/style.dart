@@ -45,7 +45,7 @@ class Dimens {
   static Radius radius_8 = Radius.circular(AppSize.width(8.0));
   static Radius radius_15 = Radius.circular(AppSize.width(15.0));
 
-  static double appBarHeight = AppSize.height(127);
+  static double appBarHeight = AppSize.height(90);
 }
 
 class SystemStyles {

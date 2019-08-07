@@ -13,6 +13,9 @@ class Routes {
   static String learnRecord = "/learnrecord";
   static String search = "/search";
   static String courseDetail = "/course_detail";
+  static String downLoad = "/download";
+  static String feedback = "/feedback";
+  static String collection = "/collection";
 
   // 对路由进行配置，define进行定义handler是回调
   static void configureRoutes(Router router) {
@@ -29,5 +32,8 @@ class Routes {
     router.define(learnRecord, handler: learnRecordRouterHandler);
     router.define(search, handler: searchRouterHandler);
     router.define(courseDetail, handler: courseDetailRouterHandler);
+    router.define(downLoad, handler: downLoadRouterHandler);
+    router.define(feedback, handler: feedbackRouterHandler);
+    router.define(collection, handler: collectionRouterHandler);
   }
 }

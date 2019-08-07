@@ -63,4 +63,9 @@ class Address {
   static getSearch() {
     return "$host$_search";
   }
+
+  /// 获取我收藏的课程
+  static getCollectionList() {
+    return "$host$_collection";
+  }
 }

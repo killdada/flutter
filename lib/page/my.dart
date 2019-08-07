@@ -32,15 +32,15 @@ class _MenuItems {
 
 class MyPageState extends State<My> {
   final myMenus = [
-    _MenuItems('我的下载', 'assets/images/icn_download.png', Routes.learnRecord),
-    _MenuItems('我的收藏', 'assets/images/icn_collect.png', Routes.learnRecord),
+    _MenuItems('我的下载', 'assets/images/icn_download.png', Routes.downLoad),
+    _MenuItems('我的收藏', 'assets/images/icn_collect.png', Routes.collection),
 
     _MenuItems('本周学习时长', 'assets/images/icn_duration.png',
         '/learnrank?title=${FluroConvertUtils.fluroCnParamsEncode('本周排行榜')}'),
     // _MenuItems('累计学习时长', 'assets/images/icn_duration.png',
     //     '/learnrank?title=${FluroConvertUtils.fluroCnParamsEncode('累计排行榜')}'),
     _MenuItems('学习记录', 'assets/images/icn_record.png', Routes.learnRecord),
-    _MenuItems('意见反馈', 'assets/images/icn_guide.png', Routes.learnRecord),
+    _MenuItems('意见反馈', 'assets/images/icn_guide.png', Routes.feedback),
     _MenuItems('退出登录', 'assets/images/icn_logout.png', ''),
   ];
 
@@ -181,9 +181,21 @@ class MyPageState extends State<My> {
   }
 
   Widget _menuItemRightText(String name) {
-    if (name == '累计学习时长' && isLogin) {
+    if (isLogin) {}
+    int studyTime;
+    switch (name) {
+      case '本周学习时长':
+        studyTime = userinfo.studyTimeWeek;
+        break;
+      case '累计学习时长':
+        studyTime = userinfo.studyTimeTotal;
+        break;
+    }
+    studyTime ??= 0;
+
+    if (studyTime != 0 && isLogin) {
       return Text(
-        DateUtil.formatTime(userinfo.studyTimeWeek),
+        DateUtil.formatTime(studyTime),
         style: TextStyle(
           fontSize: AppSize.sp(28),
           color: Colours.textSecond,
