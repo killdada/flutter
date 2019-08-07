@@ -19,15 +19,15 @@ class _CollectionPageState extends State<CollectionPage> {
   @override
   void initState() {
     super.initState();
-    _initData
+    _initData();
   }
+
   void _initData() async {
     var data = await CollectionDao.getMyCollection();
     if (mounted) {
       print('323123${data}');
     }
   }
-   
 
   @override
   Widget build(BuildContext context) {
