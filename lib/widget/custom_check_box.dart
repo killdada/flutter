@@ -55,10 +55,12 @@ class _ImageCheckBoxState extends State<ImageCheckBox> {
         margin: EdgeInsets.all(0),
         child: Padding(
           padding: EdgeInsets.only(
-              left: AppSize.width(46.0), right: AppSize.width(25.0)),
+            left: AppSize.width(30.0),
+            right: AppSize.width(20.0),
+          ),
           child: SizedBox.fromSize(
             size: Size.square(
-              widget.size ?? AppSize.width(70.0),
+              widget.size ?? AppSize.width(50.0),
             ),
             child: _checked
                 ? widget.checked ?? Image.asset('assets/images/icn_checked.png')
@@ -81,7 +83,7 @@ class _ImageCheckBoxState extends State<ImageCheckBox> {
       },
       child: SizedBox.fromSize(
         size: Size.square(
-          widget.size ?? AppSize.width(70.0),
+          widget.size ?? AppSize.width(50.0),
         ),
         child: _checked
             ? widget.checked ?? Image.asset('assets/images/icn_checked.png')

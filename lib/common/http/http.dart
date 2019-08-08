@@ -70,8 +70,12 @@ class HttpManager {
 
     Response response;
     try {
-      response = await _dio.request(url,
-          data: params, options: option, queryParameters: query);
+      response = await _dio.request(
+        url,
+        data: params,
+        options: option,
+        queryParameters: query,
+      );
       return response.data;
     } on DioError catch (e) {
       Response errorResponse;

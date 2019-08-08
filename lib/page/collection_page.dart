@@ -52,35 +52,23 @@ class _CollectionPageState extends State<CollectionPage> {
     }
   }
 
-  void deleteCollection() {
-    // Future.wait([]).then((results) {
-    //   print(results[0] + results[1]);
-    // }).catchError((e) {
-    //   print(e);
-    // });
-
-    // add(ApiRepository.deleteCollection(
-    //   checkedEntities.map((entity) {
-    //     return entity.id;
-    //   }).toList(),
-    // ).listen(
-    //   (_) {
-    //     checkedEntities.forEach(allEntities.remove);
-    //     checkedEntities.clear();
-
-    //     _listSink.add(allEntities);
-    //     _emptySink.add(allEntities == null || allEntities.isEmpty);
-    //     if (allEntities == null || allEntities.isEmpty) {
-    //       _handleSink.add(false);
-    //     }
-
-    //     onData();
-    //   },
-    //   onError: (error) {
-    //     print('删除失败:$error');
-    //     onError('删除失败');
-    //   },
-    // ));
+  void deleteCollection() async {
+    try {
+      var res =
+          await CollectionDao.deleCollection(checkedEntities.map((entity) {
+        return entity.id;
+      }).toList());
+      checkedEntities.forEach((item) {
+        data.remove(item);
+      });
+      checkedEntities.clear();
+      setState(() {
+        checkedEntities = checkedEntities;
+      });
+      Fluttertoast.showToast(msg: '删除成功');
+    } catch (e) {
+      Fluttertoast.showToast(msg: '删除失败');
+    }
   }
 
   bool isChecked(CollectionModel entity) {
@@ -158,65 +146,68 @@ class _CollectionPageState extends State<CollectionPage> {
             }).toList(),
           ),
         ),
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppSize.width(46.0),
-            vertical: AppSize.height(30.0),
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFFEEEEEE),
-                blurRadius: 8.0,
-              ),
-            ],
-          ),
-          child: Row(
-            children: <Widget>[
-              _handleBtn(
-                '全选',
-                Colours.textFirst,
-                () {
-                  setAllChecked();
-                },
-              ),
-              SizedBox(
-                width: AppSize.width(32.0),
-              ),
-              _handleBtn(
-                '删除',
-                Color(0xFFF73E4D),
-                () {
-                  if (checkedEntities.isEmpty) {
-                    Fluttertoast.showToast(msg: '至少选择一项');
-                    return;
-                  }
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CupertinoAlertDialog(
-                        title: Text('提示'),
-                        content: Text('是否删除选中的课程？'),
-                        actions: <Widget>[
-                          CupertinoDialogAction(
-                            child: Text('取消'),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                          CupertinoDialogAction(
-                            child: Text('确定'),
-                            onPressed: () {
-                              deleteCollection();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
+        Offstage(
+          offstage: !canOperation,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSize.width(46.0),
+              vertical: AppSize.height(30.0),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFFEEEEEE),
+                  blurRadius: 8.0,
+                ),
+              ],
+            ),
+            child: Row(
+              children: <Widget>[
+                _handleBtn(
+                  '全选',
+                  Colours.textFirst,
+                  () {
+                    setAllChecked();
+                  },
+                ),
+                SizedBox(
+                  width: AppSize.width(32.0),
+                ),
+                _handleBtn(
+                  '删除',
+                  Color(0xFFF73E4D),
+                  () {
+                    if (checkedEntities.isEmpty) {
+                      Fluttertoast.showToast(msg: '至少选择一项');
+                      return;
+                    }
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CupertinoAlertDialog(
+                          title: Text('提示'),
+                          content: Text('是否删除选中的课程？'),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text('取消'),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            CupertinoDialogAction(
+                              child: Text('确定'),
+                              onPressed: () {
+                                deleteCollection();
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -258,7 +249,7 @@ class _CollectionPageState extends State<CollectionPage> {
           children: <Widget>[
             CustomImageView.square(
               path: entity.imgMediaUrl,
-              size: AppSize.width(228.0),
+              size: AppSize.width(158.0),
             ),
             Expanded(
               flex: 1,
@@ -271,7 +262,7 @@ class _CollectionPageState extends State<CollectionPage> {
                       '${entity.name}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyles.style.copyWith(fontSize: Dimens.sp_45),
+                      style: TextStyles.style.copyWith(fontSize: Dimens.sp_32),
                     ),
                     SizedBox(
                       height: AppSize.height(10.0),
@@ -289,7 +280,7 @@ class _CollectionPageState extends State<CollectionPage> {
                             padding: EdgeInsets.only(right: AppSize.width(9.0)),
                             child: Image.asset(
                               'assets/images/icn_time.png',
-                              width: AppSize.width(35.0),
+                              width: AppSize.width(24.0),
                             ),
                           ),
                           Text(
@@ -313,11 +304,11 @@ class _CollectionPageState extends State<CollectionPage> {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          height: AppSize.height(100.0),
+          height: AppSize.height(80.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(
               Radius.circular(
-                AppSize.width(14.0),
+                AppSize.width(10.0),
               ),
             ),
             border: Border.all(
@@ -330,6 +321,7 @@ class _CollectionPageState extends State<CollectionPage> {
               text,
               style: TextStyles.style.copyWith(
                 color: textColor,
+                fontSize: AppSize.sp(30.0),
               ),
             ),
           ),
