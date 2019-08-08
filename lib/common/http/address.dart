@@ -68,4 +68,14 @@ class Address {
   static getCollectionList() {
     return "$host$_collection";
   }
+
+  /// 文件上传
+  static getMaterial() {
+    return "$host$_material";
+  }
+
+  /// 意见反馈
+  static getFeedback() {
+    return "$host$_feedback";
+  }
 }

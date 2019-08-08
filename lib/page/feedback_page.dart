@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/common/constant/style.dart';
+import 'package:myapp/common/dao/feedback_dao.dart';
+import 'package:myapp/common/model/upload_model.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/widget/clear_cache_color.dart';
 import 'package:myapp/widget/custom_check_box.dart';
@@ -8,6 +11,7 @@ import 'package:myapp/widget/custom_image_view.dart';
 import 'package:myapp/widget/custom_widget.dart';
 import 'package:myapp/widget/loading_dialog.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:developer';
 
 class FeedbackPage extends StatefulWidget {
   FeedbackPage({Key key}) : super(key: key);
@@ -27,7 +31,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
 
   List<String> questionSelects = [];
 
-  List uploadData = [];
+  List<UploadModel> uploadData = [];
 
   String questionInput = '';
 
@@ -47,6 +51,38 @@ class _FeedbackPageState extends State<FeedbackPage> {
 
   void updateQuestionInput(String input) {
     questionInput = input;
+  }
+
+  void addFeedback() async {
+    if (questionInput.isEmpty) {
+      showToast('请描述你遇到的问题');
+      return;
+    }
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return LoadingDialog(
+            text: '正在提交',
+          );
+        });
+    try {
+      Map<String, dynamic> params = {
+        'title': questionSelects.join(','),
+        'content': questionInput,
+        'imgs': uploadData.map((entity) => entity.mediaId).toList().toString(),
+      };
+      await FeedbackDao.addFeedback(params);
+      showToast('提交成功');
+      Navigator.pop(context);
+      Timer(const Duration(milliseconds: 200), () {
+        Navigator.pop(context);
+      });
+    } catch (error) {
+      print('添加反馈失败:$error');
+      showToast('提交失败');
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -139,26 +175,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           flex: 1,
         ),
         InkWell(
-          onTap: () {
-            // feedbackBloc.addFeedback(
-            //   onStart: () => showDialog(
-            //       context: context,
-            //       barrierDismissible: false,
-            //       builder: (context) {
-            //         return LoadingDialog(
-            //           text: '正在提交',
-            //         );
-            //       }),
-            //   onData: () {
-            //     showToast('提交成功');
-            //     Timer(const Duration(milliseconds: 200), () {
-            //       Navigator.pop(context);
-            //     });
-            //   },
-            //   onError: (error) => showToast(error),
-            //   onDone: () => Navigator.pop(context),
-            // );
-          },
+          onTap: addFeedback,
           child: Container(
             margin: EdgeInsets.fromLTRB(
               _horizontalPadding,
@@ -284,25 +301,33 @@ class _FeedbackPageState extends State<FeedbackPage> {
     );
   }
 
-  Future _getImage({int index}) async {
+  Future _getImage() async {
     hideKeyboard(context);
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      //   feedbackBloc.uploadFile(
-      //     image,
-      //     index: index,
-      //     onStart: () => showDialog(
-      //         context: context,
-      //         barrierDismissible: false,
-      //         builder: (context) {
-      //           return LoadingDialog(
-      //             text: '正在上传',
-      //           );
-      //         }),
-      //     onError: (error) => showToast(error),
-      //     onDone: () => Navigator.pop(context),
-      //   );
-    }
+    try {
+      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        FeedbackDao.uploadFile(
+          image,
+          onSuccess: (UploadModel entity) {
+            uploadData.add(entity);
+            setState(() {
+              uploadData = uploadData;
+            });
+          },
+          onStart: () => showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return LoadingDialog(
+                  text: '正在上传',
+                );
+              }),
+          onError: (error) => showToast(error),
+          onDone: () => Navigator.pop(context),
+        );
+      }
+    } catch (e) {}
   }
 
   Widget _questionImages() {
@@ -320,13 +345,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
   }
 
   Widget _uploadWrapper() {
-    final List entities = uploadData;
     final List<Widget> items = [];
     final Size clearSize = Size.square(AppSize.width(30.0));
     final Size imageSize = Size.square(AppSize.width(140.0));
 
-    if (entities != null && entities.isNotEmpty) {
-      entities.forEach((entity) {
+    if (uploadData != null && uploadData.isNotEmpty) {
+      uploadData.forEach((entity) {
         items.add(
           SizedBox(
             width: imageSize.width + clearSize.width / 2,
@@ -337,9 +361,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   top: clearSize.height / 2,
                   child: GestureDetector(
                     onTap: () {
-                      return _getImage(
-                        index: entities.indexOf(entity),
-                      );
+                      // uploadData.remove(entity);
                     },
                     child: CustomImageView.square(
                       path: entity.mediaUrl,
@@ -354,8 +376,10 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   right: 0,
                   child: GestureDetector(
                     onTap: () {
-                      // feedbackBloc
-                      //     .removeResponse(entities.indexOf(entity));
+                      uploadData.remove(entity);
+                      setState(() {
+                        uploadData = uploadData;
+                      });
                     },
                     child: Container(
                       decoration: BoxDecoration(

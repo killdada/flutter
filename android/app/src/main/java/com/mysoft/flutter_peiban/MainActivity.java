@@ -1,6 +1,7 @@
-package com.example.yenapp;
+package com.mysoft.flutter_peiban;
 
 import android.os.Bundle;
+
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
