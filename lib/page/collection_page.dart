@@ -23,7 +23,7 @@ class CollectionPage extends StatefulWidget {
 }
 
 class _CollectionPageState extends State<CollectionPage> {
-  List<CollectionModel> data = [];
+  List<CollectionModel> data;
   bool canOperation = false;
   List<CollectionModel> checkedEntities = [];
 
@@ -90,7 +90,7 @@ class _CollectionPageState extends State<CollectionPage> {
       appBar: CommonAppBar(
         title: '我的收藏',
         trailing: Offstage(
-          offstage: data.isEmpty,
+          offstage: data == null || data.isEmpty,
           child: CommonCheckBox(
             onChanged: (checked) {
               setState(() {
