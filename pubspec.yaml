@@ -54,6 +54,8 @@ dependencies:
   json_annotation: ^2.4.0
   # 图片
   cached_network_image: ^0.8.0
+
+  image_picker: ^0.6.0+10
   wave: ^0.0.8
 
 dev_dependencies:
