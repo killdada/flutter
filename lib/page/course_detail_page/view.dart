@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(CourseDetailState state, Dispatch dispatch, ViewService viewService) {
-  return Container();
+Widget buildView(
+    CourseDetailState state, Dispatch dispatch, ViewService viewService) {
+  return Text('detail');
 }

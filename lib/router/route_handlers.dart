@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:myapp/page/my.dart';
 import 'package:myapp/page/login.dart';
 import 'package:myapp/page/course.dart';
@@ -58,7 +60,8 @@ Handler searchRouterHandler = Handler(
 
 Handler courseDetailRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return CourseDetailPage().buildPage(null);
+  return CourseDetailPage()
+      .buildPage({'courseId': int.parse(params["courseId"]?.first)});
 });
 
 Handler downLoadRouterHandler = Handler(

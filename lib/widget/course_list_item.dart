@@ -1,8 +1,11 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/style.dart';
 import 'package:myapp/common/model/course/course.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/common/utils/date_utils.dart';
+import 'package:myapp/router/application.dart';
+import 'package:myapp/router/routers.dart';
 
 import 'custom_image_view.dart';
 
@@ -12,7 +15,16 @@ class CourseListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _renderItem(this.course);
+    return InkWell(
+      onTap: () {
+        Application.router.navigateTo(
+          context,
+          '${Routes.courseDetail}?courseId=${course.courseId}',
+          transition: TransitionType.native,
+        );
+      },
+      child: _renderItem(this.course),
+    );
   }
 }
 

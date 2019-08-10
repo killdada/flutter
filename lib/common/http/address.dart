@@ -78,4 +78,9 @@ class Address {
   static getFeedback() {
     return "$host$_feedback";
   }
+
+  // 获取课程详情
+  static getCourseDetail() {
+    return "$host$_courseDetail";
+  }
 }
