@@ -6,7 +6,7 @@ import 'state.dart';
 Reducer<CourseTabState> buildReducer() {
   return asReducer(
     <Object, Reducer<CourseTabState>>{
-      CourseTabAction.action: _onAction,
+      // CourseTabAction.action: _onAction,
     },
   );
 }

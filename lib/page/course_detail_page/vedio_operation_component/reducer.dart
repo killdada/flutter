@@ -6,7 +6,7 @@ import 'state.dart';
 Reducer<VedioOperationState> buildReducer() {
   return asReducer(
     <Object, Reducer<VedioOperationState>>{
-      VedioOperationAction.action: _onAction,
+      // VedioOperationAction.action: _onAction,
     },
   );
 }

@@ -1,22 +1,28 @@
 import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/material.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 import 'package:myapp/page/course_detail_page/practice_tab_component/state.dart';
 import 'package:myapp/page/course_detail_page/vedio_component/state.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/state.dart';
+import 'package:myapp/page/course_page/state.dart';
 
 import 'course_tab_component/state.dart';
 
 class CourseDetailState implements Cloneable<CourseDetailState> {
   int courseId;
+  int index = 0; // 是显示下载的，还是显示目录的
   CourseDetailModel courseDetail;
   CatalogsModel currentCatalog;
+  TabController tabController;
   @override
   CourseDetailState clone() {
     return CourseDetailState()
       ..courseId = courseId
-      ..courseDetail = courseDetail;
+      ..courseDetail = courseDetail
+      ..tabController = tabController
+      ..index = index;
   }
 }
 
@@ -61,16 +67,23 @@ class VedioOperationConnector
   }
 }
 
-class CourseTabConnector
-    extends Reselect1<CourseDetailState, CourseTabState, CatalogsModel> {
+class CourseTabConnector extends Reselect2<CourseDetailState, CourseTabState,
+    CatalogsModel, CourseDetailModel> {
   @override
-  CourseTabState computed(CatalogsModel sub0) {
-    return CourseTabState()..courseTabData = sub0;
+  CourseTabState computed(CatalogsModel sub0, CourseDetailModel sub1) {
+    return CourseTabState()
+      ..courseTabData = sub0
+      ..courseDetail = sub1;
   }
 
   @override
   CatalogsModel getSub0(CourseDetailState state) {
     return state.currentCatalog;
+  }
+
+  @override
+  CourseDetailModel getSub1(CourseDetailState state) {
+    return state.courseDetail;
   }
 
   @override

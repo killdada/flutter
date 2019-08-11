@@ -172,15 +172,43 @@ class _VideoPlayerGatherProvider extends InheritedWidget {
       controller != oldWidget.controller;
 }
 
+class SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
+  final TabBar widget;
+  final Color color;
+
+  const SliverTabBarDelegate(this.widget, {this.color})
+      : assert(widget != null);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new Container(
+      child: widget,
+      color: color,
+    );
+  }
+
+  @override
+  bool shouldRebuild(SliverTabBarDelegate oldDelegate) {
+    return false;
+  }
+
+  @override
+  double get maxExtent => widget.preferredSize.height;
+
+  @override
+  double get minExtent => widget.preferredSize.height;
+}
+
 /// Header
-class _SliverOpacityHeader extends SliverPersistentHeaderDelegate {
+class SliverOpacityHeader extends SliverPersistentHeaderDelegate {
   final VideoPlayerGatherController controller;
   final double minHeight;
   final double maxHeight;
   final Widget appBar;
   final Widget child;
 
-  _SliverOpacityHeader({
+  SliverOpacityHeader({
     @required this.controller,
     @required this.minHeight,
     @required this.maxHeight,
@@ -196,7 +224,10 @@ class _SliverOpacityHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  double get minExtent => controller.isPlaying() ? maxHeight : minHeight;
+  double get minExtent => minHeight;
+
+  @override
+  // double get minExtent => controller.isPlaying() ? maxHeight : minHeight;
 
   @override
   Widget build(
@@ -208,19 +239,19 @@ class _SliverOpacityHeader extends SliverPersistentHeaderDelegate {
     double totalOffset = maxExtent - minExtent;
     double opacity = 0;
 
-    if (controller.isPlaying()) {
-      top = 0;
-    } else {
-      if (shrinkOffset >= totalOffset) {
-        top = -totalOffset;
-        opacity = 1.0;
-      } else {
-        top = -shrinkOffset;
-        opacity = shrinkOffset / totalOffset;
-      }
-    }
+    // if (controller.isPlaying()) {
+    //   top = 0;
+    // } else {
+    //   if (shrinkOffset >= totalOffset) {
+    //     top = -totalOffset;
+    //     opacity = 1.0;
+    //   } else {
+    //     top = -shrinkOffset;
+    //     opacity = shrinkOffset / totalOffset;
+    //   }
+    // }
 
-    controller.updateOpacity(opacity);
+    // controller.updateOpacity(opacity);
 
     final topPadding = MediaQuery.of(context).padding.top;
 
@@ -239,14 +270,14 @@ class _SliverOpacityHeader extends SliverPersistentHeaderDelegate {
             child: child,
           ),
         ),
-        Positioned.fill(
-          child: Offstage(
-            offstage: controller.isPlaying() || opacity < 0.1,
-            child: Container(
-              color: const Color(0xFF999999).withOpacity(opacity),
-            ),
-          ),
-        ),
+        // Positioned.fill(
+        //   child: Offstage(
+        //     offstage: controller.isPlaying() || opacity < 0.1,
+        //     child: Container(
+        //       color: const Color(0xFF999999).withOpacity(opacity),
+        //     ),
+        //   ),
+        // ),
         Container(
           padding: EdgeInsets.only(top: topPadding),
           alignment: Alignment.topCenter,
@@ -258,11 +289,11 @@ class _SliverOpacityHeader extends SliverPersistentHeaderDelegate {
 }
 
 /// StickerHeader
-class _SliverStickerHeader extends SliverPersistentHeaderDelegate {
+class SliverStickerHeader extends SliverPersistentHeaderDelegate {
   final double height;
   final Widget child;
 
-  _SliverStickerHeader({
+  SliverStickerHeader({
     @required this.height,
     @required this.child,
   })  : assert(height >= 0),
@@ -565,7 +596,7 @@ class _VideoScaffoldState extends State<VideoScaffold> {
     List<Widget> widgets = [
       SliverPersistentHeader(
         pinned: true,
-        delegate: _SliverOpacityHeader(
+        delegate: SliverOpacityHeader(
           controller: widget.controller,
           minHeight: Dimens.appBarHeight + topPadding,
           maxHeight: MediaQuery.of(context).size.width * 0.62 + topPadding,
@@ -578,7 +609,7 @@ class _VideoScaffoldState extends State<VideoScaffold> {
       widgets.add(
         SliverPersistentHeader(
           pinned: true,
-          delegate: _SliverStickerHeader(
+          delegate: SliverStickerHeader(
             height: widget.header.preferredSize.height,
             child: widget.header,
           ),
