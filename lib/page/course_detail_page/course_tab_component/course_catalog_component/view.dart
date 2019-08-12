@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/common/utils/appsize.dart';
+import 'package:myapp/page/course_detail_page/action.dart';
+import 'package:myapp/page/course_detail_page/course_tab_component/action.dart';
 
 Widget _catalogItem(
-  CatalogsModel state,
+  Map<String, dynamic> state,
   Dispatch dispatch,
   ViewService viewService,
 ) {
@@ -23,7 +27,7 @@ Widget _catalogItem(
                 margin: EdgeInsets.only(
                     left: AppSize.width(55), right: AppSize.width(58)),
                 child: Text(
-                  "232",
+                  '${state['index'] + 1}',
                   style: TextStyle(
                       fontSize: AppSize.sp(43), color: Color(0xFFBDBDBD)),
                 ),
@@ -36,8 +40,9 @@ Widget _catalogItem(
           Offstage(
             offstage: false,
             child: Container(
-              // color: !hideLine ? Color(0xFFDDDDDD) : Color(0x0000000),
-              color: Color(0xFFDDDDDD),
+              color: state['count'] != state['index'] + 1
+                  ? Color(0xFFDDDDDD)
+                  : Color(0x0000000),
               alignment: Alignment.bottomCenter,
               margin: EdgeInsets.only(
                   left: AppSize.width(58),
@@ -45,7 +50,36 @@ Widget _catalogItem(
                   top: AppSize.height(29)),
               height: AppSize.height(2),
             ),
-          )
+          ),
+          Offstage(
+            offstage: state['showAll'],
+            child: Container(
+                height: AppSize.height(86),
+                margin: EdgeInsets.only(
+                    top: AppSize.height(72), bottom: AppSize.height(46)),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: FlatButton(
+                    child: Text(
+                      '查看全部课程',
+                      style: TextStyle(
+                          fontSize: AppSize.sp(37), color: Color(0xFF4A4A4A)),
+                    ),
+                    onPressed: () {
+                      dispatch(CourseDetailActionCreator.changeShowAll());
+                    },
+                    shape: Border.all(
+                        width: AppSize.width(1), color: Color(0xFFBDBDBD)),
+                  ),
+                )),
+          ),
+          Offstage(
+            offstage: state['count'] != state['index'] + 1,
+            child: Container(
+              color: Color(0xFFF7F7FA),
+              height: AppSize.height(10.0),
+            ),
+          ),
         ],
       ),
     ),
@@ -53,10 +87,11 @@ Widget _catalogItem(
 }
 
 Widget _catalogItemColum(
-  CatalogsModel state,
+  Map<String, dynamic> state,
   Dispatch dispatch,
   ViewService viewService,
 ) {
+  CatalogsModel catalog = state['catalog'];
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     mainAxisSize: MainAxisSize.max,
@@ -66,10 +101,10 @@ Widget _catalogItemColum(
         // color: Colors.grey,
         margin:
             EdgeInsets.only(bottom: AppSize.width(20), top: AppSize.width(40)),
-        width: AppSize.width(200),
-        // width: MediaQuery.of(context).size.width - AppSize.width(190),
+        width:
+            MediaQuery.of(viewService.context).size.width - AppSize.width(190),
         child: Text(
-          state.catalogName,
+          catalog.catalogName,
           style: TextStyle(fontSize: AppSize.sp(43), color: Color(0xFF4A4A4A)),
           textAlign: TextAlign.left,
           maxLines: 2,
@@ -91,7 +126,7 @@ Widget _catalogItemColum(
             ),
             Container(
               child: Text(
-                state.playTime ?? '',
+                catalog.playTime ?? '',
                 style: TextStyle(
                     fontSize: AppSize.sp(35), color: Color(0xFF999999)),
               ),
@@ -104,6 +139,6 @@ Widget _catalogItemColum(
 }
 
 Widget buildView(
-    CatalogsModel state, Dispatch dispatch, ViewService viewService) {
+    Map<String, dynamic> state, Dispatch dispatch, ViewService viewService) {
   return _catalogItem(state, dispatch, viewService);
 }

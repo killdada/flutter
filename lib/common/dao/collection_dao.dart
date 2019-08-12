@@ -29,4 +29,15 @@ class CollectionDao {
         '${Address.getCollectionList()}/${ids.join(',')}',
         option: Options(method: "delete"));
   }
+
+  // 添加收藏记录
+  static Future addCollection(int courseId) async {
+    return await httpManager.fetch(
+      '${Address.getCollectionList()}',
+      params: {
+        'course_id': courseId,
+      },
+      option: Options(method: "post"),
+    );
+  }
 }

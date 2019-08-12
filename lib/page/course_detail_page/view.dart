@@ -38,8 +38,10 @@ Widget _bodyWidget(
     children: tabs.map((item) {
       if (item == '开始上课') {
         return viewService.buildComponent('courseTab');
+      } else if (item == '课后练习') {
+        return viewService.buildComponent('practiceTab');
       }
-      return viewService.buildComponent('practiceTab');
+      return Container();
     }).toList(),
   );
 }
@@ -50,23 +52,26 @@ Widget _downloadWidget() {
 
 Widget _body(CourseDetailState state, Dispatch dispatch,
     ViewService viewService, List tabs) {
-  return IndexedStack(
-    index: state.index,
-    children: <Widget>[
-      _bodyWidget(
-        tabs,
-        state,
-        dispatch,
-        viewService,
-      ),
-      _downloadWidget(),
-    ],
+  return Container(
+    color: Colors.white,
+    child: IndexedStack(
+      index: state.index,
+      children: <Widget>[
+        _bodyWidget(
+          tabs,
+          state,
+          dispatch,
+          viewService,
+        ),
+        _downloadWidget(),
+      ],
+    ),
   );
 }
 
 Widget buildView(
     CourseDetailState state, Dispatch dispatch, ViewService viewService) {
-  final List<String> tabs = ["开始上课", "课后练习"];
+  List<String> tabs = state.index == 0 ? ["开始上课", "课后练习"] : ['视频', '音频'];
 
   return Scaffold(
     body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -79,6 +84,7 @@ Widget buildView(
           ];
           if (state.tabController != null) {
             child.add(SliverPersistentHeader(
+              key: Key(state.index.toString()),
               delegate: SliverTabBarDelegate(
                 _tabBarWiget(tabs, state),
                 color: Colors.white,

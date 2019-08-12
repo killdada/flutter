@@ -25,10 +25,10 @@ Widget buildView(
     dynamic _image = _cacheBgImage(_uri);
     _images.add(_image);
   });
-  return Text('11');
+  return Text('33');
   return Carousel(
     // id: catalog.catalogId,
-    // curImagePage: state.curPptIndex,
+    curImagePage: 1,
     autoplay: false,
     showIndicator: false,
     borderRadius: true,

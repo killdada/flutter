@@ -73,46 +73,6 @@ Widget buildView(
           itemCount: adapter.itemCount,
         ),
       ),
-      //   Offstage(
-      //     offstage: false,
-      //     child: Container(
-      //       // color: Colors.red,
-      //       alignment: Alignment.topLeft,
-      //       margin: EdgeInsets.only(left: AppSize.width(58)),
-      //       child: Column(
-      //         children: <Widget>[
-      //           Text(
-      //             '课程目录',
-      //             style: TextStyle(
-      //               fontSize: AppSize.sp(52),
-      //               color: Color(0xFF4A4A4A),
-      //             ),
-      //           ),
-      //           viewService.buildComponent('courseCatalog'),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      //   Offstage(
-      //     offstage: false,
-      //     child: Container(
-      //       // color: Colors.red,
-      //       alignment: Alignment.topLeft,
-      //       margin: EdgeInsets.only(left: AppSize.width(58)),
-      //       child: Column(
-      //         children: <Widget>[
-      //           Text(
-      //             courseTabData.catalogName,
-      //             style: TextStyle(
-      //               fontSize: AppSize.sp(52),
-      //               color: Color(0xFF4A4A4A),
-      //             ),
-      //           ),
-      //           viewService.buildComponent('ppt'),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
     ],
   );
 }

@@ -16,12 +16,17 @@ class CourseDetailState implements Cloneable<CourseDetailState> {
   CourseDetailModel courseDetail;
   CatalogsModel currentCatalog;
   TabController tabController;
+  bool showAll = false;
+  bool collected = false;
   @override
   CourseDetailState clone() {
     return CourseDetailState()
+      ..collected = collected
+      ..currentCatalog = currentCatalog
       ..courseId = courseId
       ..courseDetail = courseDetail
       ..tabController = tabController
+      ..showAll = showAll
       ..index = index;
   }
 }
@@ -48,32 +53,41 @@ class VedioConnector
   }
 }
 
-class VedioOperationConnector
-    extends Reselect1<CourseDetailState, VedioOperationState, CatalogsModel> {
+class VedioOperationConnector extends Reselect2<CourseDetailState,
+    VedioOperationState, CourseDetailModel, bool> {
   @override
-  VedioOperationState computed(CatalogsModel sub0) {
-    return VedioOperationState()..vedioOperationData = sub0;
+  VedioOperationState computed(CourseDetailModel sub0, bool sub1) {
+    return VedioOperationState()
+      ..vedioOperationData = sub0
+      ..collected = sub1;
   }
 
   @override
-  CatalogsModel getSub0(CourseDetailState state) {
-    return state.currentCatalog;
+  CourseDetailModel getSub0(CourseDetailState state) {
+    return state.courseDetail;
+  }
+
+  @override
+  bool getSub1(CourseDetailState state) {
+    return state.collected;
   }
 
   @override
   void set(CourseDetailState state, VedioOperationState subState) {
-    throw Exception(
-        'Unexcepted to set CourseDetailState from VedioOperationState');
+    // throw Exception(
+    //     'Unexcepted to set CourseDetailState from VedioOperationState');
   }
 }
 
-class CourseTabConnector extends Reselect2<CourseDetailState, CourseTabState,
-    CatalogsModel, CourseDetailModel> {
+class CourseTabConnector extends Reselect3<CourseDetailState, CourseTabState,
+    CatalogsModel, CourseDetailModel, bool> {
   @override
-  CourseTabState computed(CatalogsModel sub0, CourseDetailModel sub1) {
+  CourseTabState computed(
+      CatalogsModel sub0, CourseDetailModel sub1, bool sub2) {
     return CourseTabState()
       ..courseTabData = sub0
-      ..courseDetail = sub1;
+      ..courseDetail = sub1
+      ..showAll = sub2;
   }
 
   @override
@@ -87,8 +101,13 @@ class CourseTabConnector extends Reselect2<CourseDetailState, CourseTabState,
   }
 
   @override
+  bool getSub2(CourseDetailState state) {
+    return state.showAll;
+  }
+
+  @override
   void set(CourseDetailState state, CourseTabState subState) {
-    throw Exception('Unexcepted to set CourseDetailState from CourseTabState');
+    // throw Exception('Unexcepted to set CourseDetailState from CourseTabState');
   }
 }
 

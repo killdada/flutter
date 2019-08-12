@@ -11,9 +11,13 @@ import 'state.dart';
 
 Widget _customButton(Operations item, VedioOperationState state,
     Dispatch dispatch, ViewService viewService) {
+  bool _isSelected = state.collected && item.type == ActionType.collection;
   return GestureDetector(
     onTap: () {
-      dispatch(VedioOperationActionCreator.onClickItem(item.type));
+      dispatch(VedioOperationActionCreator.onClickItem(
+        item.type,
+        state.vedioOperationData,
+      ));
     },
     child: Center(
       child: Column(
@@ -24,8 +28,7 @@ Widget _customButton(Operations item, VedioOperationState state,
               item.img,
               width: 15,
               height: 15,
-              // color: !_isSelected ? Color(0xFF999999) : Color(0xFF1D9DFF),
-              color: Color(0xFF999999),
+              color: !_isSelected ? Color(0xFF999999) : Color(0xFF1D9DFF),
             ),
           ),
           Padding(
@@ -34,8 +37,7 @@ Widget _customButton(Operations item, VedioOperationState state,
               item.name,
               style: TextStyle(
                 fontSize: 13,
-                color: Color(0xFF999999),
-                // color: !_isSelected ? Color(0xFF999999) : Color(0xFF1D9DFF),
+                color: !_isSelected ? Color(0xFF999999) : Color(0xFF1D9DFF),
               ),
               maxLines: 1,
             ),
