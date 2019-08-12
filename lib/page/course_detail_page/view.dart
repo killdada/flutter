@@ -50,23 +50,16 @@ Widget _downloadWidget() {
 
 Widget _body(CourseDetailState state, Dispatch dispatch,
     ViewService viewService, List tabs) {
-  return Column(
+  return IndexedStack(
+    index: state.index,
     children: <Widget>[
-      Expanded(
-        flex: 1,
-        child: IndexedStack(
-          index: state.index,
-          children: <Widget>[
-            _bodyWidget(
-              tabs,
-              state,
-              dispatch,
-              viewService,
-            ),
-            _downloadWidget(),
-          ],
-        ),
-      )
+      _bodyWidget(
+        tabs,
+        state,
+        dispatch,
+        viewService,
+      ),
+      _downloadWidget(),
     ],
   );
 }

@@ -6,9 +6,6 @@ import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/widget/carousel_image.dart';
 
-import 'action.dart';
-import 'state.dart';
-
 Widget _cacheBgImage(String uri) {
   return SizedBox(
       child: CachedNetworkImage(
@@ -20,9 +17,10 @@ Widget _cacheBgImage(String uri) {
   ));
 }
 
-Widget buildView(PptState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    List<PptModel> state, Dispatch dispatch, ViewService viewService) {
   List _images = [];
-  state.pptData.forEach((PptModel item) {
+  state.forEach((PptModel item) {
     String _uri = item.url;
     dynamic _image = _cacheBgImage(_uri);
     _images.add(_image);
@@ -30,7 +28,7 @@ Widget buildView(PptState state, Dispatch dispatch, ViewService viewService) {
   return Text('11');
   return Carousel(
     // id: catalog.catalogId,
-    curImagePage: state.curPptIndex,
+    // curImagePage: state.curPptIndex,
     autoplay: false,
     showIndicator: false,
     borderRadius: true,

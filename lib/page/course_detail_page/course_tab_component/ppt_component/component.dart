@@ -1,19 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 
-import 'effect.dart';
-import 'reducer.dart';
-import 'state.dart';
+
 import 'view.dart';
 
-class PptComponent extends Component<PptState> {
+class PptComponent extends Component<List<PptModel>> {
   PptComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<PptState>(
-                adapter: null,
-                slots: <String, Dependent<PptState>>{
-                }),);
-
+          view: buildView,
+        );
 }

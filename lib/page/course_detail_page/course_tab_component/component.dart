@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/page/course_detail_page/course_tab_component/course_catalog_component/component.dart';
+import 'package:myapp/page/course_detail_page/course_tab_component/course_tab_adapter/adapter.dart';
 import 'package:myapp/page/course_detail_page/course_tab_component/ppt_component/component.dart';
 
 import 'effect.dart';
@@ -14,11 +15,11 @@ class CourseTabComponent extends Component<CourseTabState> {
           reducer: buildReducer(),
           view: buildView,
           dependencies: Dependencies<CourseTabState>(
-              adapter: null,
+              adapter: NoneConn<CourseTabState>() + CourseTabAdapter(),
               slots: <String, Dependent<CourseTabState>>{
-                'courseCatalog':
-                    CourseCatalogConnector() + CourseCatalogComponent(),
-                'ppt': PptConnector() + PptComponent(),
+                // 'courseCatalog':
+                //     CourseCatalogConnector() + CourseCatalogComponent(),
+                // 'ppt': PptConnector() + PptComponent(),
               }),
         );
 }

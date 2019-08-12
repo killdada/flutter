@@ -3,15 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/common/utils/appsize.dart';
 
-import 'action.dart';
-import 'state.dart';
-
 Widget _catalogItem(
-  CourseCatalogState state,
+  CatalogsModel state,
   Dispatch dispatch,
   ViewService viewService,
-  CatalogsModel catalog,
-  int index,
 ) {
   return Container(
     child: InkWell(
@@ -28,12 +23,12 @@ Widget _catalogItem(
                 margin: EdgeInsets.only(
                     left: AppSize.width(55), right: AppSize.width(58)),
                 child: Text(
-                  "$index",
+                  "232",
                   style: TextStyle(
                       fontSize: AppSize.sp(43), color: Color(0xFFBDBDBD)),
                 ),
               ),
-              _catalogItemColum(state, dispatch, viewService, catalog),
+              _catalogItemColum(state, dispatch, viewService),
             ],
             // ),
             // )
@@ -58,10 +53,9 @@ Widget _catalogItem(
 }
 
 Widget _catalogItemColum(
-  CourseCatalogState state,
+  CatalogsModel state,
   Dispatch dispatch,
   ViewService viewService,
-  CatalogsModel catalog,
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
@@ -70,13 +64,12 @@ Widget _catalogItemColum(
     children: <Widget>[
       Container(
         // color: Colors.grey,
-
         margin:
             EdgeInsets.only(bottom: AppSize.width(20), top: AppSize.width(40)),
         width: AppSize.width(200),
         // width: MediaQuery.of(context).size.width - AppSize.width(190),
         child: Text(
-          catalog.catalogName,
+          state.catalogName,
           style: TextStyle(fontSize: AppSize.sp(43), color: Color(0xFF4A4A4A)),
           textAlign: TextAlign.left,
           maxLines: 2,
@@ -98,7 +91,7 @@ Widget _catalogItemColum(
             ),
             Container(
               child: Text(
-                catalog.playTime ?? '',
+                state.playTime ?? '',
                 style: TextStyle(
                     fontSize: AppSize.sp(35), color: Color(0xFF999999)),
               ),
@@ -111,16 +104,6 @@ Widget _catalogItemColum(
 }
 
 Widget buildView(
-    CourseCatalogState state, Dispatch dispatch, ViewService viewService) {
-  List<CatalogsModel> catalogs = state.courseDetail.catalogs;
-  // return Text('2212');
-  return ListView.builder(
-      shrinkWrap: true,
-      padding: EdgeInsets.all(0),
-      scrollDirection: Axis.vertical,
-      itemCount: catalogs.length,
-      itemBuilder: (BuildContext context, int index) {
-        return _catalogItem(
-            state, dispatch, viewService, catalogs[index], index);
-      });
+    CatalogsModel state, Dispatch dispatch, ViewService viewService) {
+  return _catalogItem(state, dispatch, viewService);
 }

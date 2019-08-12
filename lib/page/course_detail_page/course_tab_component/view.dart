@@ -49,7 +49,7 @@ Widget buildView(
     CourseTabState state, Dispatch dispatch, ViewService viewService) {
   CatalogsModel courseTabData = state.courseTabData;
   List<CatalogsModel> catalogs = state.courseDetail.catalogs;
-
+  final ListAdapter adapter = viewService.buildAdapter();
   return Column(
     children: <Widget>[
       Container(
@@ -66,46 +66,53 @@ Widget buildView(
           },
         ),
       ),
-      Offstage(
-        offstage: false,
-        child: Container(
-          // color: Colors.red,
-          alignment: Alignment.topLeft,
-          margin: EdgeInsets.only(left: AppSize.width(58)),
-          child: Column(
-            children: <Widget>[
-              Text(
-                '课程目录',
-                style: TextStyle(
-                  fontSize: AppSize.sp(52),
-                  color: Color(0xFF4A4A4A),
-                ),
-              ),
-              viewService.buildComponent('courseCatalog'),
-            ],
-          ),
+      Expanded(
+        flex: 1,
+        child: ListView.builder(
+          itemBuilder: adapter.itemBuilder,
+          itemCount: adapter.itemCount,
         ),
       ),
-      Offstage(
-        offstage: false,
-        child: Container(
-          // color: Colors.red,
-          alignment: Alignment.topLeft,
-          margin: EdgeInsets.only(left: AppSize.width(58)),
-          child: Column(
-            children: <Widget>[
-              Text(
-                courseTabData.catalogName,
-                style: TextStyle(
-                  fontSize: AppSize.sp(52),
-                  color: Color(0xFF4A4A4A),
-                ),
-              ),
-              viewService.buildComponent('ppt'),
-            ],
-          ),
-        ),
-      ),
+      //   Offstage(
+      //     offstage: false,
+      //     child: Container(
+      //       // color: Colors.red,
+      //       alignment: Alignment.topLeft,
+      //       margin: EdgeInsets.only(left: AppSize.width(58)),
+      //       child: Column(
+      //         children: <Widget>[
+      //           Text(
+      //             '课程目录',
+      //             style: TextStyle(
+      //               fontSize: AppSize.sp(52),
+      //               color: Color(0xFF4A4A4A),
+      //             ),
+      //           ),
+      //           viewService.buildComponent('courseCatalog'),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      //   Offstage(
+      //     offstage: false,
+      //     child: Container(
+      //       // color: Colors.red,
+      //       alignment: Alignment.topLeft,
+      //       margin: EdgeInsets.only(left: AppSize.width(58)),
+      //       child: Column(
+      //         children: <Widget>[
+      //           Text(
+      //             courseTabData.catalogName,
+      //             style: TextStyle(
+      //               fontSize: AppSize.sp(52),
+      //               color: Color(0xFF4A4A4A),
+      //             ),
+      //           ),
+      //           viewService.buildComponent('ppt'),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
     ],
   );
 }
