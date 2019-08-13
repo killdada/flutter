@@ -6,8 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/common/utils/appsize.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
 import 'package:myapp/page/course_detail_page/action.dart';
+import 'package:myapp/widget/carousel_slider.dart';
 import 'package:myapp/widget/photo_view.dart';
 
 Widget _cacheBgImage(String uri) {
@@ -58,67 +59,67 @@ Widget buildView(
     _images.add(_image);
   });
 
-  final basicSlider = CarouselSlider(
-      items: _images,
-      height: AppSize.height(380.0),
-      autoPlay: false,
-      enableInfiniteScroll: false,
-      enlargeCenterPage: true,
-      viewportFraction: 1.0,
-      aspectRatio: 16 / 9,
-      //   initialPage: pptIndex, 有问题，目前还没修复，默认还是从0开始
-      onPageChanged: (index) {
-        dispatch(CourseDetailActionCreator.changePptIndex(index));
-      });
+ final basicSlider = CarouselSlider(
+     items: _images,
+     height: AppSize.height(380.0),
+     autoPlay: false,
+     enableInfiniteScroll: false,
+     enlargeCenterPage: true,
+     viewportFraction: 1.0,
+     aspectRatio: 16 / 9,
+     //   initialPage: pptIndex, 有问题，目前还没修复，默认还是从0开始
+     onPageChanged: (index) {
+       dispatch(CourseDetailActionCreator.changePptIndex(index));
+     });
 
-  return Container(
-    padding: EdgeInsets.symmetric(
-      vertical: AppSize.height(10.0),
-      horizontal: AppSize.width(36.0),
-    ),
-    child: Column(
-      children: [
-        GestureDetector(
-          child: basicSlider,
-          onTap: () {
-            Navigator.push(viewService.context,
-                FadeRoute(pageBuilder: (context) {
-              return _photoViewPage(state, dispatch, viewService);
-            }));
-          },
-        ),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          IconButton(
-            icon: Image.asset(
-              'assets/images/Icon_last_pre.png',
-              width: AppSize.width(70),
-              height: AppSize.width(70),
-            ),
-            onPressed: () => basicSlider.previousPage(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.linear,
-            ),
-          ),
-          Text(
-            '课程PPT ${pptIndex + 1}/${_images.length}',
-            style: TextStyle(
-              fontSize: AppSize.sp(32),
-              color: Color(0xFF666666),
-            ),
-          ),
-          IconButton(
-            icon: Image.asset(
-              'assets/images/Icon_next_pre.png',
-              width: AppSize.width(70),
-              height: AppSize.width(70),
-            ),
-            onPressed: () => basicSlider.nextPage(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.linear,
-            ),
-          ),
-        ]),
-      ],
-    ),
-  );
+ return Container(
+   padding: EdgeInsets.symmetric(
+     vertical: AppSize.height(10.0),
+     horizontal: AppSize.width(36.0),
+   ),
+   child: Column(
+     children: [
+       GestureDetector(
+         child: basicSlider,
+         onTap: () {
+           Navigator.push(viewService.context,
+               FadeRoute(pageBuilder: (context) {
+             return _photoViewPage(state, dispatch, viewService);
+           }));
+         },
+       ),
+       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+         IconButton(
+           icon: Image.asset(
+             'assets/images/Icon_last_pre.png',
+             width: AppSize.width(70),
+             height: AppSize.width(70),
+           ),
+           onPressed: () => basicSlider.previousPage(
+             duration: Duration(milliseconds: 300),
+             curve: Curves.linear,
+           ),
+         ),
+         Text(
+           '课程PPT ${pptIndex + 1}/${_images.length}',
+           style: TextStyle(
+             fontSize: AppSize.sp(32),
+             color: Color(0xFF666666),
+           ),
+         ),
+         IconButton(
+           icon: Image.asset(
+             'assets/images/Icon_next_pre.png',
+             width: AppSize.width(70),
+             height: AppSize.width(70),
+           ),
+           onPressed: () => basicSlider.nextPage(
+             duration: Duration(milliseconds: 300),
+             curve: Curves.linear,
+           ),
+         ),
+       ]),
+     ],
+   ),
+ );
 }
