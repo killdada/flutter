@@ -5,12 +5,14 @@ class CourseTabState implements Cloneable<CourseTabState> {
   CatalogsModel courseTabData;
   CourseDetailModel courseDetail;
   bool showAll;
+  int pptIndex;
 
   @override
   CourseTabState clone() {
     return CourseTabState()
       ..courseTabData = courseTabData
       ..showAll = showAll
+      ..pptIndex = pptIndex
       ..courseDetail = courseDetail;
   }
 }

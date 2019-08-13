@@ -10,6 +10,7 @@ enum CourseDetailAction {
   changeCurrentTab,
   changeShowAll,
   changeCollect,
+  changePptIndex
 }
 
 class CourseDetailActionCreator {
@@ -42,5 +43,9 @@ class CourseDetailActionCreator {
       CourseDetailAction.changeCurrentTab,
       payload: catalog,
     );
+  }
+
+  static Action changePptIndex(int index) {
+    return Action(CourseDetailAction.changePptIndex, payload: index);
   }
 }

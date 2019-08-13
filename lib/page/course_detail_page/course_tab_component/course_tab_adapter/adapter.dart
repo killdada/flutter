@@ -37,13 +37,19 @@ class _CourseTabConnector extends ConnOp<CourseTabState, List<ItemBean>> {
           'index': i,
           'showAll': state.showAll || count - 1 != i,
           'count': count,
+          'needDivision': state.courseTabData.ppt.isNotEmpty,
         }));
       }
-      result.add(ItemBean('title', {
-        'title': state.courseTabData.catalogName,
-        'desc': state.courseTabData.pptTitle,
-      }));
-      result.add(ItemBean('ppt', state.courseTabData.ppt));
+      if (state.courseTabData.ppt.isNotEmpty) {
+        result.add(ItemBean('title', {
+          'title': state.courseTabData.catalogName,
+          'desc': state.courseTabData.pptTitle,
+        }));
+        result.add(ItemBean(
+          'ppt',
+          {'list': state.courseTabData.ppt, 'index': state.pptIndex},
+        ));
+      }
     }
     return result;
   }

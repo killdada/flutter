@@ -16,7 +16,7 @@ Widget _catalogItem(
     child: InkWell(
       onTap: () {
         print('点击目录：');
-        // _buttonBarItemOnTap(index);
+        dispatch(CourseDetailActionCreator.changeCurrentTab(state['catalog']));
       },
       child: Column(
         children: <Widget>[
@@ -25,11 +25,11 @@ Widget _catalogItem(
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(
-                    left: AppSize.width(55), right: AppSize.width(58)),
+                    left: AppSize.width(38), right: AppSize.width(38)),
                 child: Text(
                   '${state['index'] + 1}',
                   style: TextStyle(
-                      fontSize: AppSize.sp(43), color: Color(0xFFBDBDBD)),
+                      fontSize: AppSize.sp(30), color: Color(0xFFBDBDBD)),
                 ),
               ),
               _catalogItemColum(state, dispatch, viewService),
@@ -45,25 +45,25 @@ Widget _catalogItem(
                   : Color(0x0000000),
               alignment: Alignment.bottomCenter,
               margin: EdgeInsets.only(
-                  left: AppSize.width(58),
-                  right: AppSize.width(58),
-                  top: AppSize.height(29)),
+                  left: AppSize.width(35),
+                  right: AppSize.width(35),
+                  top: AppSize.height(30)),
               height: AppSize.height(2),
             ),
           ),
           Offstage(
             offstage: state['showAll'],
             child: Container(
-                height: AppSize.height(86),
+                height: AppSize.height(60),
                 margin: EdgeInsets.only(
-                    top: AppSize.height(72), bottom: AppSize.height(46)),
+                    top: AppSize.height(30), bottom: AppSize.height(32)),
                 child: Container(
                   alignment: Alignment.center,
                   child: FlatButton(
                     child: Text(
                       '查看全部课程',
                       style: TextStyle(
-                          fontSize: AppSize.sp(37), color: Color(0xFF4A4A4A)),
+                          fontSize: AppSize.sp(26), color: Color(0xFF4A4A4A)),
                     ),
                     onPressed: () {
                       dispatch(CourseDetailActionCreator.changeShowAll());
@@ -74,7 +74,8 @@ Widget _catalogItem(
                 )),
           ),
           Offstage(
-            offstage: state['count'] != state['index'] + 1,
+            offstage:
+                state['count'] != state['index'] + 1 || !state['needDivision'],
             child: Container(
               color: Color(0xFFF7F7FA),
               height: AppSize.height(10.0),
@@ -98,37 +99,35 @@ Widget _catalogItemColum(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Container(
-        // color: Colors.grey,
         margin:
             EdgeInsets.only(bottom: AppSize.width(20), top: AppSize.width(40)),
         width:
             MediaQuery.of(viewService.context).size.width - AppSize.width(190),
         child: Text(
           catalog.catalogName,
-          style: TextStyle(fontSize: AppSize.sp(43), color: Color(0xFF4A4A4A)),
+          style: TextStyle(fontSize: AppSize.sp(30), color: Color(0xFF4A4A4A)),
           textAlign: TextAlign.left,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
       ),
       Container(
-        // color: Colors.purple,
         alignment: Alignment.topLeft,
         child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(right: AppSize.width(26)),
+              margin: EdgeInsets.only(right: AppSize.width(15)),
               child: Image.asset(
                 'assets/images/icn_time.png',
-                width: AppSize.width(35.0),
-                height: AppSize.width(29.0),
+                width: AppSize.width(24.0),
+                height: AppSize.height(20.0),
               ),
             ),
             Container(
               child: Text(
                 catalog.playTime ?? '',
                 style: TextStyle(
-                    fontSize: AppSize.sp(35), color: Color(0xFF999999)),
+                    fontSize: AppSize.sp(24), color: Color(0xFF999999)),
               ),
             )
           ],

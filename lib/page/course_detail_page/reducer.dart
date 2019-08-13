@@ -15,6 +15,7 @@ Reducer<CourseDetailState> buildReducer() {
       CourseDetailAction.changeShowAll: _changeShowAll,
       CourseDetailAction.changeIndex: _changeIndex,
       CourseDetailAction.changeCollect: _changeCollect,
+      CourseDetailAction.changePptIndex: _changePptIndex,
     },
   );
 }
@@ -36,6 +37,7 @@ CourseDetailState _initData(CourseDetailState state, Action action) {
 CourseDetailState _changeCurrentTab(CourseDetailState state, Action action) {
   final CourseDetailState newState = state.clone();
   newState.currentCatalog = action.payload;
+  newState.pptIndex = 0;
   return newState;
 }
 
@@ -58,5 +60,11 @@ CourseDetailState _changeIndex(CourseDetailState state, Action action) {
   } else {
     newState.index = 0;
   }
+  return newState;
+}
+
+CourseDetailState _changePptIndex(CourseDetailState state, Action action) {
+  final CourseDetailState newState = state.clone();
+  newState.pptIndex = action.payload;
   return newState;
 }

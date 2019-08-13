@@ -1,10 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:myapp/common/model/course-detail/course_detail_model.dart';
-
 
 import 'view.dart';
 
-class PptComponent extends Component<List<PptModel>> {
+class PptComponent extends Component<Map<String, dynamic>> {
   PptComponent()
       : super(
           view: buildView,

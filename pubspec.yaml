@@ -77,7 +77,10 @@ dependencies:
     git:
       url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_downloader.git
   wave: ^0.0.8
-
+  # https://github.com/serenader2014/flutter_carousel_slider
+  carousel_slider:
+    git:
+      url: git@github.com:serenader2014/flutter_carousel_slider.git
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -8,9 +8,10 @@ Widget buildView(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: AppSize.height(15.0),
-          horizontal: AppSize.width(32.0),
+        padding: EdgeInsets.only(
+          top: AppSize.height(30.0),
+          bottom: AppSize.height(15.0),
+          left: AppSize.width(40.0),
         ),
         child: Text(
           state['title'],
@@ -22,7 +23,7 @@ Widget buildView(
         ),
       ),
       Offstage(
-        offstage: state['desc'] == '',
+        offstage: state['desc'] == null,
         child: Padding(
           padding: EdgeInsets.symmetric(
             vertical: AppSize.height(20.0),

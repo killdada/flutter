@@ -17,27 +17,24 @@ Widget _buttonBarItem(
 ) {
   return GestureDetector(
       onTap: () {
-        // _buttonBarItemOnTap(index);
         dispatch(CourseTabActionCreator.onChangeCurrentTab(catalog));
       },
       child: Container(
         margin: EdgeInsets.only(
-          left: AppSize.width(46),
-          right: AppSize.width(40),
-          top: AppSize.height(25),
-          bottom: AppSize.height(25),
+          left: AppSize.width(32),
+          right: AppSize.width(20),
         ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppSize.width(6)),
+            borderRadius: BorderRadius.circular(AppSize.width(4)),
             color: Color(0xFFF3F3F3)),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: AppSize.width(32), vertical: AppSize.height(27)),
+              horizontal: AppSize.width(28), vertical: AppSize.height(1.0)),
           child: Text(
             catalog.catalogAlias,
             style: TextStyle(
-              fontSize: AppSize.sp(35),
+              fontSize: AppSize.sp(24),
               color: isActive ? Color(0xFF1D9DFF) : Color(0xFF666666),
             ),
           ),
@@ -54,8 +51,8 @@ Widget buildView(
     children: <Widget>[
       Container(
         // color: Colors.red,
-        margin: EdgeInsets.symmetric(vertical: AppSize.height(48)),
-        height: AppSize.height(160),
+        margin: EdgeInsets.only(top: AppSize.height(40)),
+        height: AppSize.height(70),
         alignment: Alignment.center,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -69,6 +66,8 @@ Widget buildView(
       Expanded(
         flex: 1,
         child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           itemBuilder: adapter.itemBuilder,
           itemCount: adapter.itemCount,
         ),

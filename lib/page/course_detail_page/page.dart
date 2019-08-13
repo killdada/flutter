@@ -4,6 +4,7 @@ import 'package:myapp/page/course_detail_page/course_tab_component/component.dar
 import 'package:myapp/page/course_detail_page/practice_tab_component/component.dart';
 import 'package:myapp/page/course_detail_page/vedio_component/component.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/component.dart';
+import 'package:myapp/widget/keep_alive_wrapper.dart';
 
 import 'effect.dart';
 import 'reducer.dart';
@@ -24,6 +25,7 @@ class CourseDetailPage extends Page<CourseDetailState, Map<String, dynamic>> {
           initState: initState,
           effect: buildEffect(),
           reducer: buildReducer(),
+          wrapper: keepAliveWrapper,
           view: buildView,
           dependencies: Dependencies<CourseDetailState>(
               adapter: null,

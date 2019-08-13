@@ -13,6 +13,7 @@ import 'course_tab_component/state.dart';
 class CourseDetailState implements Cloneable<CourseDetailState> {
   int courseId;
   int index = 0; // 是显示下载的，还是显示目录的
+  int pptIndex = 0;
   CourseDetailModel courseDetail;
   CatalogsModel currentCatalog;
   TabController tabController;
@@ -27,7 +28,8 @@ class CourseDetailState implements Cloneable<CourseDetailState> {
       ..courseDetail = courseDetail
       ..tabController = tabController
       ..showAll = showAll
-      ..index = index;
+      ..index = index
+      ..pptIndex = pptIndex;
   }
 }
 
@@ -79,15 +81,16 @@ class VedioOperationConnector extends Reselect2<CourseDetailState,
   }
 }
 
-class CourseTabConnector extends Reselect3<CourseDetailState, CourseTabState,
-    CatalogsModel, CourseDetailModel, bool> {
+class CourseTabConnector extends Reselect4<CourseDetailState, CourseTabState,
+    CatalogsModel, CourseDetailModel, bool, int> {
   @override
   CourseTabState computed(
-      CatalogsModel sub0, CourseDetailModel sub1, bool sub2) {
+      CatalogsModel sub0, CourseDetailModel sub1, bool sub2, int sub3) {
     return CourseTabState()
       ..courseTabData = sub0
       ..courseDetail = sub1
-      ..showAll = sub2;
+      ..showAll = sub2
+      ..pptIndex = sub3;
   }
 
   @override
@@ -103,6 +106,11 @@ class CourseTabConnector extends Reselect3<CourseDetailState, CourseTabState,
   @override
   bool getSub2(CourseDetailState state) {
     return state.showAll;
+  }
+
+  @override
+  int getSub3(CourseDetailState state) {
+    return state.pptIndex;
   }
 
   @override
