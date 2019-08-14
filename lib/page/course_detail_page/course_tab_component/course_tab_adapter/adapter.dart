@@ -26,7 +26,7 @@ class _CourseTabConnector extends ConnOp<CourseTabState, List<ItemBean>> {
   @override
   List<ItemBean> get(CourseTabState state) {
     List<ItemBean> result = [];
-    if (state.courseDetail != null) {
+    if (state.courseDetail != null && state.courseDetail.catalogs.isNotEmpty) {
       result.add(ItemBean('title', {'title': '课程目录'}));
       final List<CatalogsModel> catalogs = state.courseDetail.catalogs;
       int count = state.showAll ? catalogs.length : 3;

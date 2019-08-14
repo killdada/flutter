@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/page/course_detail_page/vedio_page/page.dart';
+import 'package:myapp/widget/list_placeholder.dart';
 import 'package:myapp/widget/video_player_gather.dart';
 
 import 'state.dart';
@@ -32,6 +34,9 @@ Widget _bodyWidget(
     controller: state.tabController,
     children: tabs.map((item) {
       if (item == '开始上课') {
+        if (state.courseDetail == null || state.courseDetail.catalogs.isEmpty) {
+          return ListPlaceholder.empty();
+        }
         return viewService.buildComponent('courseTab');
       } else if (item == '课后练习') {
         return viewService.buildComponent('practiceTab');
@@ -74,10 +79,16 @@ Widget buildView(
       child: NestedScrollView(
         physics: NeverScrollableScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          List<Widget> child = [
-            viewService.buildComponent('vedio'),
-            viewService.buildComponent('vedioOperation'),
-          ];
+          List<Widget> child = [];
+          if (state.courseDetail != null) {
+            child.add(
+              VedioPage().buildPage({
+                'catalog': state.currentCatalog,
+                'coverUrl': state.courseDetail.imgUrl
+              }),
+            );
+          }
+          child.add(viewService.buildComponent('vedioOperation'));
           if (state.tabController != null) {
             child.add(SliverPersistentHeader(
               key: Key(state.index.toString()),

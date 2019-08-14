@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_video_player/flutter_video_player.dart';
 import 'package:myapp/common/constant/style.dart';
@@ -68,6 +68,10 @@ class VideoPlayerGatherController {
   Sink<VideoPlayerGatherValue> _valueSink;
   Stream<VideoPlayerGatherValue> valueStream;
 
+  VideoPlayerController getPlayController() {
+    return _playerController;
+  }
+
   void _playerListener() {
     _gatherValue = _gatherValue.copyWith(
       position: _playerController.value.position,
@@ -88,13 +92,6 @@ class VideoPlayerGatherController {
     _playerController?.dispose();
   }
 
-  static VideoPlayerGatherController of(BuildContext context) {
-    final provider =
-        context.inheritFromWidgetOfExactType(_VideoPlayerGatherProvider)
-            as _VideoPlayerGatherProvider;
-    return provider.controller;
-  }
-
   void updateOpacity(double opacity) {
     _gatherValue = _gatherValue.copyWith(opacity: opacity);
     _valueSink.add(_gatherValue);
@@ -102,10 +99,7 @@ class VideoPlayerGatherController {
 
   void setCoverUrl(String url) {
     _playerController.setWidgets(
-      overlay: _VideoPlayerGatherProvider(
-        controller: this,
-        child: _OverlayWidget(url),
-      ),
+      overlay: _OverlayWidget(url, this),
     );
 
     _gatherValue = _gatherValue.copyWith(coverUrl: url);
@@ -153,23 +147,6 @@ class VideoPlayerGatherController {
   Duration watchDuration() {
     return _playerController.watchDuration;
   }
-}
-
-/// Provider
-class _VideoPlayerGatherProvider extends InheritedWidget {
-  final VideoPlayerGatherController controller;
-
-  _VideoPlayerGatherProvider({
-    Key key,
-    @required this.controller,
-    @required Widget child,
-  })  : assert(controller != null),
-        assert(child != null),
-        super(key: key, child: child);
-
-  @override
-  bool updateShouldNotify(_VideoPlayerGatherProvider oldWidget) =>
-      controller != oldWidget.controller;
 }
 
 class SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
@@ -224,10 +201,7 @@ class SliverOpacityHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  double get minExtent => minHeight;
-
-  @override
-  // double get minExtent => controller.isPlaying() ? maxHeight : minHeight;
+  double get minExtent => controller.isPlaying() ? maxHeight : minHeight;
 
   @override
   Widget build(
@@ -239,20 +213,18 @@ class SliverOpacityHeader extends SliverPersistentHeaderDelegate {
     double totalOffset = maxExtent - minExtent;
     double opacity = 0;
 
-    // if (controller.isPlaying()) {
-    //   top = 0;
-    // } else {
-    //   if (shrinkOffset >= totalOffset) {
-    //     top = -totalOffset;
-    //     opacity = 1.0;
-    //   } else {
-    //     top = -shrinkOffset;
-    //     opacity = shrinkOffset / totalOffset;
-    //   }
-    // }
-
-    // controller.updateOpacity(opacity);
-
+    if (controller.isPlaying()) {
+      top = 0;
+    } else {
+      if (shrinkOffset >= totalOffset) {
+        top = -totalOffset;
+        opacity = 1.0;
+      } else {
+        top = -shrinkOffset;
+        opacity = shrinkOffset / totalOffset;
+      }
+    }
+    controller.updateOpacity(opacity);
     final topPadding = MediaQuery.of(context).padding.top;
 
     return Stack(
@@ -270,14 +242,14 @@ class SliverOpacityHeader extends SliverPersistentHeaderDelegate {
             child: child,
           ),
         ),
-        // Positioned.fill(
-        //   child: Offstage(
-        //     offstage: controller.isPlaying() || opacity < 0.1,
-        //     child: Container(
-        //       color: const Color(0xFF999999).withOpacity(opacity),
-        //     ),
-        //   ),
-        // ),
+        Positioned.fill(
+          child: Offstage(
+            offstage: controller.isPlaying() || opacity < 0.1,
+            child: Container(
+              color: const Color(0xFF999999).withOpacity(opacity),
+            ),
+          ),
+        ),
         Container(
           padding: EdgeInsets.only(top: topPadding),
           alignment: Alignment.topCenter,
@@ -322,12 +294,13 @@ class SliverStickerHeader extends SliverPersistentHeaderDelegate {
 }
 
 /// AppBar
-class _VideoAppBar extends StatelessWidget {
+class VideoAppBar extends StatelessWidget {
+  final VideoPlayerGatherController controller;
+
+  VideoAppBar(this.controller, {Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    VideoPlayerGatherController controller =
-        VideoPlayerGatherController.of(context);
-
     return StreamBuilder(
       stream: controller.valueStream,
       initialData: VideoPlayerGatherValue.empty(),
@@ -444,12 +417,12 @@ class _VideoAppBar extends StatelessWidget {
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(
-                AppSize.width(86.0),
+                AppSize.width(60.0),
               ),
             ),
           ),
-          width: AppSize.width(230.0),
-          height: AppSize.height(86.0),
+          width: AppSize.width(180.0),
+          height: AppSize.height(60.0),
           alignment: Alignment.center,
           padding: EdgeInsets.only(
             right: AppSize.width(20.0),
@@ -483,14 +456,12 @@ class _VideoAppBar extends StatelessWidget {
 /// _OverlayWidget
 class _OverlayWidget extends StatelessWidget {
   final String coverUrl;
+  final VideoPlayerGatherController controller;
 
-  _OverlayWidget(this.coverUrl);
+  _OverlayWidget(this.coverUrl, this.controller);
 
   @override
   Widget build(BuildContext context) {
-    VideoPlayerGatherController controller =
-        VideoPlayerGatherController.of(context);
-
     return StreamBuilder(
       stream: controller.valueStream,
       initialData: VideoPlayerGatherValue(coverUrl: coverUrl),
@@ -535,88 +506,21 @@ class _OverlayWidget extends StatelessWidget {
 }
 
 /// VideoScaffold
-class VideoScaffold extends StatefulWidget {
-  final VideoPlayerGatherController controller;
-  final PreferredSize header;
-  final Widget body;
 
-  VideoScaffold({
-    @required this.controller,
-    this.header,
-    this.body,
-  }) : assert(controller != null);
+// bool _isPlaying = false;
 
-  @override
-  _VideoScaffoldState createState() {
-    return _VideoScaffoldState();
-  }
-}
+//   void _listener(VideoPlayerGatherValue value) {
+//     var playing = widget.controller.isPlaying();
+//     if (_isPlaying != playing) {
+//       if (!_isPlaying && playing) {
+//         setState(() {});
+//       }
+//       _isPlaying = playing;
+//     }
+//   }
 
-class _VideoScaffoldState extends State<VideoScaffold> {
-  bool _isPlaying = false;
-
-  void _listener(VideoPlayerGatherValue value) {
-    var playing = widget.controller.isPlaying();
-    if (_isPlaying != playing) {
-      if (!_isPlaying && playing) {
-        setState(() {});
-      }
-      _isPlaying = playing;
-    }
-  }
-
-  @override
-  void initState() {
-    widget.controller.valueStream.listen(_listener);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: _VideoPlayerGatherProvider(
-          controller: widget.controller,
-          child: NestedScrollView(
-            headerSliverBuilder: _headerSliverBuilder,
-            body: widget.body ?? Container(),
-          ),
-        ),
-      ),
-    );
-  }
-
-  List<Widget> _headerSliverBuilder(
-    BuildContext context,
-    bool innerBoxIsScrolled,
-  ) {
-    final topPadding = MediaQuery.of(context).padding.top;
-
-    List<Widget> widgets = [
-      SliverPersistentHeader(
-        pinned: true,
-        delegate: SliverOpacityHeader(
-          controller: widget.controller,
-          minHeight: Dimens.appBarHeight + topPadding,
-          maxHeight: MediaQuery.of(context).size.width * 0.62 + topPadding,
-          appBar: _VideoAppBar(),
-          child: SampleVideoPlayer(widget.controller._playerController),
-        ),
-      ),
-    ];
-    if (widget.header != null) {
-      widgets.add(
-        SliverPersistentHeader(
-          pinned: true,
-          delegate: SliverStickerHeader(
-            height: widget.header.preferredSize.height,
-            child: widget.header,
-          ),
-        ),
-      );
-    }
-
-    return widgets;
-  }
-}
+//   @override
+//   void initState() {
+//     widget.controller.valueStream.listen(_listener);
+//     super.initState();
+//   }
