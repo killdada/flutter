@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/page.dart';
 import 'package:myapp/widget/list_placeholder.dart';
 import 'package:myapp/widget/video_player_gather.dart';
@@ -72,7 +74,12 @@ Widget _body(CourseDetailState state, Dispatch dispatch,
 Widget buildView(
     CourseDetailState state, Dispatch dispatch, ViewService viewService) {
   List<String> tabs = state.index == 0 ? ["开始上课", "课后练习"] : ['视频', '音频'];
-
+  if (state.courseDetail == null) {
+    return Container(
+      color: Colors.white,
+      child: CupertinoActivityIndicator(),
+    );
+  }
   return Scaffold(
     body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,

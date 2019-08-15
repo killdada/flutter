@@ -62,9 +62,9 @@ dependencies:
   image_handle:
     git:
       url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_image_handle.git
-  flutter_video_player:
-    git:
-      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_video_player.git
+  #   flutter_video_player:
+  #     git:
+  #       url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_video_player.git
   # https://github.com/flutter/plugins/tree/master/packages/image_picker
   image_picker: ^0.6.0+10
   # https://github.com/fluttercommunity/flutter_downloader
@@ -77,6 +77,11 @@ dependencies:
     git:
       url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_downloader.git
   wave: ^0.0.8
+
+  chewie: ^0.9.7
+  auto_orientation: ^1.0.5
+  video_player: ^0.10.1+6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

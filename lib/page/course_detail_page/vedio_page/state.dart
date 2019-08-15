@@ -1,12 +1,17 @@
 import 'dart:async';
 
+import 'package:chewie/chewie.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/widget/video_player_gather.dart';
+import 'package:video_player/video_player.dart';
 
 class VedioState implements Cloneable<VedioState> {
   CatalogsModel catalog;
-  VideoPlayerGatherController controller = VideoPlayerGatherController();
+  dynamic controller;
+//   VideoPlayerGatherController controller = VideoPlayerGatherController();
+  VideoPlayerController videoController;
+  ChewieController chewieController;
   bool isSimple = false;
   String coverUrl;
   bool resumePlay = false;
@@ -15,6 +20,8 @@ class VedioState implements Cloneable<VedioState> {
   @override
   VedioState clone() {
     return VedioState()
+      ..videoController = videoController
+      ..chewieController = chewieController
       ..isSimple = isSimple
       ..coverUrl = coverUrl
       ..resumePlay = resumePlay

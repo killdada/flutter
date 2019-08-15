@@ -7,9 +7,14 @@ enum VedioAction {
   changeToggleScreen,
   changeViweMode,
   changeResumePlay,
+  changeVideo
 }
 
 class VedioActionCreator {
+  static Action changeVideo(String url) {
+    return Action(VedioAction.changeVideo, payload: url);
+  }
+
   static Action changeFullScreen(bool value) {
     return Action(VedioAction.changeFullScreen, payload: value);
   }
