@@ -7,6 +7,18 @@ enum ActionType {
   feedback,
 }
 
+
+enum PlayType {
+  video,
+  audio,
+}
+
+enum VideoModel {
+  simple,
+  complex,
+}
+
+
 class Operations {
   String name;
   String img;

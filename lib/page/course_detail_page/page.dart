@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/page/course_detail_page/course_tab_component/component.dart';
 import 'package:myapp/page/course_detail_page/practice_tab_component/component.dart';
-import 'package:myapp/page/course_detail_page/vedio_component/component.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/component.dart';
 import 'package:myapp/widget/keep_alive_wrapper.dart';
 
@@ -30,7 +29,6 @@ class CourseDetailPage extends Page<CourseDetailState, Map<String, dynamic>> {
           dependencies: Dependencies<CourseDetailState>(
               adapter: null,
               slots: <String, Dependent<CourseDetailState>>{
-                'vedio': VedioConnector() + VedioComponent(),
                 'vedioOperation':
                     VedioOperationConnector() + VedioOperationComponent(),
                 'courseTab': CourseTabConnector() + CourseTabComponent(),

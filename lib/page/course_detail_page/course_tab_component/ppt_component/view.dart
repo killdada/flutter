@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/common/utils/appsize.dart';
-//import 'package:carousel_slider/carousel_slider.dart';
 import 'package:myapp/page/course_detail_page/action.dart';
 import 'package:myapp/widget/carousel_slider.dart';
 import 'package:myapp/widget/photo_view.dart';

@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:chewie/chewie.dart';
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/rendering.dart';
+import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/widget/video_player_gather.dart';
 import 'package:video_player/video_player.dart';
+
 
 class VedioState implements Cloneable<VedioState> {
   CatalogsModel catalog;
@@ -17,6 +20,9 @@ class VedioState implements Cloneable<VedioState> {
   bool resumePlay = false;
   bool isToggleScreen = false;
   bool isFullScreen = false;
+  PlayType playType = PlayType.video;
+  VideoModel videoModel = VideoModel.complex;
+  
   @override
   VedioState clone() {
     return VedioState()

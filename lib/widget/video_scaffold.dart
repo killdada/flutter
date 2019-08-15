@@ -19,7 +19,6 @@ class _VideoScaffoldState extends State<VideoScaffold> {
       DeviceOrientation.portraitDown,
     ]);
     AutoOrientation.landscapeAutoMode();
-    // AutoOrientation.portraitMode();
     super.initState();
   }
 
@@ -30,7 +29,6 @@ class _VideoScaffoldState extends State<VideoScaffold> {
       DeviceOrientation.portraitDown,
     ]);
     AutoOrientation.portraitAutoMode();
-    // AutoOrientation.portraitMode();
     super.dispose();
   }
 

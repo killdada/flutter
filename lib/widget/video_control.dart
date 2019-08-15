@@ -8,6 +8,8 @@ import 'package:chewie/src/cupertino_progress_bar.dart';
 import 'package:chewie/src/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/common/constant/constant.dart';
+import 'package:myapp/common/utils/appsize.dart';
 import 'package:open_iconic_flutter/open_iconic_flutter.dart';
 import 'package:video_player/video_player.dart';
 
@@ -15,10 +17,18 @@ class CupertinoControls extends StatefulWidget {
   const CupertinoControls({
     @required this.backgroundColor,
     @required this.iconColor,
+    this.changeModel,
+    this.changePlayType,
+    this.playType,
+    this.videoModel,
   });
 
+  final Function changeModel; 
+  final Function changePlayType; 
   final Color backgroundColor;
   final Color iconColor;
+  final PlayType playType;
+  final VideoModel videoModel;
 
   @override
   State<StatefulWidget> createState() {
@@ -150,7 +160,8 @@ class _CupertinoControlsState extends State<CupertinoControls> {
                         // _buildSkipForward(iconColor, barHeight),
                         _buildPosition(iconColor),
                         _buildProgressBar(),
-                        _buildRemaining(iconColor)
+                        _buildRemaining(iconColor),
+                        _buildFullScreenBtn(controller,iconColor, barHeight),
                       ],
                     ),
             ),
@@ -159,6 +170,26 @@ class _CupertinoControlsState extends State<CupertinoControls> {
       ),
     );
   }
+
+  Widget _buildFullScreenBtn(VideoPlayerController controller,
+    Color iconColor,
+    double barHeight,) {
+    return GestureDetector(
+      onTap: _onExpandCollapse,
+      child: Container(
+        height: barHeight,
+        color: Colors.transparent,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Center(
+          child: Icon(
+            chewieController.isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildLive(Color iconColor) {
     return Padding(
@@ -385,6 +416,92 @@ class _CupertinoControlsState extends State<CupertinoControls> {
       ),
     );
   }
+  
+  
+  GestureDetector _topBtnWrapper(Function onTap, String img,{ double width, Color color, Color bgColor }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedOpacity(
+        opacity: _hideStuff ? 0.0 : 1.0,
+        duration: Duration(milliseconds: 300),
+          child: Container(
+          color: bgColor ?? Colors.transparent,
+            child: Image.asset(
+              img,
+              width: AppSize.width(50.0),
+              color: color ?? Colors.white,
+            ),
+          ),
+      ),
+    );
+  }
+
+  Widget _buildBackBtnChild() {
+    return Container(
+        color: Colors.transparent,
+          child: Image.asset(
+            'assets/images/icn_nav_back.png',
+            width: AppSize.width(50.0),
+            color:  Colors.white,
+          ),
+        );
+  }
+
+  Widget _buildBackBtn(
+    double barHeight) {
+
+    return GestureDetector(
+      onTap: () { 
+        if (chewieController.isFullScreen) {
+          chewieController.exitFullScreen();
+        } else {
+          Navigator.pop(context);
+        }
+      },
+      child: chewieController.isFullScreen ?  AnimatedOpacity(
+        opacity: _hideStuff ? 0.0 : 1.0,
+        duration: Duration(milliseconds: 300),
+        child: _buildBackBtnChild()
+        ) : _buildBackBtnChild(),
+    );
+  }
+
+
+  GestureDetector _frequencyBtn(
+    Color backgroundColor,
+    Color iconColor,
+    double barHeight,
+    double buttonPadding,
+  ) {
+    return _topBtnWrapper(
+      () {
+        if (widget.changePlayType != null) {
+          widget.changePlayType();
+        }
+      },
+      'assets/images/icn_frequency.png',
+      color:  widget.playType == PlayType.audio ? Colors.pinkAccent : Colors.white,
+    );
+  }
+
+   GestureDetector _transformBtn(
+    Color backgroundColor,
+    Color iconColor,
+    double barHeight,
+    double buttonPadding,
+  ) {
+   
+   return _topBtnWrapper(
+      () {
+        if (widget.changePlayType != null) {
+          widget.changePlayType();
+        }
+      },
+      'assets/images/icn_transform.png',
+      color:   widget.videoModel == VideoModel.simple ? Colors.pinkAccent : Colors.white,
+    );
+  }
+
 
   Widget _buildTopBar(
     Color backgroundColor,
@@ -401,15 +518,15 @@ class _CupertinoControlsState extends State<CupertinoControls> {
       ),
       child: Row(
         children: <Widget>[
-          chewieController.allowFullScreen
-              ? _buildExpandButton(
-                  backgroundColor, iconColor, barHeight, buttonPadding)
-              : Container(),
-          //   chewieController.allowFullScreen
-          //       ? _buildExpandButton(
-          //           backgroundColor, iconColor, barHeight, buttonPadding)
-          //       : Container(),
+           _buildBackBtn(barHeight),
+          // chewieController.allowFullScreen
+          //     ? _buildExpandButton(
+          //         backgroundColor, iconColor, barHeight, buttonPadding)
+          //     : Container(),
           Expanded(child: Container()),
+          _frequencyBtn(backgroundColor, iconColor, barHeight, buttonPadding),
+          _transformBtn(backgroundColor, iconColor, barHeight, buttonPadding),
+          // _buildTitleWidget(),
           chewieController.allowMuting
               ? _buildMuteButton(controller, backgroundColor, iconColor,
                   barHeight, buttonPadding)
