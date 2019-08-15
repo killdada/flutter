@@ -2,6 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
+import 'package:myapp/widget/video_control.dart';
 import 'package:myapp/widget/video_scaffold.dart';
 import 'package:video_player/video_player.dart';
 
@@ -35,10 +36,15 @@ VedioState _changeVideo(VedioState state, Action action) {
       autoPlay: true,
       fullScreenByDefault: false,
       looping: false,
+      allowMuting: false,
       deviceOrientationsAfterFullScreen: [
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown
       ],
+      customControls: CupertinoControls(
+        backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
+        iconColor: Color.fromARGB(255, 200, 200, 200),
+      ),
       placeholder: new Center(
         child: Text('1'),
       ),
