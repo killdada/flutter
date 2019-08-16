@@ -51,8 +51,10 @@ class CourseDetailActionCreator {
       payload: catalog,
     );
   }
-
-  static Action changePptIndex(int index) {
-    return Action(CourseDetailAction.changePptIndex, payload: index);
+  static Action changePptIndex(int index, {bool needSeek: true}) {
+    return Action(CourseDetailAction.changePptIndex, payload: {
+      'index': index,
+      'needSeek': needSeek,
+      });
   }
 }

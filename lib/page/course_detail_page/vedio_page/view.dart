@@ -10,27 +10,19 @@ import 'state.dart';
 
 Widget buildView(VedioState state, Dispatch dispatch, ViewService viewService) {
   final topPadding = MediaQuery.of(viewService.context).padding.top;
-//   return Container(
-//     color: Colors.black,
-//     child: Chewie(
-//       controller: state.chewieController,
-//     ),
-//   );
+
   return SliverPersistentHeader(
     pinned: true,
     delegate: SliverOpacityHeader(
-      //   controller: state.controller,
       minHeight: Dimens.appBarHeight + topPadding,
       maxHeight:
           MediaQuery.of(viewService.context).size.width * 0.62 + topPadding,
-      //   appBar: VideoAppBar(state.controller),
       child: Container(
         color: Colors.black,
         child: Chewie(
           controller: state.chewieController,
         ),
       ),
-      //   child: SampleVideoPlayer(state.controller.getPlayController()),
     ),
   );
 }

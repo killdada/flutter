@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart' hide Action;
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
 import 'package:myapp/common/constant/constant.dart';
+import 'package:myapp/page/course_detail_page/vedio_page/chewie.dart';
 import 'package:myapp/widget/video_control.dart';
 import 'package:myapp/widget/video_overlay.dart';
 import 'package:myapp/widget/video_scaffold.dart';
@@ -28,48 +29,9 @@ Reducer<VedioState> buildReducer() {
 
 VedioState _changeVideo(VedioState state, Action action) {
   final VedioState newState = state.clone();
-  VideoPlayerController videoController =
-      VideoPlayerController.network(action.payload);
-  CupertinoControls myController = CupertinoControls(
-    backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
-    iconColor: Color.fromARGB(255, 200, 200, 200),
-  );
-  ChewieController chewieController = ChewieController(
-      videoPlayerController: videoController,
-      aspectRatio: 16 / 9,
-      autoPlay: true,
-      fullScreenByDefault: false,
-      looping: false,
-      allowMuting: false,
-      deviceOrientationsAfterFullScreen: [
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown
-      ],
-      overlay: VideoOverlay(),
-      customControls: myController,
-      placeholder: new Center(
-        child: CupertinoActivityIndicator(),
-      ),
-      routePageBuilder: (BuildContext context, Animation<double> animation,
-          Animation<double> secondAnimation, provider) {
-        return AnimatedBuilder(
-          animation: animation,
-          builder: (BuildContext context, Widget child) {
-            return VideoScaffold(
-              child: Scaffold(
-                resizeToAvoidBottomPadding: false,
-                body: Container(
-                  alignment: Alignment.center,
-                  color: Colors.black,
-                  child: provider,
-                ),
-              ),
-            );
-          },
-        );
-      });
-  newState.videoController = videoController;
-  newState.chewieController = chewieController;
+  Map controllers =  ChewiePlay.init(action.payload);
+  newState.videoController = controllers['videoController'];
+  newState.chewieController = controllers['chewieController'];
   return newState;
 }
 

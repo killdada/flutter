@@ -24,7 +24,7 @@ class CourseDetailPage extends Page<CourseDetailState, Map<String, dynamic>> {
           initState: initState,
           effect: buildEffect(),
           reducer: buildReducer(),
-          wrapper: keepAliveWrapper,
+          // wrapper: keepAliveWrapper,
           view: buildView,
           dependencies: Dependencies<CourseDetailState>(
               adapter: null,

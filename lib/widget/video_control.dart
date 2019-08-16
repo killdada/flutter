@@ -13,6 +13,7 @@ import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/event/event_bus.dart';
 import 'package:myapp/common/event/login_event.dart';
 import 'package:myapp/common/event/video_event.dart';
+import 'package:myapp/common/model/course-detail/index.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/common/utils/data_utils.dart';
 import 'package:open_iconic_flutter/open_iconic_flutter.dart';
@@ -48,10 +49,27 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   @override
   void initState() {
     super.initState();
+
+    // 精简模式下，ppt切视频
+    MyEventBus.event.on<ChangePptIndex>().listen((event) {
+       if (videoModel == VideoModel.simple && event.neewSeekTo) {
+          PptModel ppt = event.ppt;
+           print('简洁模式下ppk开始时间 :${ppt.timeStart}');
+        if ( ppt.timeStart != null) {
+          int start = ppt.timeStart==0?1:ppt.timeStart;
+          print('简洁模式下pp,seek video time to :$start');
+          controller.seekTo(Duration(seconds:start ));
+        } else {
+          print('ppt时间不合法,请检查接口和对应后台');
+        }
+      
+       }
+    });
   }
 
   void changeModel() {
-    setState(() {
+  if (mounted) {
+     setState(() {
       VideoModel model = videoModel == VideoModel.complex
           ? VideoModel.simple
           : VideoModel.complex;
@@ -62,14 +80,18 @@ class _CupertinoControlsState extends State<CupertinoControls> {
       ));
     });
   }
+  }
 
   void changePlayType() {
+  if (mounted) {
+
     setState(() {
       PlayType type =
           playType == PlayType.video ? PlayType.audio : PlayType.video;
       playType = type;
       MyEventBus.event.fire(VideoEvent(playType: type, videoModel: videoModel));
     });
+  }
   }
 
   VideoPlayerController controller;
@@ -687,6 +709,12 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   }
 
   void _updateState() {
+    // 精简模式下，随着视频播放，PPT自动翻页
+    if (videoModel == VideoModel.simple) {
+       var time =  controller.value.position.inSeconds;
+     print('当前播放时间:$time');
+      MyEventBus.event.fire(JumpPPtWithTime(time));
+    }
     setState(() {
       _latestValue = controller.value;
     });

@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/common/dao/course_detail_dao.dart';
+import 'package:myapp/common/event/event_bus.dart';
+import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/utils/data_utils.dart';
 import 'action.dart';
 import 'state.dart';
@@ -34,10 +36,8 @@ void _dispose(Action action, Context<VedioState> ctx) async {
 }
 
 void _init(Action action, Context<VedioState> ctx) {
-  VedioState state = ctx.state;
-  if (state.catalog != null) {
-    String videoUrl = state.catalog.videoUrl;
-    print('初始化七牛播放器视频链接：$videoUrl');
-    ctx.dispatch(VedioActionCreator.changeVideo(videoUrl));
-  }
+ MyEventBus.event.on<ChangePlayUrl>().listen((event) {
+         print('播放器视频链接改变：${event.url}');
+      ctx.dispatch(VedioActionCreator.changeVideo(event.url));
+    });
 }

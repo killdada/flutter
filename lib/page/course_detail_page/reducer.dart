@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:myapp/common/event/event_bus.dart';
+import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 
 import 'action.dart';
@@ -43,8 +45,11 @@ CourseDetailState _initData(CourseDetailState state, Action action) {
 
 CourseDetailState _changeCurrentTab(CourseDetailState state, Action action) {
   final CourseDetailState newState = state.clone();
+  if (newState.currentCatalog !=  action.payload) {
   newState.currentCatalog = action.payload;
-  newState.pptIndex = 0;
+    newState.pptIndex = 0;
+    MyEventBus.event.fire(ChangePlayUrl(newState.currentCatalog.videoUrl));
+  }
   return newState;
 }
 
@@ -72,6 +77,9 @@ CourseDetailState _changeIndex(CourseDetailState state, Action action) {
 
 CourseDetailState _changePptIndex(CourseDetailState state, Action action) {
   final CourseDetailState newState = state.clone();
-  newState.pptIndex = action.payload;
+  int index = action.payload['index'];
+  bool needSeek =  action.payload['needSeek'];
+  newState.pptIndex = index;
+  MyEventBus.event.fire(ChangePptIndex(newState.currentCatalog.ppt[index], needSeek));
   return newState;
 }

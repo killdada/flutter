@@ -22,7 +22,7 @@ class CourseDetailState implements Cloneable<CourseDetailState> {
   bool showAll = false;
   bool collected = false;
   VideoEvent videoEventData =
-      VideoEvent(playType: PlayType.video, videoModel: VideoModel.simple);
+      VideoEvent(playType: PlayType.video, videoModel: VideoModel.complex);
 
   @override
   CourseDetailState clone() {

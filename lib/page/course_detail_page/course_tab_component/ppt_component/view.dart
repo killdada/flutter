@@ -56,6 +56,7 @@ Widget buildView(
     String _uri = item.url;
     dynamic _image = _cacheBgImage(_uri);
     _images.add(_image);
+    print('<<${item.timeStart}>>');
   });
 
  final basicSlider = CarouselSlider(
