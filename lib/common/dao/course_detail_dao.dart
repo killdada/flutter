@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:myapp/common/http/address.dart';
 import 'package:myapp/common/http/http.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
@@ -19,5 +20,16 @@ class CourseDetailDao {
     } catch (e) {
       throw (e);
     }
+  }
+
+  static Future reportLearningTime(int courseId, int time) async {
+    return httpManager
+        .fetch('${Address.getReportLeaningTime()}/${courseId}/${time}',
+            option: Options(
+              method: 'post',
+            ),
+            params: {
+          'time': time,
+        });
   }
 }

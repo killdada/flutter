@@ -83,4 +83,9 @@ class Address {
   static getCourseDetail() {
     return "$host$_courseDetail";
   }
+
+  /// 学习时间上报
+  static getReportLeaningTime() {
+    return "$host$_reportLeaningTime";
+  }
 }

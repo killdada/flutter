@@ -1,18 +1,17 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:chewie/chewie.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/rendering.dart';
 import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
+import 'package:myapp/widget/video_control.dart';
 import 'package:myapp/widget/video_player_gather.dart';
 import 'package:video_player/video_player.dart';
 
-
 class VedioState implements Cloneable<VedioState> {
   CatalogsModel catalog;
-  dynamic controller;
-//   VideoPlayerGatherController controller = VideoPlayerGatherController();
   VideoPlayerController videoController;
   ChewieController chewieController;
   bool isSimple = false;
@@ -20,12 +19,12 @@ class VedioState implements Cloneable<VedioState> {
   bool resumePlay = false;
   bool isToggleScreen = false;
   bool isFullScreen = false;
-  PlayType playType = PlayType.video;
-  VideoModel videoModel = VideoModel.complex;
-  
+  int courseId;
+
   @override
   VedioState clone() {
     return VedioState()
+      ..courseId = courseId
       ..videoController = videoController
       ..chewieController = chewieController
       ..isSimple = isSimple
@@ -33,15 +32,16 @@ class VedioState implements Cloneable<VedioState> {
       ..resumePlay = resumePlay
       ..isToggleScreen = isToggleScreen
       ..isFullScreen = isFullScreen
-      ..catalog = catalog
-      ..controller = controller;
+      ..catalog = catalog;
   }
 }
 
 VedioState initState(Map<String, dynamic> args) {
   CatalogsModel catalog = args['catalog'];
   String coverUrl = args['coverUrl'];
+  int courseId = args['courseId'];
   return VedioState()
     ..catalog = catalog
+    ..courseId = courseId
     ..coverUrl = coverUrl;
 }

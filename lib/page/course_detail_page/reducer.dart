@@ -16,8 +16,15 @@ Reducer<CourseDetailState> buildReducer() {
       CourseDetailAction.changeIndex: _changeIndex,
       CourseDetailAction.changeCollect: _changeCollect,
       CourseDetailAction.changePptIndex: _changePptIndex,
+      CourseDetailAction.changeVideoEvent: _changeVideoEvent,
     },
   );
+}
+
+CourseDetailState _changeVideoEvent(CourseDetailState state, Action action) {
+  final CourseDetailState newState = state.clone();
+  newState.videoEventData = action.payload;
+  return newState;
 }
 
 CourseDetailState _initData(CourseDetailState state, Action action) {

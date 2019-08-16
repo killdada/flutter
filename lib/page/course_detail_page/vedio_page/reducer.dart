@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chewie/chewie.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart' hide Action;
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
 import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/widget/video_control.dart';
+import 'package:myapp/widget/video_overlay.dart';
 import 'package:myapp/widget/video_scaffold.dart';
 import 'package:video_player/video_player.dart';
 
@@ -27,6 +30,10 @@ VedioState _changeVideo(VedioState state, Action action) {
   final VedioState newState = state.clone();
   VideoPlayerController videoController =
       VideoPlayerController.network(action.payload);
+  CupertinoControls myController = CupertinoControls(
+    backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
+    iconColor: Color.fromARGB(255, 200, 200, 200),
+  );
   ChewieController chewieController = ChewieController(
       videoPlayerController: videoController,
       aspectRatio: 16 / 9,
@@ -38,18 +45,8 @@ VedioState _changeVideo(VedioState state, Action action) {
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown
       ],
-      customControls: CupertinoControls(
-        backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
-        iconColor: Color.fromARGB(255, 200, 200, 200),
-        playType: state.playType,
-        videoModel: state.videoModel,
-        changeModel: () {
-
-        },
-        changePlayType: () {
-
-        },
-      ),
+      overlay: VideoOverlay(),
+      customControls: myController,
       placeholder: new Center(
         child: CupertinoActivityIndicator(),
       ),

@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/page.dart';
 import 'package:myapp/widget/list_placeholder.dart';
@@ -29,8 +30,12 @@ Widget _bodyWidget(
   Dispatch dispatch,
   ViewService viewService,
 ) {
+  bool isSimple = state.videoEventData.videoModel == VideoModel.simple;
   if (state.tabController == null) {
     return Container();
+  }
+  if (isSimple) {
+    return viewService.buildComponent('courseTab');
   }
   return TabBarView(
     controller: state.tabController,
@@ -87,24 +92,28 @@ Widget buildView(
         physics: NeverScrollableScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           List<Widget> child = [];
+          bool isSimple = state.videoEventData.videoModel == VideoModel.simple;
           if (state.courseDetail != null) {
             child.add(
               VedioPage().buildPage({
+                'courseId': state.courseDetail.courseId,
                 'catalog': state.currentCatalog,
                 'coverUrl': state.courseDetail.imgUrl
               }),
             );
           }
-          child.add(viewService.buildComponent('vedioOperation'));
-          if (state.tabController != null) {
-            child.add(SliverPersistentHeader(
-              key: Key(state.index.toString()),
-              delegate: SliverTabBarDelegate(
-                _tabBarWiget(tabs, state),
-                color: Colors.white,
-              ),
-              pinned: true,
-            ));
+          if (!isSimple) {
+            child.add(viewService.buildComponent('vedioOperation'));
+            if (state.tabController != null) {
+              child.add(SliverPersistentHeader(
+                key: Key(state.index.toString()),
+                delegate: SliverTabBarDelegate(
+                  _tabBarWiget(tabs, state),
+                  color: Colors.white,
+                ),
+                pinned: true,
+              ));
+            }
           }
           return child;
         },

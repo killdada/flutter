@@ -1,5 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:myapp/common/constant/constant.dart';
+import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 
 //TODO replace with your own action
@@ -10,10 +12,15 @@ enum CourseDetailAction {
   changeCurrentTab,
   changeShowAll,
   changeCollect,
-  changePptIndex
+  changePptIndex,
+  changeVideoEvent,
 }
 
 class CourseDetailActionCreator {
+  static Action changeVideoEvent(VideoEvent payload) {
+    return Action(CourseDetailAction.changeVideoEvent, payload: payload);
+  }
+
   static Action onFetchDetail() {
     return const Action(CourseDetailAction.onFetchDetail);
   }

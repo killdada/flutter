@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/common/dao/course_detail_dao.dart';
 import 'package:myapp/common/utils/data_utils.dart';
 import 'action.dart';
 import 'state.dart';
@@ -13,23 +15,16 @@ Effect<VedioState> buildEffect() {
   });
 }
 
-
 void _dispose(Action action, Context<VedioState> ctx) async {
   VedioState state = ctx.state;
-  print('离开页面了啊');
   try {
     bool islogin = await DataUtils.isLogin();
-
     if (islogin) {
-      // print('*******dispose:${_currentCatalog.catalogId}');
-
-      // _bloc.reportLearning(widget.courseId, _currentCatalog.catalogId);
-    //   int _viewingTime = state.controller.watchDuration().inSeconds;
-      print('视频播放时，观看时长：');
-      // if (_viewingTime > 0) {
-        //   _bloc.reportLearningTime(
-        //       widget.courseId, _currentCatalog.catalogId, _viewingTime);
-      // }
+      int watchtimer = state.videoController.watchDuration.inSeconds;
+      print('视频播放时，观看时长：${watchtimer}');
+      if (watchtimer > 0) {
+        await CourseDetailDao.reportLearningTime(state.courseId, watchtimer);
+      }
     }
   } catch (e) {}
   state.chewieController.pause();

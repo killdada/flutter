@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/common/constant/constant.dart';
+import 'package:myapp/common/event/video_event.dart';
+
 import 'package:myapp/common/model/course-detail/index.dart';
 import 'package:myapp/page/course_detail_page/practice_tab_component/state.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/state.dart';
@@ -18,9 +21,13 @@ class CourseDetailState implements Cloneable<CourseDetailState> {
   TabController tabController;
   bool showAll = false;
   bool collected = false;
+  VideoEvent videoEventData =
+      VideoEvent(playType: PlayType.video, videoModel: VideoModel.simple);
+
   @override
   CourseDetailState clone() {
     return CourseDetailState()
+      ..videoEventData = videoEventData
       ..collected = collected
       ..currentCatalog = currentCatalog
       ..courseId = courseId
@@ -35,7 +42,6 @@ class CourseDetailState implements Cloneable<CourseDetailState> {
 CourseDetailState initState(Map<String, dynamic> args) {
   return CourseDetailState()..courseId = args['courseId'];
 }
-
 
 class VedioOperationConnector extends Reselect2<CourseDetailState,
     VedioOperationState, CourseDetailModel, bool> {
@@ -63,16 +69,17 @@ class VedioOperationConnector extends Reselect2<CourseDetailState,
   }
 }
 
-class CourseTabConnector extends Reselect4<CourseDetailState, CourseTabState,
-    CatalogsModel, CourseDetailModel, bool, int> {
+class CourseTabConnector extends Reselect5<CourseDetailState, CourseTabState,
+    CatalogsModel, CourseDetailModel, bool, int, VideoEvent> {
   @override
-  CourseTabState computed(
-      CatalogsModel sub0, CourseDetailModel sub1, bool sub2, int sub3) {
+  CourseTabState computed(CatalogsModel sub0, CourseDetailModel sub1, bool sub2,
+      int sub3, VideoEvent sub4) {
     return CourseTabState()
       ..courseTabData = sub0
       ..courseDetail = sub1
       ..showAll = sub2
-      ..pptIndex = sub3;
+      ..pptIndex = sub3
+      ..videoEventData = sub4;
   }
 
   @override
@@ -93,6 +100,11 @@ class CourseTabConnector extends Reselect4<CourseDetailState, CourseTabState,
   @override
   int getSub3(CourseDetailState state) {
     return state.pptIndex;
+  }
+
+  @override
+  VideoEvent getSub4(CourseDetailState state) {
+    return state.videoEventData;
   }
 
   @override
