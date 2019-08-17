@@ -25,14 +25,17 @@ class _LearnRecordState extends State<LearnRecord> {
 
   @override
   Widget build(BuildContext context) {
-    return CommonScaffold(
-      backgroundColor: Colors.white,
-      appBar: CommonAppBar(
-        title: '学习记录',
-      ),
-      body: PageWrapper.pageBuilder(
-        LearnDao.getLearnRecordList(),
-        _content,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CommonScaffold(
+        backgroundColor: Colors.white,
+        appBar: CommonAppBar(
+          title: '学习记录',
+        ),
+        body: PageWrapper.pageBuilder(
+          LearnDao.getLearnRecordList(),
+          _content,
+        ),
       ),
     );
   }

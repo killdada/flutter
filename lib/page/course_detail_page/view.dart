@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/page.dart';
+import 'package:myapp/widget/custom_widget.dart';
 import 'package:myapp/widget/list_placeholder.dart';
 import 'package:myapp/widget/video_player_gather.dart';
 
@@ -82,6 +83,15 @@ Widget buildView(
     return Container(
       color: Colors.white,
       child: CupertinoActivityIndicator(),
+    );
+  }
+  if (state.currentCatalog == null) {
+    return CommonScaffold(
+        backgroundColor: Colors.white,
+        appBar: CommonAppBar(
+          title: state.courseDetail.courseName,
+        ),
+        body:  ListPlaceholder.empty(),
     );
   }
   return Scaffold(

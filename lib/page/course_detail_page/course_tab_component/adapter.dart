@@ -33,7 +33,7 @@ class _CourseTabConnector extends ConnOp<CourseTabState, List<ItemBean>> {
       if (!isSimple) {
         result.add(ItemBean('title', {'title': '课程目录'}));
         final List<CatalogsModel> catalogs = state.courseDetail.catalogs;
-        int count = state.showAll ? catalogs.length : 3;
+        int count = state.showAll ? catalogs.length : (catalogs.length <= 3 ? catalogs.length : 3);
         for (int i = 0; i < count; i++) {
           CatalogsModel data = catalogs[i];
           result.add(ItemBean('courseCatalog', {
