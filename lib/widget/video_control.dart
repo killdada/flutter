@@ -124,6 +124,11 @@ class _CupertinoControlsState extends State<CupertinoControls> {
       onTap: () {
         _cancelAndRestartTimer();
       },
+      onDoubleTap: () {
+        if (controller.value.isPlaying) {
+          controller.pause();
+        }
+      },
       child: AbsorbPointer(
         absorbing: _hideStuff,
         child: Column(
@@ -248,24 +253,58 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     );
   }
 
-  Expanded _buildHitArea() {
+   Widget _buildHitArea() {
     return Expanded(
       child: GestureDetector(
-        onTap: _latestValue != null && _latestValue.isPlaying
-            ? _cancelAndRestartTimer
-            : () {
-                _hideTimer?.cancel();
-
-                setState(() {
-                  _hideStuff = false;
-                });
-              },
-        child: Container(
-          color: Colors.transparent,
-        ),
-      ),
+      onTap: () {
+        setState(() {
+          _hideStuff = true;
+        });
+      },
+      child:
+      Container(
+              color: Colors.transparent,
+              alignment: Alignment.center,
+              child: AnimatedOpacity(
+                opacity: controller.value.isPlaying || !controller.value.initialized  ? 0.0 : 1.0,
+                duration: const Duration(milliseconds: 300),
+                child: GestureDetector(
+                  onTap: _playPause,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(48.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.play_arrow, size: 36.0),
+                    ),
+                  ),
+                ),
+              ),
+            )
+        
+    )
     );
   }
+  // Expanded _buildHitArea() {
+  //   return Expanded(
+  //     child: GestureDetector(
+  //       onTap: _latestValue != null && _latestValue.isPlaying
+  //           ? _cancelAndRestartTimer
+  //           : () {
+  //               _hideTimer?.cancel();
+
+  //               setState(() {
+  //                 _hideStuff = false;
+  //               });
+  //             },
+  //       child: Container(
+  //         color: Colors.transparent,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   GestureDetector _buildMuteButton(
     VideoPlayerController controller,
