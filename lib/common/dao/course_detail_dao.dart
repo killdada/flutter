@@ -9,7 +9,7 @@ class CourseDetailDao {
   static Future getCourseDetail(int courseId) async {
     try {
       var res =
-          await httpManager.fetch('${Address.getCourseDetail()}/${courseId}');
+          await httpManager.fetch('${Address.getCourseDetail()}/$courseId');
       var data = HttpManager.decodeJson(res);
       if (data != null) {
         return CourseDetailModel.fromJson(data);
@@ -23,7 +23,7 @@ class CourseDetailDao {
 
   static Future reportLearningTime(int courseId, int time) async {
     return httpManager
-        .fetch('${Address.getReportLeaningTime()}/${courseId}/${time}',
+        .fetch('${Address.getReportLeaningTime()}/$courseId/$time',
             option: Options(
               method: 'post',
             ),

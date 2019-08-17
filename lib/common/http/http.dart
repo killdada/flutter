@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/http/code.dart';
 import 'dart:collection';
@@ -11,7 +10,6 @@ import 'package:myapp/common/http/interceptors/token_interceptor.dart';
 import 'package:myapp/common/utils/data_utils.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/page/login.dart';
-import 'package:myapp/router/application.dart';
 
 class DataResult<T> {
   int code;

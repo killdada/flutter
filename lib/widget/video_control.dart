@@ -1,20 +1,17 @@
 import 'dart:async';
-import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:chewie/src/chewie_player.dart';
-import 'package:chewie/src/chewie_progress_colors.dart';
-import 'package:chewie/src/cupertino_progress_bar.dart';
-import 'package:chewie/src/utils.dart';
+import 'package:chewie/chewie.dart' hide ChewieProgressColors;
+import 'chewie_progress_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/event/event_bus.dart';
-import 'package:myapp/common/event/login_event.dart';
 import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 import 'package:myapp/common/utils/appsize.dart';
-import 'package:myapp/common/utils/data_utils.dart';
+import 'package:myapp/common/utils/date_utils.dart';
+import 'package:myapp/widget/cupertino_progress_bar.dart';
 import 'package:open_iconic_flutter/open_iconic_flutter.dart';
 import 'package:video_player/video_player.dart';
 
@@ -354,7 +351,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     return Padding(
       padding: EdgeInsets.only(right: 12.0),
       child: Text(
-        formatDuration(position),
+        DateUtil.formatDuration(position),
         style: TextStyle(
           color: iconColor,
           fontSize: 12.0,
@@ -365,13 +362,13 @@ class _CupertinoControlsState extends State<CupertinoControls> {
 
   Widget _buildRemaining(Color iconColor) {
     final position = _latestValue != null && _latestValue.duration != null
-        ? _latestValue.duration - _latestValue.position
+        ? _latestValue.duration
         : Duration(seconds: 0);
 
     return Padding(
       padding: EdgeInsets.only(right: 12.0),
       child: Text(
-        '-${formatDuration(position)}',
+        '${DateUtil.formatDuration(position)}',
         style: TextStyle(color: iconColor, fontSize: 12.0),
       ),
     );
@@ -576,6 +573,11 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     );
   }
 
+  bool isFished() {
+    return controller.value.position == controller.value.duration;
+  }
+
+
   void _playPause() {
     setState(() {
       if (controller.value.isPlaying) {
@@ -587,10 +589,16 @@ class _CupertinoControlsState extends State<CupertinoControls> {
 
         if (!controller.value.initialized) {
           controller.initialize().then((_) {
-            controller.play();
+            if (isFished()) {
+              controller.seekTo(Duration(seconds:0 ));
+            }
+           controller.play();
           });
         } else {
-          controller.play();
+          if (isFished()) {
+              controller.seekTo(Duration(seconds:0 ));
+            }
+           controller.play();
         }
       }
     });

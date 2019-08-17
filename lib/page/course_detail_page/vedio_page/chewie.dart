@@ -23,8 +23,8 @@ class ChewiePlay {
       looping: false,
       allowMuting: false,
       deviceOrientationsAfterFullScreen: [
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight
       ],
       overlay: VideoOverlay(),
       customControls: myController,

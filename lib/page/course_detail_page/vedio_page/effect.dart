@@ -20,7 +20,7 @@ void _dispose(Action action, Context<VedioState> ctx) async {
     bool islogin = await DataUtils.isLogin();
     if (islogin) {
       int watchtimer = state.videoController.watchDuration.inSeconds;
-      print('视频播放时，观看时长：${watchtimer}');
+      print('视频播放时，观看时长：$watchtimer');
       if (watchtimer > 0) {
         await CourseDetailDao.reportLearningTime(state.courseId, watchtimer);
       }

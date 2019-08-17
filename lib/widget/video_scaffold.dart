@@ -15,8 +15,8 @@ class _VideoScaffoldState extends State<VideoScaffold> {
   @override
   void initState() {
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
     ]);
     AutoOrientation.landscapeAutoMode();
     super.initState();
