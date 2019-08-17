@@ -52,6 +52,8 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class _MyAppState extends State<MyApp> {
   StreamSubscription stream;
   @override
@@ -106,6 +108,7 @@ class _MyAppState extends State<MyApp> {
       ),
       home: SplashPage(),
       onGenerateRoute: Application.router.generator,
+      navigatorKey: navigatorKey,
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:myapp/common/http/code.dart';
 import 'dart:collection';
 import 'dart:io';
@@ -6,6 +8,10 @@ import 'dart:io';
 import 'package:myapp/common/http/interceptors/log_interceptor.dart';
 
 import 'package:myapp/common/http/interceptors/token_interceptor.dart';
+import 'package:myapp/common/utils/data_utils.dart';
+import 'package:myapp/main.dart';
+import 'package:myapp/page/login.dart';
+import 'package:myapp/router/application.dart';
 
 class DataResult<T> {
   int code;
@@ -86,6 +92,18 @@ class HttpManager {
       if (e.type == DioErrorType.CONNECT_TIMEOUT ||
           e.type == DioErrorType.RECEIVE_TIMEOUT) {
         errorResponse.statusCode = Code.NETWORK_TIMEOUT;
+      }
+      //鉴权失败，token过期，跳转登录界面
+      if (e.response.statusCode == 404 && e.request.path != 'user') {
+        DataUtils.logout();
+        navigatorKey.currentState.pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (_) {
+              return Login();
+            },
+          ),
+          (route) => route == null,
+        );
       }
       Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip);
       return {'code': errorResponse.statusCode, 'msg': e.message, 'data': null};
