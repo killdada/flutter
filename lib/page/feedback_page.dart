@@ -11,7 +11,7 @@ import 'package:myapp/widget/custom_image_view.dart';
 import 'package:myapp/widget/custom_widget.dart';
 import 'package:myapp/widget/loading_dialog.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:developer';
+
 
 class FeedbackPage extends StatefulWidget {
   FeedbackPage({Key key}) : super(key: key);

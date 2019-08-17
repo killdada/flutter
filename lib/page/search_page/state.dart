@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
 import 'package:myapp/common/model/course/course.dart';
 import 'package:myapp/page/search_page/history_component/state.dart';
 import 'package:myapp/page/search_page/search_header_component/state.dart';

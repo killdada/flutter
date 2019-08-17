@@ -1,11 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/rendering.dart';
 
-import 'package:myapp/widget/custom_app_bar.dart';
 import 'package:myapp/common/model/learn_record_model.dart';
 import 'package:myapp/widget/custom_image_view.dart';
 import 'package:myapp/widget/custom_widget.dart';

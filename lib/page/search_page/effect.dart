@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/dao/search_dao.dart';
 import 'action.dart';
@@ -17,6 +15,6 @@ void _onchangeIndexedStack(Action action, Context<SearchState> ctx) {
 }
 
 void _onfetchCourseList(Action action, Context<SearchState> ctx) async {
-  var data = await SearchDao.search(action.payload);
+  await SearchDao.search(action.payload);
   ctx.dispatch(SearchActionCreator.fetchCourseList(action.payload));
 }

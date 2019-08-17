@@ -1,10 +1,6 @@
-import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/model/course/category.dart';
-import 'package:myapp/common/model/course/course.dart';
-
-import 'package:myapp/page/course_page/banner_component/component.dart';
 import 'package:myapp/common/model/course/banner.dart';
 
 import 'action.dart';

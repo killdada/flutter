@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:fish_redux/fish_redux.dart';
 
@@ -16,6 +16,5 @@ Reducer<VedioOperationState> buildReducer() {
 VedioOperationState _changeCollect(VedioOperationState state, Action action) {
   final VedioOperationState newState = state.clone();
   newState.collected = !newState.collected;
-  debugger();
   return newState;
 }

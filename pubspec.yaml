@@ -81,6 +81,7 @@ dependencies:
   chewie: ^0.9.7
   auto_orientation: ^1.0.5
   video_player: ^0.10.1+6
+  transformer_page_view:
 
 dev_dependencies:
   flutter_test:

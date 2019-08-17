@@ -70,27 +70,6 @@ class _ImageCheckBoxState extends State<ImageCheckBox> {
         ),
       ),
     );
-
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: () {
-        setState(() {
-          _checked = !_checked;
-          if (widget.onChanged != null) {
-            widget.onChanged(_checked);
-          }
-        });
-      },
-      child: SizedBox.fromSize(
-        size: Size.square(
-          widget.size ?? AppSize.width(50.0),
-        ),
-        child: _checked
-            ? widget.checked ?? Image.asset('assets/images/icn_checked.png')
-            : widget.unchecked ??
-                Image.asset('assets/images/icn_unchecked.png'),
-      ),
-    );
   }
 }
 

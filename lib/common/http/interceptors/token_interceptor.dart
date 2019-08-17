@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:myapp/common/config/config.dart';
 import 'package:myapp/common/utils/data_utils.dart';
-import 'package:myapp/common/utils/local_storage.dart';
 
 /*
  * Token拦截器

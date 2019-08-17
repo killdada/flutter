@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:myapp/widget/video_player_gather.dart';
 
-//TODO replace with your own action
+
 enum VedioAction {
   changeFullScreen,
   changeToggleScreen,

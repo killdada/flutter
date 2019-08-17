@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:myapp/page/my.dart';
 import 'package:myapp/page/login.dart';

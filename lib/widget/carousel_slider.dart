@@ -227,7 +227,6 @@ class _CarouselSliderState extends State<CarouselSlider>
       itemBuilder: (BuildContext context, int i) {
         final int index = _getRealIndex(
             i + widget.initialPage, widget.realPage, widget.items.length);
-
         return AnimatedBuilder(
           animation: widget.pageController,
           child: widget.items[index],

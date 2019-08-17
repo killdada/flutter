@@ -1,9 +1,7 @@
-import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/constant.dart';
-import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/widget/video_player_gather.dart';
 
 import 'action.dart';

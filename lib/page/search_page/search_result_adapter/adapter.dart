@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/model/course/course.dart';
@@ -35,7 +34,6 @@ class _SearchResultConnector extends ConnOp<SearchState, List<ItemBean>> {
 
   @override
   subReducer(reducer) {
-    // TODO: implement subReducer
     return super.subReducer(reducer);
   }
 }

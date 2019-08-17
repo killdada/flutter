@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/page/course_detail_page/course_tab_component/component.dart';
 import 'package:myapp/page/course_detail_page/practice_tab_component/component.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/component.dart';
-import 'package:myapp/widget/keep_alive_wrapper.dart';
+// import 'package:myapp/widget/keep_alive_wrapper.dart';
 
 import 'effect.dart';
 import 'reducer.dart';

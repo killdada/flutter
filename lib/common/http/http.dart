@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:myapp/common/http/code.dart';
 import 'dart:collection';
 import 'dart:io';
-import 'dart:developer';
 
 import 'package:myapp/common/http/interceptors/log_interceptor.dart';
 
@@ -41,7 +40,7 @@ class HttpManager {
     _dio.interceptors.add(new LogsInterceptors());
   }
 
-  /**
+  /*
    * 发起网络请求
    * url 请求地址
    * params 请求参数

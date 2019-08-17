@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,6 @@ import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 import 'package:myapp/page/course_detail_page/practice_tab_component/state.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/state.dart';
-import 'package:myapp/page/course_page/state.dart';
 
 import 'course_tab_component/state.dart';
 

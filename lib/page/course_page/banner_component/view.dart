@@ -11,7 +11,7 @@ import 'package:myapp/widget/banner_indicator.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/common/constant/style.dart';
 
-import 'dart:developer';
+
 
 Widget buildView(
     BannerState state, Dispatch dispatch, ViewService viewService) {

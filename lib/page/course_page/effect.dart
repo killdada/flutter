@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:fish_redux/fish_redux.dart';
 import 'action.dart';
@@ -12,7 +12,6 @@ Effect<CourseState> buildEffect() {
   });
 }
 
-void _onAction(Action action, Context<CourseState> ctx) {}
 
 void _init(Action action, Context<CourseState> ctx) async {
   try {
@@ -21,6 +20,5 @@ void _init(Action action, Context<CourseState> ctx) async {
     List categories = await CourseDao.getCategories();
     ctx.dispatch(CourseActionCreator.fetchCategory(categories));
   } catch (e) {
-    print('叶宁>>>>${e}');
   }
 }

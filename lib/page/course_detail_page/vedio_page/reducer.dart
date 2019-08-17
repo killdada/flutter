@@ -1,16 +1,8 @@
-import 'dart:developer';
 
-import 'package:chewie/chewie.dart';
+
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/cupertino.dart' hide Action;
-import 'package:flutter/material.dart' hide Action;
-import 'package:flutter/services.dart';
-import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/chewie.dart';
-import 'package:myapp/widget/video_control.dart';
-import 'package:myapp/widget/video_overlay.dart';
-import 'package:myapp/widget/video_scaffold.dart';
-import 'package:video_player/video_player.dart';
+
 
 import 'action.dart';
 import 'state.dart';

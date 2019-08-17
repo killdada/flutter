@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/model/course/course.dart';

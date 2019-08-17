@@ -4,7 +4,6 @@
 */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer';
 import 'package:myapp/widget/list_placeholder.dart';
 
 class PageWrapper {

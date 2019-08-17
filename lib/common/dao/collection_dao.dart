@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:myapp/common/http/address.dart';
 import 'package:myapp/common/http/http.dart';
 import 'package:myapp/common/model/collection_model.dart';

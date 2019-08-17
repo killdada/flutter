@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/common/constant/constant.dart';
-import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/page.dart';
 import 'package:myapp/widget/list_placeholder.dart';
 import 'package:myapp/widget/video_player_gather.dart';

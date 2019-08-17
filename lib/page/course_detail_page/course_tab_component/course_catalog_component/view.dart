@@ -1,11 +1,10 @@
-import 'dart:developer';
+
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/page/course_detail_page/action.dart';
-import 'package:myapp/page/course_detail_page/course_tab_component/action.dart';
 
 Widget _catalogItem(
   Map<String, dynamic> state,

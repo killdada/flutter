@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/constant/constant.dart';
@@ -66,7 +66,6 @@ class _CourseTabConnector extends ConnOp<CourseTabState, List<ItemBean>> {
 
   @override
   subReducer(reducer) {
-    // TODO: implement subReducer
     return super.subReducer(reducer);
   }
 }

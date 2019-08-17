@@ -1,8 +1,7 @@
-import 'dart:developer';
+
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/common/model/course/course.dart';
 
 import 'state.dart';
 

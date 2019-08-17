@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/style.dart';
 import 'package:myapp/widget/video_player_gather.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(VedioState state, Dispatch dispatch, ViewService viewService) {

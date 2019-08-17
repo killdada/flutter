@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
@@ -85,22 +84,6 @@ Widget buildView(
       ],
     ),
   );
-}
-
-_doSearch(String text) {
-  String tmpStr = text.replaceAll(" ", "");
-  if (tmpStr == null || tmpStr.isEmpty) {
-    showToast('请输入有效关键词');
-    return;
-  }
-
-  // bloc.addHistory(text);
-  // bloc.search(text);
-  // setState(() {
-  //   index = 1;
-  // });
-  // editingController.text = text;
-  // focusNode.unfocus();
 }
 
 showToast(String msg) {

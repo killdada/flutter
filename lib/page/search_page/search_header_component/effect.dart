@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter/material.dart' as prefix0;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/common/dao/search_dao.dart';
 import 'package:myapp/common/db/search_history_db.dart';

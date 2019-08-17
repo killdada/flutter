@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -15,14 +14,7 @@ class SqlManager {
   static init() async {
     // open the database
     var databasesPath = await getDatabasesPath();
-    // var userRes = await UserDao.getUserInfoLocal();
     String dbName = _NAME;
-    // if (userRes != null && userRes.result) {
-    //   User user = userRes.data;
-    //   if (user != null && user.login != null) {
-    //     dbName = user.login + "_" + _NAME;
-    //   }
-    // }
     String path = join(databasesPath, dbName);
 
     _database = await openDatabase(path, version: _VERSION,
@@ -32,7 +24,7 @@ class SqlManager {
     });
   }
 
-  /**
+  /*
    * 表是否存在
    */
   static isTableExits(String tableName) async {

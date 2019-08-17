@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
@@ -252,48 +251,6 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     );
   }
 
-  GestureDetector _buildExpandButton(
-    Color backgroundColor,
-    Color iconColor,
-    double barHeight,
-    double buttonPadding,
-  ) {
-    return GestureDetector(
-      onTap: _onExpandCollapse,
-      child: AnimatedOpacity(
-        opacity: _hideStuff ? 0.0 : 1.0,
-        duration: Duration(milliseconds: 300),
-        child: ClipRect(
-          child: BackdropFilter(
-            filter: ui.ImageFilter.blur(sigmaX: 10.0),
-            child: Container(
-              height: barHeight,
-              padding: EdgeInsets.only(
-                left: buttonPadding,
-                right: buttonPadding,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-              ),
-              child: Center(
-                child: Icon(
-                  chewieController.isFullScreen
-                      ? OpenIconicIcons.fullscreenExit
-                      : OpenIconicIcons.fullscreenEnter,
-                  color: iconColor,
-                  size: 12.0,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Expanded _buildHitArea() {
     return Expanded(
       child: GestureDetector(
@@ -420,53 +377,6 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     );
   }
 
-  GestureDetector _buildSkipBack(Color iconColor, double barHeight) {
-    return GestureDetector(
-      onTap: _skipBack,
-      child: Container(
-        height: barHeight,
-        color: Colors.transparent,
-        margin: EdgeInsets.only(left: 10.0),
-        padding: EdgeInsets.only(
-          left: 6.0,
-          right: 6.0,
-        ),
-        child: Transform(
-          alignment: Alignment.center,
-          transform: Matrix4.skewY(0.0)
-            ..rotateX(math.pi)
-            ..rotateZ(math.pi),
-          child: Icon(
-            OpenIconicIcons.reload,
-            color: iconColor,
-            size: 12.0,
-          ),
-        ),
-      ),
-    );
-  }
-
-  GestureDetector _buildSkipForward(Color iconColor, double barHeight) {
-    return GestureDetector(
-      onTap: _skipForward,
-      child: Container(
-        height: barHeight,
-        color: Colors.transparent,
-        padding: EdgeInsets.only(
-          left: 6.0,
-          right: 8.0,
-        ),
-        margin: EdgeInsets.only(
-          right: 8.0,
-        ),
-        child: Icon(
-          OpenIconicIcons.reload,
-          color: iconColor,
-          size: 12.0,
-        ),
-      ),
-    );
-  }
 
   GestureDetector _topBtnWrapper(Function onTap, String img,
       {double width, Color color, Color bgColor}) {
@@ -686,19 +596,6 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     });
   }
 
-  void _skipBack() {
-    _cancelAndRestartTimer();
-    final beginning = Duration(seconds: 0).inMilliseconds;
-    final skip = (_latestValue.position - Duration(seconds: 15)).inMilliseconds;
-    controller.seekTo(Duration(milliseconds: math.max(skip, beginning)));
-  }
-
-  void _skipForward() {
-    _cancelAndRestartTimer();
-    final end = _latestValue.duration.inMilliseconds;
-    final skip = (_latestValue.position + Duration(seconds: 15)).inMilliseconds;
-    controller.seekTo(Duration(milliseconds: math.min(skip, end)));
-  }
 
   void _startHideTimer() {
     _hideTimer = Timer(const Duration(seconds: 3), () {

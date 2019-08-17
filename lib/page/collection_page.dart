@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,6 @@ import 'package:myapp/widget/custom_widget.dart';
 import 'package:myapp/widget/list_placeholder.dart';
 import 'package:myapp/widget/custom_image_view.dart';
 import 'package:myapp/common/utils/date_utils.dart';
-import 'package:fluro/fluro.dart';
-import 'package:myapp/router/application.dart';
-import 'package:myapp/router/routers.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CollectionPage extends StatefulWidget {
@@ -54,7 +51,7 @@ class _CollectionPageState extends State<CollectionPage> {
 
   void deleteCollection() async {
     try {
-      var res =
+     
           await CollectionDao.deleCollection(checkedEntities.map((entity) {
         return entity.id;
       }).toList());
