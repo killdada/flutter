@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/common/constant/constant.dart';
+import 'package:myapp/page/course_detail_page/audio_page/page.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/page.dart';
 import 'package:myapp/widget/custom_widget.dart';
 import 'package:myapp/widget/list_placeholder.dart';
@@ -79,6 +80,11 @@ Widget _body(CourseDetailState state, Dispatch dispatch,
 Widget buildView(
     CourseDetailState state, Dispatch dispatch, ViewService viewService) {
   List<String> tabs = state.index == 0 ? ["开始上课", "课后练习"] : ['视频', '音频'];
+  bool isSimple = state.videoEventData.videoModel == VideoModel.simple;
+  bool isAudio = state.videoEventData.playType == PlayType.audio;
+
+  print('当前是音频么是不是啊$isAudio');
+
   if (state.courseDetail == null) {
     return Container(
       color: Colors.white,
@@ -94,6 +100,11 @@ Widget buildView(
         body:  ListPlaceholder.empty(),
     );
   }
+  if (isAudio) {
+    return   AudioPage().buildPage({
+               'courseDetailState': state
+              });
+  }
   return Scaffold(
     body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
@@ -101,12 +112,12 @@ Widget buildView(
         physics: NeverScrollableScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           List<Widget> child = [];
-          bool isSimple = state.videoEventData.videoModel == VideoModel.simple;
           if (state.courseDetail != null) {
             child.add(
               VedioPage().buildPage({
                 'courseId': state.courseDetail.courseId,
                 'catalog': state.currentCatalog,
+                'videEventData': state.videoEventData,
                 'coverUrl': state.courseDetail.imgUrl
               }),
             );

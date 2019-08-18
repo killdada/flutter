@@ -1,5 +1,9 @@
+import 'dart:async';
+
+
 import 'package:chewie/chewie.dart';
 import 'package:fish_redux/fish_redux.dart';
+import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/chewie.dart';
 import 'package:video_player/video_player.dart';
@@ -35,13 +39,21 @@ VedioState initState(Map<String, dynamic> args) {
   String coverUrl = args['coverUrl'];
   int courseId = args['courseId'];
   String url = catalog.videoUrl;
-  print('初始化七牛播放器视频链接：$url');
+  VideoEvent videoEventData = args['videEventData'];
+  print('初始化七牛播放器视频链接：$url, 是否有播放位置${videoEventData.position}');
   Map controllers =  ChewiePlay.init(url);
+  ChewieController chewieController = controllers['chewieController'];
+
+  if (videoEventData.position != null) {
+    Timer(Duration(milliseconds: 1000), () {
+       chewieController.seekTo(Duration(seconds:videoEventData.position.inSeconds ));
+    });
+  }
 
   return VedioState()
     ..catalog = catalog
     ..courseId = courseId
     ..coverUrl = coverUrl
     ..videoController =  controllers['videoController']
-    ..chewieController =  controllers['chewieController'];
+    ..chewieController = chewieController;
 }

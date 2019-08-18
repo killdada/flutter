@@ -45,7 +45,6 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   @override
   void initState() {
     super.initState();
-
     // 精简模式下，ppt切视频
     MyEventBus.event.on<ChangePptIndex>().listen((event) {
        if (videoModel == VideoModel.simple && event.neewSeekTo) {
@@ -80,12 +79,11 @@ class _CupertinoControlsState extends State<CupertinoControls> {
 
   void changePlayType() {
   if (mounted) {
-
     setState(() {
       PlayType type =
           playType == PlayType.video ? PlayType.audio : PlayType.video;
       playType = type;
-      MyEventBus.event.fire(VideoEvent(playType: type, videoModel: videoModel));
+      MyEventBus.event.fire(VideoEvent(playType: type, videoModel: videoModel, position:  controller.value.position));
     });
   }
   }

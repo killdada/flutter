@@ -53,7 +53,7 @@ dependencies:
   # 序列化
   json_annotation: ^2.4.0
   # 图片
-  cached_network_image: ^0.8.0
+  cached_network_image: ^1.1.1
   orientation: ^1.0.5
   #https://github.com/jogboms/flutter_spinkit
   # https://github.com/zourw/flutter_seekbar
@@ -82,6 +82,7 @@ dependencies:
   auto_orientation: ^1.0.5
   video_player: ^0.10.1+6
   transformer_page_view:
+  audioplayers: ^0.13.1
 
 dev_dependencies:
   flutter_test:

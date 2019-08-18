@@ -6,13 +6,16 @@ class VideoEvent {
   final PlayType playType;
   // 课程是普通模式还是简洁模式
   final VideoModel videoModel;
-  VideoEvent({this.playType, this.videoModel});
+  // 切换的时候的播放位置
+  Duration position; 
+  VideoEvent({this.playType, this.videoModel, this.position});
 }
 
 
 class ChangePlayUrl {
   final String url;
-  ChangePlayUrl(this.url);
+  Duration position; 
+  ChangePlayUrl(this.url, { this.position } );
 }
 
 class ChangePptIndex {
