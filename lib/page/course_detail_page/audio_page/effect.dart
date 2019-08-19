@@ -33,8 +33,10 @@ void resume(Context<AudioState> ctx) async {
 
 void play(Context<AudioState> ctx, String url) async {
   int result = await ctx.state.audioPlayer.play(
-      ctx.state.currentCatalog.videoUrl,
-      position: ctx.state.videoEventData.position ?? Duration(seconds: 0));
+    ctx.state.currentCatalog.videoUrl,
+    position: ctx.state.videoEventData.position ?? Duration(seconds: 0),
+    stayAwake: true,
+  );
 }
 
 void seek(Context<AudioState> ctx, Duration time) async {
