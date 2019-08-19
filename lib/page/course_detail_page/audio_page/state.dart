@@ -8,20 +8,22 @@ class AudioState implements Cloneable<AudioState> {
   CourseDetailModel courseDetail;
   CatalogsModel currentCatalog;
   AudioPlayer audioPlayer = AudioPlayer();
-   VideoEvent videoEventData; 
+  VideoEvent videoEventData;
   @override
   AudioState clone() {
-    return AudioState()..courseDetail = courseDetail
-    ..videoEventData  = videoEventData
-    ..currentCatalog = currentCatalog
-    ..audioPlayer =audioPlayer ;
+    return AudioState()
+      ..courseDetail = courseDetail
+      ..videoEventData = videoEventData
+      ..currentCatalog = currentCatalog
+      ..audioPlayer = audioPlayer;
   }
 }
 
 AudioState initState(Map<String, dynamic> args) {
   CourseDetailState state = args['courseDetailState'];
-  
-  return AudioState()..courseDetail = state.courseDetail
-  ..currentCatalog = state.currentCatalog
-  ..videoEventData = state.videoEventData;
+
+  return AudioState()
+    ..courseDetail = state.courseDetail
+    ..currentCatalog = state.currentCatalog
+    ..videoEventData = state.videoEventData;
 }

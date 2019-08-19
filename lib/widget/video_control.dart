@@ -19,10 +19,12 @@ class CupertinoControls extends StatefulWidget {
   const CupertinoControls({
     @required this.backgroundColor,
     @required this.iconColor,
+    this.position,
   });
 
   final Color backgroundColor;
   final Color iconColor;
+  final Duration position;
 
   @override
   State<StatefulWidget> createState() {
@@ -38,6 +40,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   final marginSize = 5.0;
   Timer _expandCollapseTimer;
   Timer _initTimer;
+  bool initialized = false;
 
   PlayType playType = PlayType.video;
   VideoModel videoModel = VideoModel.complex;
@@ -47,45 +50,47 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     super.initState();
     // 精简模式下，ppt切视频
     MyEventBus.event.on<ChangePptIndex>().listen((event) {
-       if (videoModel == VideoModel.simple && event.neewSeekTo) {
-          PptModel ppt = event.ppt;
-           print('简洁模式下ppk开始时间 :${ppt.timeStart}');
-        if ( ppt.timeStart != null) {
-          int start = ppt.timeStart==0?1:ppt.timeStart;
+      if (videoModel == VideoModel.simple && event.neewSeekTo) {
+        PptModel ppt = event.ppt;
+        print('简洁模式下ppk开始时间 :${ppt.timeStart}');
+        if (ppt.timeStart != null) {
+          int start = ppt.timeStart == 0 ? 1 : ppt.timeStart;
           print('简洁模式下pp,seek video time to :$start');
-          controller.seekTo(Duration(seconds:start ));
+          controller.seekTo(Duration(seconds: start));
         } else {
           print('ppt时间不合法,请检查接口和对应后台');
         }
-      
-       }
+      }
     });
   }
 
   void changeModel() {
-  if (mounted) {
-     setState(() {
-      VideoModel model = videoModel == VideoModel.complex
-          ? VideoModel.simple
-          : VideoModel.complex;
-      videoModel = model;
-      MyEventBus.event.fire(VideoEvent(
-        videoModel: model,
-        playType: playType,
-      ));
-    });
-  }
+    if (mounted) {
+      setState(() {
+        VideoModel model = videoModel == VideoModel.complex
+            ? VideoModel.simple
+            : VideoModel.complex;
+        videoModel = model;
+        MyEventBus.event.fire(VideoEvent(
+          videoModel: model,
+          playType: playType,
+        ));
+      });
+    }
   }
 
   void changePlayType() {
-  if (mounted) {
-    setState(() {
-      PlayType type =
-          playType == PlayType.video ? PlayType.audio : PlayType.video;
-      playType = type;
-      MyEventBus.event.fire(VideoEvent(playType: type, videoModel: videoModel, position:  controller.value.position));
-    });
-  }
+    if (mounted) {
+      setState(() {
+        PlayType type =
+            playType == PlayType.video ? PlayType.audio : PlayType.video;
+        playType = type;
+        MyEventBus.event.fire(VideoEvent(
+            playType: type,
+            videoModel: videoModel,
+            position: controller.value.position));
+      });
+    }
   }
 
   VideoPlayerController controller;
@@ -251,20 +256,22 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     );
   }
 
-   Widget _buildHitArea() {
+  Widget _buildHitArea() {
     return Expanded(
-      child: GestureDetector(
-      onTap: () {
-        setState(() {
-          _hideStuff = true;
-        });
-      },
-      child:
-      Container(
+        child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _hideStuff = true;
+              });
+            },
+            child: Container(
               color: Colors.transparent,
               alignment: Alignment.center,
               child: AnimatedOpacity(
-                opacity: controller.value.isPlaying || !controller.value.initialized  ? 0.0 : 1.0,
+                opacity:
+                    controller.value.isPlaying || !controller.value.initialized
+                        ? 0.0
+                        : 1.0,
                 duration: const Duration(milliseconds: 300),
                 child: GestureDetector(
                   onTap: _playPause,
@@ -280,10 +287,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
                   ),
                 ),
               ),
-            )
-        
-    )
-    );
+            )));
   }
   // Expanded _buildHitArea() {
   //   return Expanded(
@@ -410,7 +414,6 @@ class _CupertinoControlsState extends State<CupertinoControls> {
       ),
     );
   }
-
 
   GestureDetector _topBtnWrapper(Function onTap, String img,
       {double width, Color color, Color bgColor}) {
@@ -614,7 +617,6 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     return controller.value.position == controller.value.duration;
   }
 
-
   void _playPause() {
     setState(() {
       if (controller.value.isPlaying) {
@@ -627,20 +629,19 @@ class _CupertinoControlsState extends State<CupertinoControls> {
         if (!controller.value.initialized) {
           controller.initialize().then((_) {
             if (isFished()) {
-              controller.seekTo(Duration(seconds:0 ));
+              controller.seekTo(Duration(seconds: 0));
             }
-           controller.play();
+            controller.play();
           });
         } else {
           if (isFished()) {
-              controller.seekTo(Duration(seconds:0 ));
-            }
-           controller.play();
+            controller.seekTo(Duration(seconds: 0));
+          }
+          controller.play();
         }
       }
     });
   }
-
 
   void _startHideTimer() {
     _hideTimer = Timer(const Duration(seconds: 3), () {
@@ -653,9 +654,19 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   void _updateState() {
     // 精简模式下，随着视频播放，PPT自动翻页
     if (videoModel == VideoModel.simple) {
-       var time =  controller.value.position.inSeconds;
-     print('当前播放时间:$time');
+      var time = controller.value.position.inSeconds;
+      print('当前播放时间:$time');
       MyEventBus.event.fire(JumpPPtWithTime(time));
+    }
+    // 第一次init，如果有位置信息，直接跳到位置信息接着播放
+    if (!initialized && controller.value.initialized) {
+      print('第一次：${controller.value.initialized}');
+      setState(() {
+        initialized = true;
+      });
+      if (widget.position != null) {
+        controller.seekTo(widget.position);
+      }
     }
     setState(() {
       _latestValue = controller.value;

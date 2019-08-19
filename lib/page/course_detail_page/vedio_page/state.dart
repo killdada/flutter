@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:chewie/chewie.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/event/video_event.dart';
@@ -41,19 +40,20 @@ VedioState initState(Map<String, dynamic> args) {
   String url = catalog.videoUrl;
   VideoEvent videoEventData = args['videEventData'];
   print('初始化七牛播放器视频链接：$url, 是否有播放位置${videoEventData.position}');
-  Map controllers =  ChewiePlay.init(url);
+  Map controllers = ChewiePlay.init(url, position: videoEventData.position);
   ChewieController chewieController = controllers['chewieController'];
 
-  if (videoEventData.position != null) {
-    Timer(Duration(milliseconds: 1000), () {
-       chewieController.seekTo(Duration(seconds:videoEventData.position.inSeconds ));
-    });
-  }
+//   if (videoEventData.position != null) {
+//     Timer(Duration(milliseconds: 1000), () {
+//       chewieController
+//           .seekTo(Duration(seconds: videoEventData.position.inSeconds));
+//     });
+//   }
 
   return VedioState()
     ..catalog = catalog
     ..courseId = courseId
     ..coverUrl = coverUrl
-    ..videoController =  controllers['videoController']
+    ..videoController = controllers['videoController']
     ..chewieController = chewieController;
 }

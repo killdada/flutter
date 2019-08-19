@@ -14,45 +14,41 @@ void _dispose(Action action, Context<AudioState> ctx) {
 }
 
 void pause(Context<AudioState> ctx) async {
-    int result = await  ctx.state.audioPlayer.pause();
-  }
+  int result = await ctx.state.audioPlayer.pause();
+}
 
 void stop(Context<AudioState> ctx) async {
-    int result = await ctx.state.audioPlayer.stop();
-    if (result == 1) {
-      // success
-    }
+  int result = await ctx.state.audioPlayer.stop();
+  if (result == 1) {
+    // success
   }
+}
 
 void resume(Context<AudioState> ctx) async {
-    int result = await ctx.state.audioPlayer.resume();
-    if (result == 1) {
-      // success
-    }
+  int result = await ctx.state.audioPlayer.resume();
+  if (result == 1) {
+    // success
   }
+}
 
 void play(Context<AudioState> ctx, String url) async {
-    int result = await ctx.state.audioPlayer.play(url);
-    if (result == 1) {
-      // success
-      if (ctx.state.videoEventData.position != null) {
-      await  ctx.state.audioPlayer.seek(ctx.state.videoEventData.position);
-      }
-    }
-  }
-
+  int result = await ctx.state.audioPlayer.play(
+      ctx.state.currentCatalog.videoUrl,
+      position: ctx.state.videoEventData.position ?? Duration(seconds: 0));
+}
 
 void seek(Context<AudioState> ctx, Duration time) async {
-    int result = await ctx.state.audioPlayer.seek(time);
-    if (result == 1) {
-      // success
-    }
+  int result = await ctx.state.audioPlayer.seek(time);
+  if (result == 1) {
+    // success
   }
+}
 
 void _init(Action action, Context<AudioState> ctx) {
-  if (ctx.state.currentCatalog != null &&ctx.state.currentCatalog.videoUrl != null) {
+  if (ctx.state.currentCatalog != null &&
+      ctx.state.currentCatalog.videoUrl != null) {
     play(ctx, ctx.state.currentCatalog.videoUrl);
-    ctx.state.audioPlayer.onAudioPositionChanged.listen((Duration  p)  {
+    ctx.state.audioPlayer.onAudioPositionChanged.listen((Duration p) {
       print('Current position: $p');
       ctx.dispatch(AudioActionCreator.changePosition(p));
     });
