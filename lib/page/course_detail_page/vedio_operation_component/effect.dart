@@ -1,5 +1,3 @@
-
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:fluro/fluro.dart';
 import 'package:fluttertoast/fluttertoast.dart';

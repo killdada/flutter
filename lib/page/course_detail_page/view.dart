@@ -77,6 +77,31 @@ Widget _body(CourseDetailState state, Dispatch dispatch,
   );
 }
 
+Widget _operationHeader(ViewService viewService) {
+  Size headSize = Size.fromHeight(66);
+  return SliverPersistentHeader(
+    pinned: true,
+    delegate: SliverStickerHeader(
+      height: headSize.height,
+      child: PreferredSize(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              //下载、分享、反馈、收藏界面
+              viewService.buildComponent('vedioOperation'),
+              Container(
+                height: 8,
+                color: Color(0xFFF7F7FA),
+              ),
+            ],
+          ),
+        ),
+        preferredSize: headSize,
+      ),
+    ),
+  );
+}
+
 Widget buildView(
     CourseDetailState state, Dispatch dispatch, ViewService viewService) {
   List<String> tabs = state.index == 0 ? ["开始上课", "课后练习"] : ['视频', '音频'];
@@ -93,17 +118,15 @@ Widget buildView(
   }
   if (state.currentCatalog == null) {
     return CommonScaffold(
-        backgroundColor: Colors.white,
-        appBar: CommonAppBar(
-          title: state.courseDetail.courseName,
-        ),
-        body:  ListPlaceholder.empty(),
+      backgroundColor: Colors.white,
+      appBar: CommonAppBar(
+        title: state.courseDetail.courseName,
+      ),
+      body: ListPlaceholder.empty(),
     );
   }
   if (isAudio) {
-    return   AudioPage().buildPage({
-               'courseDetailState': state
-              });
+    return AudioPage().buildPage({'courseDetailState': state});
   }
   return Scaffold(
     body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -123,7 +146,7 @@ Widget buildView(
             );
           }
           if (!isSimple) {
-            child.add(viewService.buildComponent('vedioOperation'));
+            child.add(_operationHeader(viewService));
             if (state.tabController != null) {
               child.add(SliverPersistentHeader(
                 key: Key(state.index.toString()),

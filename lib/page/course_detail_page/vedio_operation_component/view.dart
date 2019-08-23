@@ -1,4 +1,3 @@
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/constant.dart';
@@ -73,26 +72,5 @@ Widget _toolBarWidget(
 
 Widget buildView(
     VedioOperationState state, Dispatch dispatch, ViewService viewService) {
-  Size headSize = Size.fromHeight(66);
-  return SliverPersistentHeader(
-    pinned: true,
-    delegate: SliverStickerHeader(
-      height: headSize.height,
-      child: PreferredSize(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              //下载、分享、反馈、收藏界面
-              _toolBarWidget(state, dispatch, viewService),
-              Container(
-                height: 8,
-                color: Color(0xFFF7F7FA),
-              ),
-            ],
-          ),
-        ),
-        preferredSize: headSize,
-      ),
-    ),
-  );
+  return _toolBarWidget(state, dispatch, viewService);
 }

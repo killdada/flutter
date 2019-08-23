@@ -1,5 +1,3 @@
-
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/constant.dart';
@@ -20,6 +18,7 @@ class CourseDetailState implements Cloneable<CourseDetailState> {
   TabController tabController;
   bool showAll = false;
   bool collected = false;
+  PlayType pageType = PlayType.video; // 传递给操作组件使用
   VideoEvent videoEventData =
       VideoEvent(playType: PlayType.video, videoModel: VideoModel.complex);
 
@@ -42,13 +41,15 @@ CourseDetailState initState(Map<String, dynamic> args) {
   return CourseDetailState()..courseId = args['courseId'];
 }
 
-class VedioOperationConnector extends Reselect2<CourseDetailState,
-    VedioOperationState, CourseDetailModel, bool> {
+class VedioOperationConnector extends Reselect3<CourseDetailState,
+    VedioOperationState, CourseDetailModel, bool, PlayType> {
   @override
-  VedioOperationState computed(CourseDetailModel sub0, bool sub1) {
+  VedioOperationState computed(
+      CourseDetailModel sub0, bool sub1, PlayType sub2) {
     return VedioOperationState()
       ..vedioOperationData = sub0
-      ..collected = sub1;
+      ..collected = sub1
+      ..pageType = sub2;
   }
 
   @override
@@ -59,6 +60,11 @@ class VedioOperationConnector extends Reselect2<CourseDetailState,
   @override
   bool getSub1(CourseDetailState state) {
     return state.collected;
+  }
+
+  @override
+  PlayType getSub2(CourseDetailState state) {
+    return state.pageType;
   }
 
   @override

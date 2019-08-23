@@ -43,13 +43,6 @@ VedioState initState(Map<String, dynamic> args) {
   Map controllers = ChewiePlay.init(url, position: videoEventData.position);
   ChewieController chewieController = controllers['chewieController'];
 
-//   if (videoEventData.position != null) {
-//     Timer(Duration(milliseconds: 1000), () {
-//       chewieController
-//           .seekTo(Duration(seconds: videoEventData.position.inSeconds));
-//     });
-//   }
-
   return VedioState()
     ..catalog = catalog
     ..courseId = courseId
