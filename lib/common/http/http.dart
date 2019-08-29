@@ -92,7 +92,7 @@ class HttpManager {
         errorResponse.statusCode = Code.NETWORK_TIMEOUT;
       }
       //鉴权失败，token过期，跳转登录界面
-      if (e.response.statusCode == 404 && e.request.path != 'user') {
+      if (e.response.statusCode == 401 && e.request.path != 'user') {
         DataUtils.logout();
         navigatorKey.currentState.pushAndRemoveUntil(
           MaterialPageRoute(

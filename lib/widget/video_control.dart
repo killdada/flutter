@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ui' as ui;
 
 import 'package:chewie/chewie.dart' hide ChewieProgressColors;
@@ -423,6 +424,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
         opacity: _hideStuff ? 0.0 : 1.0,
         duration: Duration(milliseconds: 300),
         child: Container(
+          padding: EdgeInsets.only(right: AppSize.width(20.0)),
           color: bgColor ?? Colors.transparent,
           child: Image.asset(
             img,
@@ -437,9 +439,10 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   Widget _buildBackBtnChild() {
     return Container(
       color: Colors.transparent,
+      padding: EdgeInsets.only(left: AppSize.width(15)),
       child: Image.asset(
         'assets/images/icn_nav_back.png',
-        width: AppSize.width(50.0),
+        width: AppSize.width(22.0),
         color: Colors.white,
       ),
     );

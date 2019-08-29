@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/common/dao/course_detail_dao.dart';
@@ -25,7 +24,8 @@ void _dispose(Action action, Context<VedioState> ctx) async {
       int watchtimer = state.videoController.watchDuration.inSeconds;
       print('视频播放时，观看时长：$watchtimer');
       if (watchtimer > 0) {
-        await CourseDetailDao.reportLearningTime(state.courseId, watchtimer);
+        await CourseDetailDao.reportLearningTime(
+            state.courseId, state.catalog.catalogId, watchtimer);
       }
     }
   } catch (e) {}
@@ -36,8 +36,8 @@ void _dispose(Action action, Context<VedioState> ctx) async {
 }
 
 void _init(Action action, Context<VedioState> ctx) {
- MyEventBus.event.on<ChangePlayUrl>().listen((event) async {
-         print('播放器视频链接改变：${event.url},是否有位置信息：${event.position}');
-       await ctx.dispatch(VedioActionCreator.changeVideo(event.url));
-    });
+  MyEventBus.event.on<ChangePlayUrl>().listen((event) async {
+    print('播放器视频链接改变：${event.url},是否有位置信息：${event.position}');
+    await ctx.dispatch(VedioActionCreator.changeVideo(event.url));
+  });
 }

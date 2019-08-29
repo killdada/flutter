@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:myapp/common/http/address.dart';
 import 'package:myapp/common/http/http.dart';
@@ -21,9 +20,10 @@ class CourseDetailDao {
     }
   }
 
-  static Future reportLearningTime(int courseId, int time) async {
+  static Future reportLearningTime(
+      int courseId, int catalogId, int time) async {
     return httpManager
-        .fetch('${Address.getReportLeaningTime()}/$courseId/$time',
+        .fetch('${Address.getReportLeaningTime()}/$courseId/$catalogId',
             option: Options(
               method: 'post',
             ),
