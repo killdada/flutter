@@ -51,7 +51,6 @@ void _init(Action action, Context<AudioState> ctx) {
       ctx.state.currentCatalog.videoUrl != null) {
     play(ctx, ctx.state.currentCatalog.videoUrl);
     ctx.state.audioPlayer.onAudioPositionChanged.listen((Duration p) {
-      print('Current position: $p');
       ctx.dispatch(AudioActionCreator.changePosition(p));
     });
   }

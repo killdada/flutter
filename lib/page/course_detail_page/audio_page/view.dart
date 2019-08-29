@@ -39,8 +39,8 @@ Widget body(AudioState state, Dispatch dispatch, ViewService viewService) {
             child: Image.asset(
               "assets/images/icn_nav_back.png",
               color: Colors.white,
-              width: AppSize.width(60),
-              height: AppSize.height(60),
+              width: AppSize.width(40),
+              height: AppSize.height(40),
             ),
             angle: pi / 2 + pi,
           ),

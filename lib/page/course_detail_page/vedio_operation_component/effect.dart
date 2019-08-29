@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:fluro/fluro.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,6 +8,7 @@ import 'package:myapp/common/dao/collection_dao.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 import 'package:myapp/common/utils/data_utils.dart';
 import 'package:myapp/page/course_detail_page/action.dart';
+import 'package:myapp/page/course_detail_page/audio_page/action.dart';
 import 'package:myapp/router/application.dart';
 import 'package:myapp/router/routers.dart';
 import 'action.dart';
@@ -19,13 +22,20 @@ Effect<VedioOperationState> buildEffect() {
 
 void changeCollection(Context<VedioOperationState> ctx, int id) async {
   bool logined = await DataUtils.isLogin();
+  PlayType pageType = ctx.state.pageType;
+  bool isAudio = pageType == PlayType.audio;
+
   if (!logined) {
     Fluttertoast.showToast(msg: '请先登录');
   } else if (!ctx.state.collected) {
     // 取消收藏
     try {
       await CollectionDao.addCollection(id);
-      ctx.dispatch(CourseDetailActionCreator.changeCollect());
+      if (isAudio) {
+        ctx.dispatch(AudioActionCreator.changeCollect());
+      } else {
+        ctx.dispatch(CourseDetailActionCreator.changeCollect());
+      }
       Fluttertoast.showToast(msg: '收藏成功');
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
@@ -34,11 +44,24 @@ void changeCollection(Context<VedioOperationState> ctx, int id) async {
     // 添加收藏
     try {
       await CollectionDao.deleCollection([id]);
-      ctx.dispatch(CourseDetailActionCreator.changeCollect());
+      if (isAudio) {
+        ctx.dispatch(AudioActionCreator.changeCollect());
+      } else {
+        ctx.dispatch(CourseDetailActionCreator.changeCollect());
+      }
       Fluttertoast.showToast(msg: '取消收藏成功');
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
+  }
+}
+
+void clickDown(Context<VedioOperationState> ctx) {
+  PlayType pageType = ctx.state.pageType;
+  bool isAudio = pageType == PlayType.audio;
+  if (isAudio) {
+  } else {
+    ctx.dispatch(CourseDetailActionCreator.changeIndex());
   }
 }
 
@@ -50,7 +73,7 @@ void _onClickItem(Action action, Context<VedioOperationState> ctx) {
     case ActionType.share:
       break;
     case ActionType.download:
-      ctx.dispatch(CourseDetailActionCreator.changeIndex());
+      clickDown(ctx);
       break;
     case ActionType.collection:
       changeCollection(ctx, detail.courseId);
