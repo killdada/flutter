@@ -1,13 +1,16 @@
-
-
 import 'dart:developer';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/dao/course_detail_dao.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
+import 'package:myapp/common/utils/fluro_convert_util.dart';
+import 'package:myapp/page/course_detail_page/audio_page/page.dart';
 import 'package:myapp/page/course_detail_page/page.dart';
+import 'package:myapp/router/application.dart';
+import 'package:myapp/router/routers.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -21,14 +24,14 @@ Effect<CourseDetailState> buildEffect() {
   });
 }
 
- void _jumpPPTPage( Context<CourseDetailState> ctx,int _startTime) {
-   try {
-      CourseDetailState state = ctx.state;
+void _jumpPPTPage(Context<CourseDetailState> ctx, int _startTime) {
+  try {
+    CourseDetailState state = ctx.state;
     if (_startTime <= 0) return;
     int startTime = _startTime + 1; //解决小数点导致时间计算有误,比如seek to 20秒，回调会给出19秒
     int _lastPptIndex = state.pptIndex;
-    PptModel _lastPpt =  state.currentCatalog.ppt[_lastPptIndex];
-    if ( _lastPpt.timeStart == null ||  _lastPpt.timeEnd == null) {
+    PptModel _lastPpt = state.currentCatalog.ppt[_lastPptIndex];
+    if (_lastPpt.timeStart == null || _lastPpt.timeEnd == null) {
       print('ppt时间不合法,请检查接口和对应后台');
       return;
     }
@@ -40,7 +43,7 @@ Effect<CourseDetailState> buildEffect() {
         PptModel _p = state.currentCatalog.ppt[i];
         int start = _p.timeStart;
         int end = _p.timeEnd;
-        if ( _lastPpt.timeStart == null ||  _lastPpt.timeEnd == null) {
+        if (_lastPpt.timeStart == null || _lastPpt.timeEnd == null) {
           print('ppt时间不合法,请检查接口和对应后台');
           break;
         }
@@ -51,15 +54,30 @@ Effect<CourseDetailState> buildEffect() {
           } else {
             print('往前减页 start:$start end:$end 准备跳转ppt到$i页');
           }
-          ctx.dispatch(CourseDetailActionCreator.changePptIndex(i, needSeek: false));
+          ctx.dispatch(
+              CourseDetailActionCreator.changePptIndex(i, needSeek: false));
           break;
         }
       }
     }
-   } catch (e) {
-   }
-  
-  }
+  } catch (e) {}
+}
+
+void gotoAudioPage(Context<CourseDetailState> ctx) async {
+  await Navigator.of(ctx.context)
+      .push(new MaterialPageRoute(builder: (BuildContext context) {
+    return AudioPage().buildPage({'courseDetailState': ctx.state});
+  })).then((position) {
+    ctx.dispatch(
+      CourseDetailActionCreator.changeVideoEvent(
+        VideoEvent(
+            playType: PlayType.video,
+            videoModel: ctx.state.videoEventData.videoModel,
+            position: position),
+      ),
+    );
+  });
+}
 
 void _init(Action action, Context<CourseDetailState> ctx) async {
   final TickerProvider tickerProvider =
@@ -70,9 +88,12 @@ void _init(Action action, Context<CourseDetailState> ctx) async {
   ctx.dispatch(CourseDetailActionCreator.initData(detail, tabController));
   MyEventBus.event.on<VideoEvent>().listen((event) {
     ctx.dispatch(CourseDetailActionCreator.changeVideoEvent(event));
+    if (event.playType == PlayType.audio) {
+      gotoAudioPage(ctx);
+    }
   });
   MyEventBus.event.on<JumpPPtWithTime>().listen((event) {
-   _jumpPPTPage(ctx, event.time);
+    _jumpPPTPage(ctx, event.time);
   });
 }
 

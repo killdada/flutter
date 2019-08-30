@@ -88,7 +88,11 @@ Widget _operationHeader(ViewService viewService) {
           child: Column(
             children: <Widget>[
               //下载、分享、反馈、收藏界面
-              viewService.buildComponent('vedioOperation'),
+              Container(
+                alignment: Alignment.center,
+                color: Colors.white,
+                child: viewService.buildComponent('vedioOperation'),
+              ),
               Container(
                 height: 8,
                 color: Color(0xFFF7F7FA),
@@ -126,7 +130,10 @@ Widget buildView(
     );
   }
   if (isAudio) {
-    return AudioPage().buildPage({'courseDetailState': state});
+    return Container(
+      color: Colors.white,
+      child: CupertinoActivityIndicator(),
+    );
   }
   return Scaffold(
     body: AnnotatedRegion<SystemUiOverlayStyle>(

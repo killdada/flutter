@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:ui' as ui;
 
 import 'package:chewie/chewie.dart' hide ChewieProgressColors;

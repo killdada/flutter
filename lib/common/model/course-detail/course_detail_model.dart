@@ -11,6 +11,7 @@ class CourseDetailModel {
   List<CatalogsModel> catalogs;
   int topicId;
   int collected;
+  String author;
 
   CourseDetailModel({
     this.courseId,
@@ -20,6 +21,7 @@ class CourseDetailModel {
     this.catalogs,
     this.topicId,
     this.collected,
+    this.author,
   });
 
   //不同的类使用不同的mixin即可

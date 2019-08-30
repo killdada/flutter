@@ -1,7 +1,15 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:myapp/common/model/course-detail/index.dart';
 
-//TODO replace with your own action
-enum AudioAction { changePosition, changeCollect }
+enum AudioAction {
+  changePosition,
+  changeCollect,
+  onSeekTo,
+  onChangePlayUrl,
+  onPause,
+  onResume,
+  changeCurrentCatalog
+}
 
 class AudioActionCreator {
   static Action changePosition(Duration position) {
@@ -10,5 +18,25 @@ class AudioActionCreator {
 
   static Action changeCollect() {
     return const Action(AudioAction.changeCollect);
+  }
+
+  static Action onPause() {
+    return const Action(AudioAction.onPause);
+  }
+
+  static Action onResume() {
+    return const Action(AudioAction.onResume);
+  }
+
+  static Action onSeekTo(Duration position) {
+    return Action(AudioAction.onSeekTo, payload: position);
+  }
+
+  static Action changeCurrentCatalog(CatalogsModel catalog) {
+    return Action(AudioAction.changeCurrentCatalog, payload: catalog);
+  }
+
+  static Action onChangePlayUrl(CatalogsModel catalog) {
+    return Action(AudioAction.onChangePlayUrl, payload: catalog);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/constant.dart';
+import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/widget/video_player_gather.dart';
 
 import 'action.dart';
@@ -19,21 +20,21 @@ Widget _customButton(Operations item, VedioOperationState state,
     child: Center(
       child: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 9, bottom: 5),
+          Container(
+            padding: EdgeInsets.only(top: AppSize.height(20.0)),
             child: Image.asset(
               item.img,
-              width: 15,
-              height: 15,
+              width: AppSize.width(36.0),
+              height: AppSize.width(36.0),
               color: !_isSelected ? Color(0xFF999999) : Color(0xFF1D9DFF),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 9),
+            padding: EdgeInsets.only(top: AppSize.height(10.0)),
             child: Text(
               item.name,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: AppSize.sp(22.0),
                 color: !_isSelected ? Color(0xFF999999) : Color(0xFF1D9DFF),
               ),
               maxLines: 1,
@@ -54,7 +55,7 @@ Widget _toolBarWidget(
     Operations('反馈', 'assets/images/icn_opinion.png', ActionType.feedback),
   ];
   return Container(
-    color: Colors.white,
+    color: Colors.transparent,
     height: 58,
     margin: EdgeInsets.symmetric(vertical: 0),
     alignment: Alignment.center,

@@ -18,6 +18,7 @@ CourseDetailModel _$CourseDetailModelFromJson(Map<String, dynamic> json) {
               : CatalogsModel.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       topicId: json['topicId'] as int,
+      author: json['author'] as String,
       collected: json['collected'] as int);
 }
 
@@ -29,7 +30,8 @@ Map<String, dynamic> _$CourseDetailModelToJson(CourseDetailModel instance) =>
       'categoryName': instance.categoryName,
       'catalogs': instance.catalogs,
       'topicId': instance.topicId,
-      'collected': instance.collected
+      'collected': instance.collected,
+      'author': instance.author
     };
 
 CatalogsModel _$CatalogsModelFromJson(Map<String, dynamic> json) {
