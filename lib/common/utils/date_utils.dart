@@ -18,6 +18,7 @@ class DateUtil {
     }
     return date.toString();
   }
+
   static String formatDuration(Duration position) {
     final ms = position.inMilliseconds;
 
@@ -40,5 +41,4 @@ class DateUtil {
 
     return formattedTime;
   }
-
 }

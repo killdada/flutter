@@ -13,7 +13,9 @@ class AudioState implements Cloneable<AudioState> {
   CourseDetailModel courseDetail;
   CatalogsModel currentCatalog;
   AudioPlayer audioPlayer = AudioPlayer();
+  AudioPlayerState audioPlayerState = AudioPlayerState.PLAYING;
   VideoEvent videoEventData;
+  Duration duration;
   bool collected = false;
   PlayType pageType = PlayType.audio; // 传递给操作组件使用
 
@@ -25,6 +27,8 @@ class AudioState implements Cloneable<AudioState> {
       ..currentCatalog = currentCatalog
       ..audioPlayer = audioPlayer
       ..pageType = pageType
+      ..duration = duration
+      ..audioPlayerState = audioPlayerState
       ..collected = collected;
   }
 }

@@ -67,7 +67,9 @@ class CatalogsModel {
 @JsonSerializable()
 class PptModel {
   String url;
+  @JsonKey(name: 'start_time')
   int timeStart;
+  @JsonKey(name: 'end_time')
   int timeEnd;
 
   PptModel({this.url, this.timeStart, this.timeEnd});

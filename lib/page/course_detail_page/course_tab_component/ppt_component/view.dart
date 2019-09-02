@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,73 +55,74 @@ Widget buildView(
     String _uri = item.url;
     dynamic _image = _cacheBgImage(_uri);
     _images.add(_image);
-    print('<<${item.timeStart}>>');
   });
 
- return Container(
-   padding: EdgeInsets.symmetric(
-     vertical: AppSize.height(10.0),
-     horizontal: AppSize.width(36.0),
-   ),
-   child: Column(
-     children: [
-       GestureDetector(
-         child: 
-            AspectRatio(aspectRatio: 16 / 9, child:
-            TransformerPageView(
-      key:  Key(pptIndex.toString()),
-      index: pptIndex,
-      loop: false,
-      transformer:  ZoomInPageTransformer(),
-      itemBuilder: (BuildContext context, int index) {
-        return _images[index];
-      },
-       onPageChanged: (int index) {
-         dispatch(CourseDetailActionCreator.changePptIndex(index));
-      },
-      itemCount: _images.length,)
-             ),
-         onTap: () {
-           Navigator.push(viewService.context,
-               FadeRoute(pageBuilder: (context) {
-             return _photoViewPage(state, dispatch, viewService);
-           }));
-         },
-       ),
-       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-         IconButton(
-           icon: Image.asset(
-             'assets/images/Icon_last_pre.png',
-             width: AppSize.width(70),
-             height: AppSize.width(70),
-           ),
-               onPressed: ()  {
-                 if (pptIndex != 0) {
-                  dispatch(CourseDetailActionCreator.changePptIndex(pptIndex -1));
-                 }
-               },
-         ),
-         Text(
-           '课程PPT ${pptIndex + 1}/${_images.length}',
-           style: TextStyle(
-             fontSize: AppSize.sp(32),
-             color: Color(0xFF666666),
-           ),
-         ),
-         IconButton(
-           icon: Image.asset(
-             'assets/images/Icon_next_pre.png',
-             width: AppSize.width(70),
-             height: AppSize.width(70),
-           ),
-            onPressed: ()  {
-                 if (pptIndex != _images.length - 1) {
-                  dispatch(CourseDetailActionCreator.changePptIndex(pptIndex  + 1));
-                 }
-               },
-         ),
-       ]),
-     ],
-   ),
- );
+  return Container(
+    padding: EdgeInsets.symmetric(
+      vertical: AppSize.height(10.0),
+      horizontal: AppSize.width(36.0),
+    ),
+    child: Column(
+      children: [
+        GestureDetector(
+          child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: TransformerPageView(
+                key: Key(pptIndex.toString()),
+                index: pptIndex,
+                loop: false,
+                transformer: ZoomInPageTransformer(),
+                itemBuilder: (BuildContext context, int index) {
+                  return _images[index];
+                },
+                onPageChanged: (int index) {
+                  dispatch(CourseDetailActionCreator.changePptIndex(index));
+                },
+                itemCount: _images.length,
+              )),
+          onTap: () {
+            Navigator.push(viewService.context,
+                FadeRoute(pageBuilder: (context) {
+              return _photoViewPage(state, dispatch, viewService);
+            }));
+          },
+        ),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          IconButton(
+            icon: Image.asset(
+              'assets/images/Icon_last_pre.png',
+              width: AppSize.width(70),
+              height: AppSize.width(70),
+            ),
+            onPressed: () {
+              if (pptIndex != 0) {
+                dispatch(
+                    CourseDetailActionCreator.changePptIndex(pptIndex - 1));
+              }
+            },
+          ),
+          Text(
+            '课程PPT ${pptIndex + 1}/${_images.length}',
+            style: TextStyle(
+              fontSize: AppSize.sp(32),
+              color: Color(0xFF666666),
+            ),
+          ),
+          IconButton(
+            icon: Image.asset(
+              'assets/images/Icon_next_pre.png',
+              width: AppSize.width(70),
+              height: AppSize.width(70),
+            ),
+            onPressed: () {
+              if (pptIndex != _images.length - 1) {
+                dispatch(
+                    CourseDetailActionCreator.changePptIndex(pptIndex + 1));
+              }
+            },
+          ),
+        ]),
+      ],
+    ),
+  );
 }

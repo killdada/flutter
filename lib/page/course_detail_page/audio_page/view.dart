@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,8 +21,11 @@ void changePlayType(AudioState state, BuildContext context) async {
   try {
     await state.audioPlayer?.pause();
     await state.audioPlayer?.dispose();
-    Timer(Duration(milliseconds: 100), () {
-      Navigator.of(context).pop(state.videoEventData.position);
+    Timer(Duration(milliseconds: 200), () {
+      Navigator.of(context).pop({
+        'position': state.videoEventData.position,
+        'currentCatalog': state.currentCatalog
+      });
     });
   } catch (e) {
     //
@@ -129,9 +133,11 @@ Widget handle(AudioState state, Dispatch dispatch, ViewService viewService) {
           onTap: () {
             // 已经是第一页不操作
             if (catalogIndex != 0) {
-              catalogIndex++;
+              catalogIndex--;
               if (catalogs[catalogIndex] != null) {
-                AudioActionCreator.onChangePlayUrl(catalogs[catalogIndex]);
+                dispatch(
+                  AudioActionCreator.onChangePlayUrl(catalogs[catalogIndex]),
+                );
               }
             }
           },
@@ -146,21 +152,16 @@ Widget handle(AudioState state, Dispatch dispatch, ViewService viewService) {
         ),
         InkWell(
           onTap: () {
-            // if (playerController.value.isPlaying) {
-            //   playerController.pause();
-            // } else {
-            //   playerController.play();
-            // }
-            // setState(() {});
+            if (state.audioPlayerState == AudioPlayerState.PLAYING) {
+              dispatch(AudioActionCreator.onPause());
+            } else {
+              dispatch(AudioActionCreator.onResume());
+            }
           },
-          //   child: Image.asset(
-          //     playerController.value.isPlaying
-          //         ? 'assets/images/icn_audio_pause.png'
-          //         : 'assets/images/icn_audio_play.png',
-          //     width: AppSize.width(173),
-          //   ),
           child: Image.asset(
-            'assets/images/icn_audio_play.png',
+            state.audioPlayerState == AudioPlayerState.PLAYING
+                ? 'assets/images/icn_audio_pause.png'
+                : 'assets/images/icn_audio_play.png',
             width: AppSize.width(120),
           ),
         ),
@@ -171,9 +172,11 @@ Widget handle(AudioState state, Dispatch dispatch, ViewService viewService) {
           onTap: () {
             // 已经是最后一页不操作
             if (catalogIndex != catalogs.length - 1) {
-              catalogIndex--;
+              catalogIndex++;
               if (catalogs[catalogIndex] != null) {
-                AudioActionCreator.onChangePlayUrl(catalogs[catalogIndex]);
+                dispatch(
+                  AudioActionCreator.onChangePlayUrl(catalogs[catalogIndex]),
+                );
               }
             }
           },
@@ -188,8 +191,10 @@ Widget handle(AudioState state, Dispatch dispatch, ViewService viewService) {
         ),
         InkWell(
           onTap: () {
-            AudioActionCreator.onSeekTo(
-                state.videoEventData.position + Duration(seconds: 15));
+            dispatch(
+              AudioActionCreator.onSeekTo(
+                  state.videoEventData.position + Duration(seconds: 15)),
+            );
           },
           child: Image.asset(
             'assets/images/icn_audio_fast_forward.png',
@@ -204,17 +209,47 @@ Widget handle(AudioState state, Dispatch dispatch, ViewService viewService) {
   );
 }
 
-// Widget progress() {
-//   return AudioPlayerSeekBar(
-//     controller: playerController,
-//   );
-// }
+void seekToRelativePosition(Offset globalPosition, AudioState state,
+    Dispatch dispatch, ViewService viewService) {
+  final box = viewService.context.findRenderObject() as RenderBox;
+  final Offset tapPos = box.globalToLocal(globalPosition);
+  final double relative = tapPos.dx / box.size.width;
+  final Duration position = state.duration * relative;
+  dispatch(AudioActionCreator.onSeekTo(position));
+}
+
+Widget progress(AudioState state, Dispatch dispatch, ViewService viewService) {
+  return GestureDetector(
+    child: CustomPaint(
+      painter: SeekBarPainter(state),
+    ),
+    onHorizontalDragStart: (DragStartDetails details) {
+      if (state.audioPlayerState == AudioPlayerState.PLAYING) {
+        dispatch(AudioActionCreator.onPause());
+      }
+    },
+    onHorizontalDragUpdate: (DragUpdateDetails details) {
+      seekToRelativePosition(
+          details.globalPosition, state, dispatch, viewService);
+    },
+    onHorizontalDragEnd: (DragEndDetails details) {
+      if (state.audioPlayerState != AudioPlayerState.PLAYING) {
+        dispatch(AudioActionCreator.onResume());
+      }
+    },
+    onTapDown: (TapDownDetails details) {
+      seekToRelativePosition(
+          details.globalPosition, state, dispatch, viewService);
+    },
+  );
+}
 
 Widget buildView(AudioState state, Dispatch dispatch, ViewService viewService) {
   return AnnotatedRegion<SystemUiOverlayStyle>(
     value: SystemUiOverlayStyle.light,
     child: WillPopScope(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Stack(
           children: <Widget>[
             Column(
@@ -226,16 +261,16 @@ Widget buildView(AudioState state, Dispatch dispatch, ViewService viewService) {
                         child: body(state, dispatch, viewService),
                         bottom: 20,
                       ),
-                      //   Positioned(
-                      //     child: progress(),
-                      //     left: 0,
-                      //     right: 0,
-                      //     bottom: 0,
-                      //     height: 40,
-                      //   ),
+                      Positioned(
+                        child: progress(state, dispatch, viewService),
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        height: 40,
+                      ),
                     ],
                   ),
-                  flex: 900,
+                  flex: 960,
                 ),
                 Expanded(
                   child: handle(state, dispatch, viewService),

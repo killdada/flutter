@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 
@@ -8,10 +9,20 @@ enum AudioAction {
   onChangePlayUrl,
   onPause,
   onResume,
-  changeCurrentCatalog
+  changeCurrentCatalog,
+  changeAudioPlayerState,
+  changeAudioDuration
 }
 
 class AudioActionCreator {
+  static Action changeAudioPlayerState(AudioPlayerState state) {
+    return Action(AudioAction.changeAudioPlayerState, payload: state);
+  }
+
+  static Action changeAudioDuration(Duration duration) {
+    return Action(AudioAction.changeAudioDuration, payload: duration);
+  }
+
   static Action changePosition(Duration position) {
     return Action(AudioAction.changePosition, payload: position);
   }

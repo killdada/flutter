@@ -662,7 +662,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     }
     // 第一次init，如果有位置信息，直接跳到位置信息接着播放
     if (!initialized && controller.value.initialized) {
-      print('第一次：${controller.value.initialized}');
+      //   print('第一次：${controller.value.initialized}');
       setState(() {
         initialized = true;
       });

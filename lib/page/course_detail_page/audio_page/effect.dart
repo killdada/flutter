@@ -1,8 +1,13 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'action.dart';
 import 'state.dart';
+
+StreamSubscription _durationSubscription;
 
 Effect<AudioState> buildEffect() {
   return combineEffects(<Object, Effect<AudioState>>{
@@ -12,6 +17,15 @@ Effect<AudioState> buildEffect() {
     AudioAction.onChangePlayUrl: _onChangePlayUrl,
     AudioAction.onPause: _onPause,
     AudioAction.onResume: _onResume,
+  });
+}
+
+void listenDuration(Context<AudioState> ctx) {
+  _durationSubscription?.cancel();
+  _durationSubscription =
+      ctx.state.audioPlayer.onDurationChanged.listen((duration) {
+    ctx.dispatch(AudioActionCreator.changeAudioDuration(duration));
+    print('音频总时长: $duration');
   });
 }
 
@@ -33,8 +47,10 @@ void _onSeekTo(Action action, Context<AudioState> ctx) async {
 
 void _onChangePlayUrl(Action action, Context<AudioState> ctx) async {
   CatalogsModel catalog = action.payload;
-  await play(ctx, catalog.videoUrl);
+  await ctx.state.audioPlayer.setUrl(catalog.videoUrl);
+  // 改变当前播放的地址，并清空之前的播放时长
   ctx.dispatch(AudioActionCreator.changeCurrentCatalog(catalog));
+  listenDuration(ctx);
 }
 
 void _dispose(Action action, Context<AudioState> ctx) {
@@ -62,10 +78,12 @@ void _init(Action action, Context<AudioState> ctx) async {
       ctx.state.currentCatalog.videoUrl != null) {
     await play(ctx, ctx.state.currentCatalog.videoUrl);
     ctx.state.audioPlayer.onAudioPositionChanged.listen((Duration p) {
-      print('Current player position: $p');
+      //   print('Current player position: $p');
       ctx.dispatch(AudioActionCreator.changePosition(p));
     });
+    listenDuration(ctx);
     ctx.state.audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) {
+      ctx.dispatch(AudioActionCreator.changeAudioPlayerState(s));
       print('Current player state: $s');
     });
   }

@@ -67,13 +67,18 @@ void gotoAudioPage(Context<CourseDetailState> ctx) async {
   await Navigator.of(ctx.context)
       .push(new MaterialPageRoute(builder: (BuildContext context) {
     return AudioPage().buildPage({'courseDetailState': ctx.state});
-  })).then((position) {
+  })).then((data) {
+    if (data['currentCatalog'] != ctx.state.currentCatalog) {
+      ctx.dispatch(
+        CourseDetailActionCreator.changeCurrentTab(data['currentCatalog']),
+      );
+    }
     ctx.dispatch(
       CourseDetailActionCreator.changeVideoEvent(
         VideoEvent(
             playType: PlayType.video,
             videoModel: ctx.state.videoEventData.videoModel,
-            position: position),
+            position: data['position']),
       ),
     );
   });

@@ -18,8 +18,8 @@ CourseDetailModel _$CourseDetailModelFromJson(Map<String, dynamic> json) {
               : CatalogsModel.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       topicId: json['topicId'] as int,
-      author: json['author'] as String,
-      collected: json['collected'] as int);
+      collected: json['collected'] as int,
+      author: json['author'] as String);
 }
 
 Map<String, dynamic> _$CourseDetailModelToJson(CourseDetailModel instance) =>
@@ -68,12 +68,12 @@ Map<String, dynamic> _$CatalogsModelToJson(CatalogsModel instance) =>
 PptModel _$PptModelFromJson(Map<String, dynamic> json) {
   return PptModel(
       url: json['url'] as String,
-      timeStart: json['timeStart'] as int,
-      timeEnd: json['timeEnd'] as int);
+      timeStart: json['start_time'] as int,
+      timeEnd: json['end_time'] as int);
 }
 
 Map<String, dynamic> _$PptModelToJson(PptModel instance) => <String, dynamic>{
       'url': instance.url,
-      'timeStart': instance.timeStart,
-      'timeEnd': instance.timeEnd
+      'start_time': instance.timeStart,
+      'end_time': instance.timeEnd
     };
