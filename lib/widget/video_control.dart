@@ -654,6 +654,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   }
 
   void _updateState() {
+    if (!mounted) return;
     // 精简模式下，随着视频播放，PPT自动翻页
     if (videoModel == VideoModel.simple) {
       var time = controller.value.position.inSeconds;

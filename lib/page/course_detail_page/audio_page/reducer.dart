@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fish_redux/fish_redux.dart';
 
 import 'action.dart';
@@ -24,7 +26,6 @@ AudioState _changeAudioPlayerState(AudioState state, Action action) {
 AudioState _changeCurrentCatalog(AudioState state, Action action) {
   final AudioState newState = state.clone();
   newState.currentCatalog = action.payload;
-  newState.duration = null;
   return newState;
 }
 

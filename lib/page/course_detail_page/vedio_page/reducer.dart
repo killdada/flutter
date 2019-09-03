@@ -1,8 +1,5 @@
-
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/chewie.dart';
-
 
 import 'action.dart';
 import 'state.dart';
@@ -20,8 +17,9 @@ Reducer<VedioState> buildReducer() {
 }
 
 VedioState _changeVideo(VedioState state, Action action) {
+  state.chewieController?.pause();
   final VedioState newState = state.clone();
-  Map controllers =  ChewiePlay.init(action.payload);
+  Map controllers = ChewiePlay.init(action.payload);
   newState.videoController = controllers['videoController'];
   newState.chewieController = controllers['chewieController'];
   return newState;

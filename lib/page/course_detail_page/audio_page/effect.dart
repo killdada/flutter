@@ -50,7 +50,9 @@ void _onChangePlayUrl(Action action, Context<AudioState> ctx) async {
   await ctx.state.audioPlayer.setUrl(catalog.videoUrl);
   // 改变当前播放的地址，并清空之前的播放时长
   ctx.dispatch(AudioActionCreator.changeCurrentCatalog(catalog));
-  listenDuration(ctx);
+  Timer(Duration(milliseconds: 100), () {
+    listenDuration(ctx);
+  });
 }
 
 void _dispose(Action action, Context<AudioState> ctx) {
