@@ -1,4 +1,5 @@
 
+import 'package:myapp/common/blocs/bloc_index.dart';
 import 'package:myapp/page/course_detail_page/audio_page/page.dart';
 import 'package:myapp/page/my.dart';
 import 'package:myapp/page/login.dart';
@@ -66,7 +67,10 @@ Handler courseDetailRouterHandler = Handler(
 
 Handler downLoadRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return DownloadPage();
+    return BlocProvider<DownloadBloc>(
+      bloc: DownloadBloc(),
+      child: DownloadPage(),
+    );
 });
 
 Handler feedbackRouterHandler = Handler(
