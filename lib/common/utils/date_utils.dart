@@ -19,6 +19,30 @@ class DateUtil {
     return date.toString();
   }
 
+  static String formatTimeString(String time) {
+    time ??= "";
+    List splitTime = time.split(':');
+    int hour = 0;
+    int minute = 0;
+    int second = 0;
+    if (splitTime.length > 2) {
+      hour = int.parse(splitTime[0]);
+      minute = int.parse(splitTime[1]);
+      second = int.parse(splitTime[2]);
+    }
+    StringBuffer date = new StringBuffer();
+    if (hour > 0) {
+      date.write('$hour小时');
+    }
+    if (minute > 0) {
+      date.write('$minute分');
+    }
+    if (second > 0) {
+      date.write('$second秒');
+    }
+    return date.toString();
+  }
+
   static String formatDuration(Duration position) {
     final ms = position.inMilliseconds;
 

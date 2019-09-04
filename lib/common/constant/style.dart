@@ -18,6 +18,8 @@ class Colours {
   static const Color blueLight = Color(0xFF00B8FF);
 
   static const Color divider = Color(0xFFD8D8D8);
+  static const Color lightGray = Color(0xFF999999);
+  static const Color lightRed = Color(0xFFF73E4D);
 }
 
 ///文本样式
@@ -44,6 +46,7 @@ class Dimens {
   static Radius radius_12 = Radius.circular(AppSize.width(12.0));
   static Radius radius_8 = Radius.circular(AppSize.width(8.0));
   static Radius radius_15 = Radius.circular(AppSize.width(15.0));
+  static Radius radius_23 = Radius.circular(AppSize.width(23.0));
 
   static double appBarHeight = AppSize.height(90);
 }

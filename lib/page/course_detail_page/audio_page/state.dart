@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
-import 'package:myapp/common/utils/fluro_convert_util.dart';
 import 'package:myapp/page/course_detail_page/state.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/state.dart';
 

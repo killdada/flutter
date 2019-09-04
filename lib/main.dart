@@ -1,15 +1,18 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 // 路由
 import 'package:fluro/fluro.dart';
+import 'package:myapp/common/utils/index.dart';
 import 'package:myapp/router/routers.dart';
 import 'package:myapp/router/application.dart';
 
-// mobx测试
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+
 
 // 主题的utils
 import 'package:myapp/common/constant/theme.dart';
@@ -23,11 +26,15 @@ import 'package:myapp/common/event/event_bus.dart';
 import 'package:myapp/common/event/http_error_event.dart';
 import 'package:myapp/common/http/code.dart';
 
+import 'common/blocs/application_bloc.dart';
+import 'common/blocs/bloc_provider.dart';
+
+import 'package:fluwx/fluwx.dart' as fluwx;
+
 void main() {
   runZoned(() {
-    runApp(MultiProvider(
-      // 装载共用同一个实例的store
-      providers: [],
+    runApp(BlocProvider<ApplicationBloc>(
+      bloc: ApplicationBloc(),
       child: MyApp(),
     ));
     // 图片缓存个数 100
@@ -40,6 +47,8 @@ void main() {
     print(stack);
   });
 }
+
+final Connectivity _connectivity = AppUtil.connectivity;
 
 class MyApp extends StatefulWidget {
   MyApp() {
@@ -56,6 +65,8 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 class _MyAppState extends State<MyApp> {
   StreamSubscription stream;
+
+  get fluwx => null;
   @override
   void initState() {
     super.initState();
@@ -63,6 +74,55 @@ class _MyAppState extends State<MyApp> {
       errorHandleFunction(event.code, event.message);
     });
     SystemStyles.setStatusBarStyle();
+    _initAsync();
+    _initListen();
+    _initFluwx();
+  }
+   void _initAsync() async {
+    await AppUtil.init();
+  }
+
+    void _initListen() {
+    final ApplicationBloc bloc = BlocProvider.of<ApplicationBloc>(context);
+    bloc.appEventStream.listen((value) {
+      print('app event: $value');
+    });
+    initConnectivity();
+    _connectivity?.onConnectivityChanged.listen((status){
+
+      if(status != AppUtil.connectivityStatus){
+        print('status:$status');
+        AppUtil.updateConnectivityStatus(status);
+      }
+    });
+  }
+
+  Future<void> initConnectivity() async {
+    ConnectivityResult result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      var connectivity = _connectivity;
+      result = await _connectivity.checkConnectivity();
+      AppUtil.updateConnectivityStatus(result);
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return;
+    }
+  }
+
+  _initFluwx() async {
+    await fluwx?.register(
+        appId: "wxc8e6a2037e0e55f0",
+        doOnAndroid: true,
+        doOnIOS: true,
+        enableMTA: false);
+    var result = await fluwx?.isWeChatInstalled();
+    print("is installed $result");
   }
 
   @override

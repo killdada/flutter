@@ -28,3 +28,35 @@ class CourseModel {
       _$CourseModelFromJson(json);
   Map<String, dynamic> toJson() => _$CourseModelToJson(this);
 }
+
+
+@JsonSerializable()
+class CourseRecordEntity {
+  String imgUrl;
+  String totalVedioTime;
+  String courseName;
+  String author;
+  String cateoryName;
+  String courseId;
+  String desc;
+  String id;
+  String fileSize;
+
+  CourseRecordEntity(
+      {this.imgUrl,
+        this.totalVedioTime,
+        this.courseName,
+        this.author,
+        this.cateoryName,
+        this.courseId,
+        this.desc,
+      this.id,
+      this.fileSize});
+
+  //不同的类使用不同的mixin即可
+  factory CourseRecordEntity.fromJson(Map<String, dynamic> json) =>
+      _$CourseRecordEntityFromJson(json);
+  Map<String, dynamic> toJson() => _$CourseRecordEntityToJson(this);
+
+}
+

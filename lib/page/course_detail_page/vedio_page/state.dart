@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:chewie/chewie.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/event/video_event.dart';

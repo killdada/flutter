@@ -1,5 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 

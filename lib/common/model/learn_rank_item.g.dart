@@ -8,12 +8,13 @@ part of 'learn_rank_item.dart';
 
 LearnRankItem _$LearnRankItemFromJson(Map<String, dynamic> json) {
   return LearnRankItem(
-      isMine: json['is_mine'] as bool,
-      userAvater: json['userAvater'] as String,
-      rank: json['rank'] as int,
-      userShowName: json['user_show_name'] as String,
-      value: json['value'] as int,
-      username: json['username'] as String);
+    isMine: json['is_mine'] as bool,
+    userAvater: json['userAvater'] as String,
+    rank: json['rank'] as int,
+    userShowName: json['user_show_name'] as String,
+    value: json['value'] as int,
+    username: json['username'] as String,
+  );
 }
 
 Map<String, dynamic> _$LearnRankItemToJson(LearnRankItem instance) =>
@@ -23,5 +24,5 @@ Map<String, dynamic> _$LearnRankItemToJson(LearnRankItem instance) =>
       'rank': instance.rank,
       'user_show_name': instance.userShowName,
       'value': instance.value,
-      'username': instance.username
+      'username': instance.username,
     };

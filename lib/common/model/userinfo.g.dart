@@ -8,17 +8,18 @@ part of 'userinfo.dart';
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
   return UserInfo(
-      exerciseCountTotal: json['exerciseCountTotal'] as int,
-      userAvater: json['userAvater'] as String,
-      rankStudyTimeInWeek: json['rankStudyTimeInWeek'] as int,
-      userShowName: json['userShowName'] as String,
-      exerciseCountWeek: json['exerciseCountWeek'] as int,
-      studyTimeWeek: json['studyTimeWeek'] as int,
-      rankStudyTimeInTotal: json['rankStudyTimeInTotal'] as int,
-      rankExerciseInWeek: json['rankExerciseInWeek'] as int,
-      username: json['username'] as String,
-      studyTimeTotal: json['studyTimeTotal'] as int,
-      studyTimeNum: json['studyTimeNum'] as int);
+    exerciseCountTotal: json['exerciseCountTotal'] as int,
+    userAvater: json['userAvater'] as String,
+    rankStudyTimeInWeek: json['rankStudyTimeInWeek'] as int,
+    userShowName: json['userShowName'] as String,
+    exerciseCountWeek: json['exerciseCountWeek'] as int,
+    studyTimeWeek: json['studyTimeWeek'] as int,
+    rankStudyTimeInTotal: json['rankStudyTimeInTotal'] as int,
+    rankExerciseInWeek: json['rankExerciseInWeek'] as int,
+    username: json['username'] as String,
+    studyTimeTotal: json['studyTimeTotal'] as int,
+    studyTimeNum: json['studyTimeNum'] as int,
+  );
 }
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
@@ -32,5 +33,5 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'rankExerciseInWeek': instance.rankExerciseInWeek,
       'username': instance.username,
       'studyTimeTotal': instance.studyTimeTotal,
-      'studyTimeNum': instance.studyTimeNum
+      'studyTimeNum': instance.studyTimeNum,
     };

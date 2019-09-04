@@ -8,36 +8,38 @@ part of 'learn_record_model.dart';
 
 LearnRecordModel _$LearnRecordModelFromJson(Map<String, dynamic> json) {
   return LearnRecordModel(
-      courses: (json['courses'] as List)
-          ?.map((e) => e == null
-              ? null
-              : LearnRecordCourse.fromJson(e as Map<String, dynamic>))
-          ?.toList(),
-      showDate: json['show_date'] as String);
+    courses: (json['courses'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LearnRecordCourse.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    showDate: json['show_date'] as String,
+  );
 }
 
 Map<String, dynamic> _$LearnRecordModelToJson(LearnRecordModel instance) =>
     <String, dynamic>{
       'courses': instance.courses,
-      'show_date': instance.showDate
+      'show_date': instance.showDate,
     };
 
 LearnRecordCourse _$LearnRecordCourseFromJson(Map<String, dynamic> json) {
   return LearnRecordCourse(
-      lecturer: json['lecturer'] as String,
-      createdAt: json['created_at'] as String,
-      remark: json['remark'] as String,
-      deletedAt: json['deleted_at'],
-      imgMediaId: json['img_media_id'] as String,
-      categoryId: json['category_id'] as int,
-      imgUrl: json['img_url'] as String,
-      learningInfo: json['learning_info'] as String,
-      name: json['name'] as String,
-      courseCatalogId: json['course_catalog_id'] as int,
-      id: json['id'] as int,
-      catalogNum: json['catalog_num'] as int,
-      modifiedAt: json['modified_at'] as String,
-      status: json['status'] as int);
+    lecturer: json['lecturer'] as String,
+    createdAt: json['created_at'] as String,
+    remark: json['remark'] as String,
+    deletedAt: json['deleted_at'],
+    imgMediaId: json['img_media_id'] as String,
+    categoryId: json['category_id'] as int,
+    imgUrl: json['img_url'] as String,
+    learningInfo: json['learning_info'] as String,
+    name: json['name'] as String,
+    courseCatalogId: json['course_catalog_id'] as int,
+    id: json['id'] as int,
+    catalogNum: json['catalog_num'] as int,
+    modifiedAt: json['modified_at'] as String,
+    status: json['status'] as int,
+  );
 }
 
 Map<String, dynamic> _$LearnRecordCourseToJson(LearnRecordCourse instance) =>
@@ -55,5 +57,5 @@ Map<String, dynamic> _$LearnRecordCourseToJson(LearnRecordCourse instance) =>
       'id': instance.id,
       'catalog_num': instance.catalogNum,
       'modified_at': instance.modifiedAt,
-      'status': instance.status
+      'status': instance.status,
     };

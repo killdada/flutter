@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/common/dao/course_detail_dao.dart';
