@@ -77,6 +77,7 @@ class _DownloadPageState extends State<DownloadPage>
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: CommonScaffold(
+          backgroundColor: Colors.white,
           appBar: CommonAppBar(
             title: '我的下载',
             trailing: StreamBuilder(
@@ -561,16 +562,14 @@ class _DownloadPageState extends State<DownloadPage>
       if (task.status == DownloadTaskStatus.failed ||
           task.status == DownloadTaskStatus.canceled) {
         downloadBloc.updateTask(task);
-      } else if(task.status == DownloadTaskStatus.paused)
-      {
+      } else if (task.status == DownloadTaskStatus.paused) {
         downloadBloc.resumeTask(task);
-      }else{
+      } else {
         showToast("同时下载个数为3，请耐心等待");
         print('同时可下载最大个数为3，请等待任务下载完成');
       }
       return;
-    }
-    else if (task.status == DownloadTaskStatus.paused && task.progress > 3) {
+    } else if (task.status == DownloadTaskStatus.paused && task.progress > 3) {
       downloadBloc.resumeTask(task);
     } else if (task.status != DownloadTaskStatus.running) {
       downloadBloc.updateTask(task);

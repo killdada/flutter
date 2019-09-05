@@ -14,12 +14,11 @@ class Address {
   static const String _feedback = "feedback"; // 反馈
   static const String _search = "search"; // 搜索
   static const String _reportLeaningTime = "learning/report/time"; //上报学习时长
-
-  // static const String _practiceReply = "practice_replay"; // 主题练习详情、回复
-  // static const String _practiceFab = "practice_fab"; // 主题练习点赞
-  // static const String _practiceReplyFab = "practice_replay_fab"; // 主题练习评论点赞
-  // static const String _practice = "practice"; // 主题概览
-  // static const String _practiceSubmit = "practice/reply"; // 提交练习
+  static const String _practiceReply = "practice_replay"; // 主题练习详情、回复
+  static const String _practiceFab = "practice_fab"; // 主题练习点赞
+  static const String _practiceReplyFab = "practice_replay_fab"; // 主题练习评论点赞
+  static const String _practice = "practice"; // 主题概览
+  static const String _practiceSubmit = "practice/reply"; // 提交练习
   static const String _courseDetailTopic = "topic/practice"; //课程详情里面的课后练习
   // static const String _reportLeaning = "learning/report/record"; //上报学习记录
   // static const String _deleteCollectionByCourse =
@@ -93,5 +92,30 @@ class Address {
   /// 课程详情里面的课后练习
   static getcourseDetailTopic() {
     return "$host$_courseDetailTopic";
+  }
+
+  /// 练习详情
+  static getPracticeReply() {
+    return "$host$_practiceReply";
+  }
+
+  /// 点赞喜欢
+  static getPracticeFab() {
+    return "$host$_practiceFab";
+  }
+
+  // 对评论点赞喜欢
+  static getPracticeReplyFab() {
+    return "$host$_practiceReplyFab";
+  }
+
+  /// 主题概览
+  static getPractice() {
+    return "$host$_practice";
+  }
+
+  // 提交练习
+  static getPracticeSubmit() {
+    return "$host$_practiceSubmit";
   }
 }

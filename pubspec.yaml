@@ -71,12 +71,12 @@ dependencies:
 
   flutter_file_helper:
     git:
-      url:  git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_file_helper.git
+      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_file_helper.git
   # https://github.com/Naddiseo/dart-sprintf
   sprintf: ^4.0.2
   flutter_downloader:
     git:
-      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_downloader.git
+      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_file_downloader.git
   wave: ^0.0.8
 
   chewie: ^0.9.7
@@ -84,11 +84,10 @@ dependencies:
   video_player: ^0.10.1+6
   transformer_page_view:
   audioplayers: ^0.13.1
-  qr_flutter : ^2.1.0+55
-  fluwx : ^1.0.0
-  rxdart : ^0.22.0
-  connectivity : ^0.4.3
-
+  qr_flutter: ^2.1.0+55
+  fluwx: ^1.0.0
+  rxdart: ^0.22.0
+  connectivity: ^0.4.3
 
 dev_dependencies:
   flutter_test:

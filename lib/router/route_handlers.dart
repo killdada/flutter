@@ -1,4 +1,3 @@
-
 import 'package:myapp/common/blocs/bloc_index.dart';
 import 'package:myapp/page/course_detail_page/audio_page/page.dart';
 import 'package:myapp/page/my.dart';
@@ -7,6 +6,8 @@ import 'package:myapp/page/course.dart';
 import 'package:myapp/page/learn_rank.dart';
 import 'package:myapp/page/learn_record.dart';
 import 'package:myapp/page/page_container.dart';
+import 'package:myapp/page/practice_detail.dart';
+import 'package:myapp/page/practice_overview.dart';
 import 'package:myapp/page/search_page/page.dart';
 import 'package:myapp/page/course_detail_page/page.dart';
 import 'package:myapp/page/download_page.dart';
@@ -67,10 +68,10 @@ Handler courseDetailRouterHandler = Handler(
 
 Handler downLoadRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return BlocProvider<DownloadBloc>(
-      bloc: DownloadBloc(),
-      child: DownloadPage(),
-    );
+  return BlocProvider<DownloadBloc>(
+    bloc: DownloadBloc(),
+    child: DownloadPage(),
+  );
 });
 
 Handler feedbackRouterHandler = Handler(
@@ -81,4 +82,18 @@ Handler feedbackRouterHandler = Handler(
 Handler collectionRouterHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return CollectionPage();
+});
+
+Handler practiveDetailRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return PracticeDetailPage(int.parse(params['practiceId'].first));
+});
+
+Handler practiveOverviewRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  dynamic _cid = params['courseId'].first;
+  dynamic _pid = params['practiceId'].first;
+  int cid = int.parse(_cid);
+  int pid = int.parse(_pid);
+  return PractiveOverviewPage(cid, pid);
 });

@@ -251,10 +251,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "57652f19c385385b8a9d91af875dc8f886f6f297"
-      url: "git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_downloader.git"
+      resolved-ref: e7c3aa8c8d8a8b1fa2454d4fb432c428d136674a
+      url: "git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_file_downloader.git"
     source: git
-    version: "0.0.1"
+    version: "1.1.9"
   flutter_file_helper:
     dependency: "direct main"
     description:

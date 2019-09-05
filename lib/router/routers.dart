@@ -16,6 +16,8 @@ class Routes {
   static String downLoad = "/download";
   static String feedback = "/feedback";
   static String collection = "/collection";
+  static String practiceDetail = "/practice_detail";
+  static String practiceOverview = "/practice_overview";
 
   // 对路由进行配置，define进行定义handler是回调
   static void configureRoutes(Router router) {
@@ -35,5 +37,7 @@ class Routes {
     router.define(downLoad, handler: downLoadRouterHandler);
     router.define(feedback, handler: feedbackRouterHandler);
     router.define(collection, handler: collectionRouterHandler);
+    router.define(practiceDetail, handler: practiveDetailRouterHandler);
+    router.define(practiceOverview, handler: practiveOverviewRouterHandler);
   }
 }
