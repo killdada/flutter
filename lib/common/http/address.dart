@@ -20,7 +20,7 @@ class Address {
   // static const String _practiceReplyFab = "practice_replay_fab"; // 主题练习评论点赞
   // static const String _practice = "practice"; // 主题概览
   // static const String _practiceSubmit = "practice/reply"; // 提交练习
-  // static const String _courseDetailTopic = "topic/practice"; //课程详情里面的课后练习
+  static const String _courseDetailTopic = "topic/practice"; //课程详情里面的课后练习
   // static const String _reportLeaning = "learning/report/record"; //上报学习记录
   // static const String _deleteCollectionByCourse =
   //     "collection_by_course"; //上报学习时长
@@ -88,5 +88,10 @@ class Address {
   /// 学习时间上报
   static getReportLeaningTime() {
     return "$host$_reportLeaningTime";
+  }
+
+  /// 课程详情里面的课后练习
+  static getcourseDetailTopic() {
+    return "$host$_courseDetailTopic";
   }
 }

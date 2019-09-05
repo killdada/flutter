@@ -2,10 +2,17 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 
 class PracticeTabState implements Cloneable<PracticeTabState> {
-  CatalogsModel practiceData;
+  CourseDetailModel practiceData;
+  String sortType = 'time';
+  CourseDetailTopicModel topicDetail;
+  bool isShowDetailDesc = false;
   @override
   PracticeTabState clone() {
-    return PracticeTabState()..practiceData = practiceData;
+    return PracticeTabState()
+      ..practiceData = practiceData
+      ..topicDetail = topicDetail
+      ..isShowDetailDesc = isShowDetailDesc
+      ..sortType = sortType;
   }
 }
 

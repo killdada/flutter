@@ -119,15 +119,15 @@ class CourseTabConnector extends Reselect5<CourseDetailState, CourseTabState,
 }
 
 class PracticeTabConnector
-    extends Reselect1<CourseDetailState, PracticeTabState, CatalogsModel> {
+    extends Reselect1<CourseDetailState, PracticeTabState, CourseDetailModel> {
   @override
-  PracticeTabState computed(CatalogsModel sub0) {
+  PracticeTabState computed(CourseDetailModel sub0) {
     return PracticeTabState()..practiceData = sub0;
   }
 
   @override
-  CatalogsModel getSub0(CourseDetailState state) {
-    return state.currentCatalog;
+  CourseDetailModel getSub0(CourseDetailState state) {
+    return state.courseDetail;
   }
 
   @override
