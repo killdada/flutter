@@ -13,7 +13,6 @@ import 'package:myapp/router/application.dart';
 
 import 'package:flutter/services.dart';
 
-
 // 主题的utils
 import 'package:myapp/common/constant/theme.dart';
 import 'package:myapp/common/constant/style.dart';
@@ -66,7 +65,6 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class _MyAppState extends State<MyApp> {
   StreamSubscription stream;
 
-  get fluwx => null;
   @override
   void initState() {
     super.initState();
@@ -78,19 +76,19 @@ class _MyAppState extends State<MyApp> {
     _initListen();
     _initFluwx();
   }
-   void _initAsync() async {
+
+  void _initAsync() async {
     await AppUtil.init();
   }
 
-    void _initListen() {
+  void _initListen() {
     final ApplicationBloc bloc = BlocProvider.of<ApplicationBloc>(context);
     bloc.appEventStream.listen((value) {
       print('app event: $value');
     });
     initConnectivity();
-    _connectivity?.onConnectivityChanged.listen((status){
-
-      if(status != AppUtil.connectivityStatus){
+    _connectivity?.onConnectivityChanged.listen((status) {
+      if (status != AppUtil.connectivityStatus) {
         print('status:$status');
         AppUtil.updateConnectivityStatus(status);
       }
@@ -116,12 +114,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   _initFluwx() async {
-    await fluwx?.register(
+    await fluwx.register(
         appId: "wxc8e6a2037e0e55f0",
         doOnAndroid: true,
         doOnIOS: true,
         enableMTA: false);
-    var result = await fluwx?.isWeChatInstalled();
+    var result = await fluwx.isWeChatInstalled();
+    print('2e23323>>>>');
     print("is installed $result");
   }
 
