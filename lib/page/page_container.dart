@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenshot_listener/flutter_screenshot_listener.dart';
 
 import 'package:myapp/common/utils/appsize.dart';
+import 'package:myapp/common/utils/float_window.dart';
 
 import './course.dart';
 import './my.dart';
@@ -17,11 +19,13 @@ class _NavItem {
   _NavItem(this.title, this.tabImage, this.tabImageActive);
 }
 
-class PageContainerState extends State<PageContainer> {
+class PageContainerState extends State<PageContainer>
+    with WidgetsBindingObserver {
   int _tabIndex = 0;
 
   var _body;
   var pages;
+  var onScreenshot;
 
   final tabItems = [
     _NavItem('首页', 'assets/images/icn_home_nor.png',
@@ -40,8 +44,34 @@ class PageContainerState extends State<PageContainer> {
 
   @override
   void initState() {
+    onScreenshot = (path) {
+      FloatWindow.feedback(context, path);
+    };
+    ScreenshotListener.register(onScreenshot);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     pages = <Widget>[Course(), My()];
+  }
+
+  @override
+  void dispose() {
+    ScreenshotListener.unregister();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        ScreenshotListener.register(onScreenshot);
+        break;
+      case AppLifecycleState.paused:
+        ScreenshotListener.unregister();
+        break;
+      default:
+        break;
+    }
   }
 
   BottomNavigationBarItem _getBarItem(_NavItem item, int index) {

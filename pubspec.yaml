@@ -88,6 +88,9 @@ dependencies:
   fluwx: ^1.0.0
   rxdart: ^0.22.0
   connectivity: ^0.4.3
+  flutter_screenshot_listener:
+    git:
+      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_screenshot_listener.git
 
 dev_dependencies:
   flutter_test:

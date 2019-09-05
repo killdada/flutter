@@ -11,6 +11,8 @@ PODS:
     - Flutter
   - flutter_file_helper (0.0.1):
     - Flutter
+  - flutter_screenshot_listener (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
   - fluwx (0.0.1):
@@ -44,6 +46,7 @@ DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
   - flutter_downloader (from `.symlinks/plugins/flutter_downloader/ios`)
   - flutter_file_helper (from `.symlinks/plugins/flutter_file_helper/ios`)
+  - flutter_screenshot_listener (from `.symlinks/plugins/flutter_screenshot_listener/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - fluwx (from `.symlinks/plugins/fluwx/ios`)
   - image_handle (from `.symlinks/plugins/image_handle/ios`)
@@ -73,6 +76,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_downloader/ios"
   flutter_file_helper:
     :path: ".symlinks/plugins/flutter_file_helper/ios"
+  flutter_screenshot_listener:
+    :path: ".symlinks/plugins/flutter_screenshot_listener/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   fluwx:
@@ -101,6 +106,7 @@ SPEC CHECKSUMS:
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   flutter_downloader: 058b9c41564a90500f67f3e432e3524613a7fd83
   flutter_file_helper: 0216ef5ab504a27749c446f6bfb921f027ec8d0c
+  flutter_screenshot_listener: c293c6f66ce6e85b4ae3974335613534371da177
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   fluwx: 19524c5e4c9c539a646407259139c9c1e4eaf9e5
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
