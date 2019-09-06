@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:flutter_file_helper/flutter_file_helper.dart';
+import 'package:myapp/common/utils/data_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -18,44 +18,41 @@ class AppUtil {
 
   static Future<AppUtil> init() async {
     if (_singleton == null) {
-          var singleton = AppUtil();
-          connectivity = Connectivity();
-          _singleton = singleton;
+      var singleton = AppUtil();
+      connectivity = Connectivity();
+      DataUtils.initAppFirstInstall();
+      _singleton = singleton;
     }
     return _singleton;
   }
 
-  static bool isWifi (){
-    if(connectivityStatus == ConnectivityResult.wifi){
+  static bool isWifi() {
+    if (connectivityStatus == ConnectivityResult.wifi) {
       return true;
     }
     return false;
   }
 
-  static bool isMobile (){
-    if(connectivityStatus == ConnectivityResult.mobile){
+  static bool isMobile() {
+    if (connectivityStatus == ConnectivityResult.mobile) {
       return true;
     }
     return false;
   }
 
-  static bool isMobileNotAllowsCellularAccess (){
-
-    if(isMobile() && !allowsCelluarAccess){
-
+  static bool isMobileNotAllowsCellularAccess() {
+    if (isMobile() && !allowsCelluarAccess) {
       return true;
     }
     return false;
   }
-  static updateCellularAccess (bool access){
 
+  static updateCellularAccess(bool access) {
     allowsCelluarAccess = access;
   }
 
-
-  static updateConnectivityStatus (ConnectivityResult result){
-
-    if(connectivityStatus == result) return;
+  static updateConnectivityStatus(ConnectivityResult result) {
+    if (connectivityStatus == result) return;
     connectivityStatus = result;
   }
 }
@@ -99,7 +96,6 @@ class StorageUtil {
   }
 }
 
-
 showToast(String msg, {int time}) {
   Fluttertoast.showToast(
       msg: msg,
@@ -111,13 +107,14 @@ showToast(String msg, {int time}) {
       fontSize: AppSize.sp(40));
 }
 
-
-showCelluarTips(BuildContext context,bool isDownloading,[Function confirmAction]) {
+showCelluarTips(BuildContext context, bool isDownloading,
+    [Function confirmAction]) {
   showDialog(
     context: context,
     builder: (context) {
       return CupertinoAlertDialog(
-        title: Text(isDownloading?'正在使用非WiFi网络，下载将产生流量费用' :'正在使用非WiFi网络，播放将产生流量费用'),
+        title: Text(
+            isDownloading ? '正在使用非WiFi网络，下载将产生流量费用' : '正在使用非WiFi网络，播放将产生流量费用'),
 //        content: Text(isDownloading?'流量下载':'流量播放'),
         actions: <Widget>[
           CupertinoDialogAction(
@@ -128,11 +125,11 @@ showCelluarTips(BuildContext context,bool isDownloading,[Function confirmAction]
             },
           ),
           CupertinoDialogAction(
-            child: Text(isDownloading?'流量下载':'流量播放'),
+            child: Text(isDownloading ? '流量下载' : '流量播放'),
             onPressed: () {
               Navigator.pop(context);
               AppUtil.updateCellularAccess(true);
-              if(confirmAction != null) confirmAction();
+              if (confirmAction != null) confirmAction();
             },
           ),
         ],

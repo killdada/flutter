@@ -51,4 +51,20 @@ class DataUtils {
     String token = await LocalStorage.get(Config.TOKEN_KEY);
     return token;
   }
+
+  /// 获取判断app是否是第一次安装
+  static isAppFirstInstall() async {
+    String val = await LocalStorage.get(Config.ISFIRSTINSTALLAPP);
+    return val != null && val != '';
+  }
+
+  /// 获取判断app是否是第一次安装
+  static initAppFirstInstall() async {
+    await LocalStorage.save(Config.ISFIRSTINSTALLAPP, 'true');
+  }
+
+  /// 清除第一次安装的标志
+  static clearAppFirstInstall() async {
+    await LocalStorage.remove(Config.ISFIRSTINSTALLAPP);
+  }
 }

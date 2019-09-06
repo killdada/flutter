@@ -120,7 +120,6 @@ class _MyAppState extends State<MyApp> {
         doOnIOS: true,
         enableMTA: false);
     var result = await fluwx.isWeChatInstalled();
-    print('2e23323>>>>');
     print("is installed $result");
   }
 

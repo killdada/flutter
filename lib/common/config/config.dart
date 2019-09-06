@@ -6,4 +6,5 @@ class Config {
   static const USER_INFO = "user-info"; // 用户信息对应的key
   static const THEME_COLOR = "theme-color"; // 主题色对应的key
   static const USER_BASIC_CODE = "user-basic-code"; // 用户code对应的key
+  static const ISFIRSTINSTALLAPP = 'first_install_app';
 }

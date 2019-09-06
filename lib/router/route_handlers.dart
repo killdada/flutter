@@ -1,5 +1,6 @@
 import 'package:myapp/common/blocs/bloc_index.dart';
 import 'package:myapp/page/course_detail_page/audio_page/page.dart';
+import 'package:myapp/page/guide_page.dart';
 import 'package:myapp/page/my.dart';
 import 'package:myapp/page/login.dart';
 import 'package:myapp/page/course.dart';
@@ -96,4 +97,9 @@ Handler practiveOverviewRouterHandler = Handler(
   int cid = int.parse(_cid);
   int pid = int.parse(_pid);
   return PractiveOverviewPage(cid, pid);
+});
+
+Handler guidePageRouterHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return GuidePage();
 });

@@ -38,6 +38,7 @@ class MyPageState extends State<My> {
     // _MenuItems('累计学习时长', 'assets/images/icn_duration.png',
     //     '/learnrank?title=${FluroConvertUtils.fluroCnParamsEncode('累计排行榜')}'),
     _MenuItems('学习记录', 'assets/images/icn_record.png', Routes.learnRecord),
+    _MenuItems('新手指引', 'assets/images/icn_guide.png', Routes.guide),
     _MenuItems('意见反馈', 'assets/images/icn_guide.png', Routes.feedback),
     _MenuItems('退出登录', 'assets/images/icn_logout.png', ''),
   ];
@@ -214,7 +215,9 @@ class MyPageState extends State<My> {
   Widget _renderMenuItem(_MenuItems item) {
     return InkWell(
       onTap: () {
-        if (isLogin) {
+        if (item.name == '新手指引') {
+          gotoPage(item.link);
+        } else if (isLogin) {
           if (item.name == '退出登录') {
             _showLoginDialog();
           } else {
