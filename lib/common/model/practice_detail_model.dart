@@ -5,19 +5,21 @@ part 'practice_detail_model.g.dart';
 
 ///这个标注是告诉生成器，这个类是需要生成Model类的
 @JsonSerializable()
-class PractiveDetailModel {
+class PracticeDetailModel {
+  @JsonKey(name: 'pratice')
   Practice practice;
+  @JsonKey(name: 'pratice_reply')
   List<Reply> replies;
 
-  PractiveDetailModel({
+  PracticeDetailModel({
     this.practice,
     this.replies,
   });
 
   //不同的类使用不同的mixin即可
-  factory PractiveDetailModel.fromJson(Map<String, dynamic> json) =>
-      _$PractiveDetailModelFromJson(json);
-  Map<String, dynamic> toJson() => _$PractiveDetailModelToJson(this);
+  factory PracticeDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$PracticeDetailModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PracticeDetailModelToJson(this);
 }
 
 ///这个标注是告诉生成器，这个类是需要生成Model类的

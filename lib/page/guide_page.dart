@@ -108,8 +108,8 @@ class _GuidePageState extends State<GuidePage> {
                 child: Container(
                   margin: EdgeInsets.only(bottom: AppSize.height(75)),
                   padding: EdgeInsets.symmetric(
-                      horizontal: AppSize.width(37),
-                      vertical: AppSize.height(24)),
+                      horizontal: AppSize.width(26),
+                      vertical: AppSize.height(18)),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Dimens.radius_6,
@@ -121,7 +121,7 @@ class _GuidePageState extends State<GuidePage> {
                   child: Text(
                     '我知道了',
                     style: TextStyle(
-                        fontSize: AppSize.sp(46),
+                        fontSize: AppSize.sp(32),
                         color: Colors.white,
                         decoration: TextDecoration.none),
                   ),
@@ -139,7 +139,7 @@ class _GuidePageState extends State<GuidePage> {
                     child: Text('跳过',
                         style: TextStyle(
                           decoration: TextDecoration.none,
-                          fontSize: AppSize.sp(37),
+                          fontSize: AppSize.sp(26),
                           color: Colors.white70,
                         )),
                   ),

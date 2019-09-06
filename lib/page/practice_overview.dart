@@ -57,6 +57,7 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: CommonScaffold(
+        backgroundColor: Colors.white,
         appBar: CommonAppBar(
           title: '练习概览',
           trailing: Container(
@@ -115,7 +116,7 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
                     '发布',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: Dimens.sp_42,
+                      fontSize: Dimens.sp_30,
                     ),
                   ),
                 ),
@@ -156,7 +157,7 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.only(
-            top: AppSize.height(75.0),
+            top: AppSize.height(52.0),
             right: AppSize.width(46.0),
           ),
           child: _tip('主题：'),
@@ -238,23 +239,23 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
   Widget _title() {
     return Container(
       margin: EdgeInsets.fromLTRB(
-        AppSize.width(46.0),
-        AppSize.height(39.0),
-        AppSize.width(46.0),
+        AppSize.width(32.0),
+        AppSize.height(23.0),
+        AppSize.width(32.0),
         0,
       ),
-      height: AppSize.height(127.0),
+      height: AppSize.height(88.0),
       decoration: BoxDecoration(
         color: Color(0xFFF4F5F7),
         borderRadius: BorderRadius.all(
           Radius.circular(
-            AppSize.width(12.0),
+            AppSize.width(8.0),
           ),
         ),
       ),
       child: Padding(
         padding: EdgeInsets.only(
-          right: AppSize.width(46.0),
+          right: AppSize.width(32.0),
         ),
         child: ClearTextField(
           controller: _titleController,
@@ -262,9 +263,9 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
           maxLines: 1,
           style: TextStyles.style,
           decoration: InputStyles.inputDecoration.copyWith(
-            hintText: '起个响亮的标题，限���20字内',
+            hintText: '起个响亮的标题，限制20字内',
             contentPadding: EdgeInsets.only(
-              left: AppSize.width(46.0),
+              left: AppSize.width(32.0),
               right: AppSize.width(10.0),
             ),
             hintStyle: TextStyles.hintStyle.copyWith(
@@ -279,16 +280,16 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
   Widget _content() {
     return Container(
       margin: EdgeInsets.fromLTRB(
-        AppSize.width(46.0),
-        AppSize.height(29.0),
-        AppSize.width(46.0),
+        AppSize.width(32.0),
+        AppSize.height(30.0),
+        AppSize.width(32.0),
         AppSize.width(58.0),
       ),
       decoration: BoxDecoration(
         color: Color(0xFFF4F5F7),
         borderRadius: BorderRadius.all(
           Radius.circular(
-            AppSize.width(12.0),
+            AppSize.width(8.0),
           ),
         ),
       ),
@@ -303,8 +304,8 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
               decoration: InputStyles.inputDecoration.copyWith(
                 hintText: '写下你的练习内容',
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: AppSize.width(46.0),
-                  vertical: AppSize.width(43.0),
+                  horizontal: AppSize.width(32.0),
+                  vertical: AppSize.width(30.0),
                 ),
                 hintStyle: TextStyles.hintStyle.copyWith(
                   color: Colours.textSecond,
@@ -319,7 +320,7 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
               '${_contentController.text.length}/1000',
               style: TextStyle(
                 color: Color(0xFF999999),
-                fontSize: Dimens.sp_36,
+                fontSize: Dimens.sp_24,
               ),
             ),
           ),
@@ -333,21 +334,21 @@ class _PractiveOverviewPageState extends State<PractiveOverviewPage> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(
-            right: AppSize.width(32.0),
+            right: AppSize.width(22.0),
           ),
-          width: AppSize.width(14.0),
-          height: AppSize.height(46.0),
+          width: AppSize.width(10.0),
+          height: AppSize.height(32.0),
           decoration: BoxDecoration(
             color: Colours.blue,
             borderRadius: BorderRadius.horizontal(
-              right: Radius.circular(2.0),
+              right: Radius.circular(1.0),
             ),
           ),
         ),
         Text(
           title,
           style: TextStyles.style.copyWith(
-            fontSize: Dimens.sp_46,
+            fontSize: Dimens.sp_30,
             fontWeight: FontWeight.bold,
           ),
         ),

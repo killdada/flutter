@@ -4,7 +4,6 @@ import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/event/video_event.dart';
 
 import 'package:myapp/common/model/course-detail/index.dart';
-import 'package:myapp/page/course_detail_page/practice_tab_component/state.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/state.dart';
 
 import 'course_tab_component/state.dart';
@@ -115,24 +114,5 @@ class CourseTabConnector extends Reselect5<CourseDetailState, CourseTabState,
   @override
   void set(CourseDetailState state, CourseTabState subState) {
     // throw Exception('Unexcepted to set CourseDetailState from CourseTabState');
-  }
-}
-
-class PracticeTabConnector
-    extends Reselect1<CourseDetailState, PracticeTabState, CourseDetailModel> {
-  @override
-  PracticeTabState computed(CourseDetailModel sub0) {
-    return PracticeTabState()..practiceData = sub0;
-  }
-
-  @override
-  CourseDetailModel getSub0(CourseDetailState state) {
-    return state.courseDetail;
-  }
-
-  @override
-  void set(CourseDetailState state, PracticeTabState subState) {
-    throw Exception(
-        'Unexcepted to set CourseDetailState from PracticeTabState');
   }
 }

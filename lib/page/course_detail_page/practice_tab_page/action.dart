@@ -5,10 +5,15 @@ enum PracticeTabAction {
   initTopicDetail,
   onChangeSortType,
   changeSortType,
-  changeShowDesc
+  changeShowDesc,
+  onFetchData
 }
 
 class PracticeTabActionCreator {
+  static Action onFetchData() {
+    return Action(PracticeTabAction.onFetchData);
+  }
+
   static Action initTopicDetail(CourseDetailTopicModel payload) {
     return Action(PracticeTabAction.initTopicDetail, payload: payload);
   }

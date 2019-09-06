@@ -6,23 +6,23 @@ part of 'practice_detail_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PractiveDetailModel _$PractiveDetailModelFromJson(Map<String, dynamic> json) {
-  return PractiveDetailModel(
-    practice: json['practice'] == null
+PracticeDetailModel _$PracticeDetailModelFromJson(Map<String, dynamic> json) {
+  return PracticeDetailModel(
+    practice: json['pratice'] == null
         ? null
-        : Practice.fromJson(json['practice'] as Map<String, dynamic>),
-    replies: (json['replies'] as List)
+        : Practice.fromJson(json['pratice'] as Map<String, dynamic>),
+    replies: (json['pratice_reply'] as List)
         ?.map(
             (e) => e == null ? null : Reply.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
 
-Map<String, dynamic> _$PractiveDetailModelToJson(
-        PractiveDetailModel instance) =>
+Map<String, dynamic> _$PracticeDetailModelToJson(
+        PracticeDetailModel instance) =>
     <String, dynamic>{
-      'practice': instance.practice,
-      'replies': instance.replies,
+      'pratice': instance.practice,
+      'pratice_reply': instance.replies,
     };
 
 Practice _$PracticeFromJson(Map<String, dynamic> json) {

@@ -17,5 +17,5 @@ class PracticeTabState implements Cloneable<PracticeTabState> {
 }
 
 PracticeTabState initState(Map<String, dynamic> args) {
-  return PracticeTabState();
+  return PracticeTabState()..practiceData = args['practiceData'];
 }

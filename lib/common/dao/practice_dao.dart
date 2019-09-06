@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import 'package:myapp/common/http/address.dart';
 import 'package:myapp/common/http/http.dart';
 import 'package:myapp/common/model/practice_detail_model.dart';
+import 'package:myapp/common/model/practice_overview_model.dart';
 
 class PracticeDao {
   /// 获取；练习详情
@@ -11,7 +14,7 @@ class PracticeDao {
       var res =
           await httpManager.fetch('${Address.getPracticeReply()}/$practiceId');
       var data = HttpManager.decodeJson(res);
-      return PractiveDetailModel.fromJson(data);
+      return PracticeDetailModel.fromJson(data);
     } catch (e) {}
   }
 
@@ -55,7 +58,7 @@ class PracticeDao {
       var res = await httpManager
           .fetch('${Address.getPractice()}/$courseId/$practiceId');
       var data = HttpManager.decodeJson(res);
-      return PractiveDetailModel.fromJson(data);
+      return PracticeOverviewModel.fromJson(data);
     } catch (e) {}
   }
 

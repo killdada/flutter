@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/common/constant/constant.dart';
+import 'package:myapp/page/course_detail_page/practice_tab_page/page.dart';
 import 'package:myapp/page/course_detail_page/vedio_page/page.dart';
 import 'package:myapp/widget/custom_widget.dart';
 import 'package:myapp/widget/list_placeholder.dart';
@@ -46,7 +47,9 @@ Widget _bodyWidget(
         }
         return viewService.buildComponent('courseTab');
       } else if (item == '课后练习') {
-        return viewService.buildComponent('practiceTab');
+        return PracticeTabPage().buildPage({
+          'practiceData': state.courseDetail,
+        });
       }
       return Container();
     }).toList(),

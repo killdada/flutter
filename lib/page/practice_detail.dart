@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,21 +24,21 @@ Widget _tip(String title) {
     children: <Widget>[
       Container(
         margin: EdgeInsets.only(
-          right: AppSize.width(32.0),
+          right: AppSize.width(22.0),
         ),
-        width: AppSize.width(14.0),
-        height: AppSize.height(46.0),
+        width: AppSize.width(10.0),
+        height: AppSize.height(32.0),
         decoration: BoxDecoration(
           color: Colours.blue,
           borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(2.0),
+            right: Radius.circular(1.0),
           ),
         ),
       ),
       Text(
         title,
         style: TextStyles.style.copyWith(
-          fontSize: Dimens.sp_46,
+          fontSize: Dimens.sp_30,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -46,9 +47,9 @@ Widget _tip(String title) {
 }
 
 class _PracticeDetailPageState extends State<PracticeDetailPage> {
-  PractiveDetailModel data;
+  PracticeDetailModel data;
 
-  final double _horizontalPadding = AppSize.width(46.0);
+  final double _horizontalPadding = AppSize.width(32.0);
 
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _replyController = TextEditingController();
@@ -60,7 +61,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
   }
 
   void initData() async {
-    PractiveDetailModel res =
+    PracticeDetailModel res =
         await PracticeDao.getPracticeDetail(widget.practiceId);
     setState(() {
       data = res;
@@ -76,6 +77,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: CommonScaffold(
+        backgroundColor: Colors.white,
         appBar: CommonAppBar(
           title: '练习详情',
         ),
@@ -85,7 +87,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
   }
 
   Widget _body() {
-    if (data == null) {
+    if (data == null || data.practice == null) {
       return Center(
         child: CupertinoActivityIndicator(),
       );
@@ -115,7 +117,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: _horizontalPadding,
-            vertical: AppSize.height(29.0),
+            vertical: AppSize.height(20.0),
           ),
           child: Row(
             children: <Widget>[
@@ -128,13 +130,13 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
                     Text(
                       practice.nickname ?? "",
                       style: TextStyles.style.copyWith(
-                        fontSize: AppSize.sp(37.0),
+                        fontSize: AppSize.sp(26.0),
                       ),
                     ),
                     Text(
                       practice.createdAt ?? "",
                       style: TextStyle(
-                        fontSize: AppSize.sp(35.0),
+                        fontSize: AppSize.sp(24.0),
                         color: Colours.textThird,
                       ),
                     ),
@@ -151,7 +153,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
           child: Text(
             practice.title ?? '无标题',
             style: TextStyles.style.copyWith(
-              fontSize: AppSize.sp(46.0),
+              fontSize: AppSize.sp(32.0),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -159,13 +161,17 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
         Padding(
           padding: EdgeInsets.fromLTRB(
             _horizontalPadding,
-            AppSize.height(12.0),
+            AppSize.height(10.0),
             _horizontalPadding,
-            AppSize.height(58.0),
+            AppSize.height(40.0),
           ),
           child: Text(
             practice.content,
-            style: TextStyles.style,
+            style: TextStyle(
+              fontSize: Dimens.sp_30,
+              color: Colours.textFirst,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
         Container(
@@ -174,8 +180,8 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
         ),
         Padding(
           padding: EdgeInsets.only(
-            top: AppSize.height(46.0),
-            bottom: AppSize.height(29.0),
+            top: AppSize.height(32.0),
+            bottom: AppSize.height(24.0),
           ),
           child: _tip('全部评论：'),
         ),
@@ -185,16 +191,16 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
 
   Widget _avatar(String url) {
     return Padding(
-      padding: EdgeInsets.only(right: AppSize.width(32.0)),
+      padding: EdgeInsets.only(right: AppSize.width(22.0)),
       child: CustomImageView.circle(
         path: url,
-        diameter: AppSize.width(110.0),
+        diameter: AppSize.width(72.0),
       ),
     );
   }
 
   Widget _item(Reply reply) {
-    final double leftPadding = AppSize.width(46.0 + 55.0 * 2 + 32.0);
+    final double leftPadding = AppSize.width(32.0 + 20.0 + 72);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,7 +208,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: _horizontalPadding,
-            vertical: AppSize.height(29.0),
+            vertical: AppSize.height(20.0),
           ),
           child: Row(
             children: <Widget>[
@@ -210,7 +216,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
               Text(
                 reply.nickname ?? "",
                 style: TextStyles.style.copyWith(
-                  fontSize: AppSize.sp(37.0),
+                  fontSize: AppSize.sp(26.0),
                 ),
               ),
             ],
@@ -240,7 +246,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
                 child: Text(
                   reply.createdAt,
                   style: TextStyle(
-                    fontSize: AppSize.sp(35.0),
+                    fontSize: AppSize.sp(24.0),
                     color: Colours.textThird,
                   ),
                 ),
@@ -262,16 +268,16 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
                   reply.fabed == 1
                       ? 'assets/images/icn_like_sel.png'
                       : 'assets/images/icn_like_nor.png',
-                  width: AppSize.width(52.0),
+                  width: AppSize.width(36.0),
                 ),
               ),
               SizedBox(
-                width: AppSize.width(12.0),
+                width: AppSize.width(8.0),
               ),
               Text(
                 '${reply.fab}',
                 style: TextStyle(
-                  fontSize: AppSize.sp(37.0),
+                  fontSize: AppSize.sp(26.0),
                   color:
                       reply.fabed == 1 ? Colours.blue : const Color(0xFF999999),
                 ),
@@ -281,7 +287,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
         ),
         Container(
           margin: EdgeInsets.symmetric(
-            horizontal: AppSize.width(46.0),
+            horizontal: AppSize.width(32.0),
           ),
           height: Dimens.divider,
           color: Color(0xFFF7F7FA),
@@ -323,14 +329,14 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.fromLTRB(
-                      AppSize.width(29.0),
-                      AppSize.height(27.0),
-                      AppSize.width(14.0),
-                      AppSize.height(27.0),
+                      AppSize.width(20.0),
+                      AppSize.height(18.0),
+                      AppSize.width(10.0),
+                      AppSize.height(10.0),
                     ),
                     child: Image.asset(
                       "assets/images/icn_write.png",
-                      width: AppSize.width(52.0),
+                      width: AppSize.width(36.0),
                     ),
                   ),
                   Expanded(
@@ -343,9 +349,9 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
                         hintText: '写下你的高能回复',
                         contentPadding: EdgeInsets.fromLTRB(
                           0,
-                          AppSize.height(20.0),
-                          AppSize.width(29.0),
-                          AppSize.height(20.0),
+                          AppSize.height(14.0),
+                          AppSize.width(20.0),
+                          AppSize.height(14.0),
                         ),
                         hintStyle: TextStyles.hintStyle.copyWith(
                           color: Colours.textSecond,
@@ -358,7 +364,7 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
             ),
           ),
           SizedBox(
-            width: AppSize.width(43.0),
+            width: AppSize.width(30.0),
           ),
           InkWell(
             onTap: () async {
@@ -377,11 +383,11 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
               data.practice.fabed == 1
                   ? 'assets/images/icn_like_sel.png'
                   : 'assets/images/icn_like_nor.png',
-              width: AppSize.width(52.0),
+              width: AppSize.width(36.0),
             ),
           ),
           SizedBox(
-            width: AppSize.width(14.0),
+            width: AppSize.width(10.0),
           ),
           Text(
             '${data.practice.fab}',
@@ -389,11 +395,11 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
               color: data.practice.fabed == 1
                   ? Colours.blue
                   : const Color(0xFF999999),
-              fontSize: AppSize.sp(37.0),
+              fontSize: AppSize.sp(26.0),
             ),
           ),
           SizedBox(
-            width: AppSize.width(40.0),
+            width: AppSize.width(30.0),
           ),
           InkWell(
             onTap: () {
@@ -405,30 +411,30 @@ class _PracticeDetailPageState extends State<PracticeDetailPage> {
             },
             child: Image.asset(
               "assets/images/icn_comment.png",
-              width: AppSize.width(52.0),
+              width: AppSize.width(36.0),
             ),
           ),
           SizedBox(
-            width: AppSize.width(14.0),
+            width: AppSize.width(10.0),
           ),
           Text(
             '${data.replies.length}',
             style: TextStyle(
               color: Color(0xFF999999),
-              fontSize: AppSize.sp(37.0),
+              fontSize: AppSize.sp(26.0),
             ),
           ),
           InkWell(
             child: Container(
               padding: EdgeInsets.only(
-                left: AppSize.width(40.0),
-                top: AppSize.height(20.0),
-                bottom: AppSize.height(20.0),
+                left: AppSize.width(30.0),
+                top: AppSize.height(10.0),
+                bottom: AppSize.height(10.0),
               ),
               child: Text(
                 '确定',
                 style: TextStyles.style.copyWith(
-                  fontSize: Dimens.sp_40,
+                  fontSize: Dimens.sp_28,
                 ),
               ),
             ),

@@ -1,11 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/constant/style.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
 import 'package:myapp/common/utils/appsize.dart';
-import 'package:myapp/page/course_detail_page/practice_tab_component/action.dart';
+import 'package:myapp/common/utils/data_utils.dart';
+import 'package:myapp/page/course_detail_page/practice_tab_page/action.dart';
+import 'package:myapp/page/search_page/search_header_component/effect.dart';
+import 'package:myapp/router/application.dart';
+import 'package:myapp/router/routers.dart';
 import 'package:myapp/widget/list_placeholder.dart';
 
 import 'state.dart';
@@ -36,27 +41,27 @@ Widget _headerWidget(
   return Container(
     width: MediaQuery.of(viewService.context).size.width,
     margin: EdgeInsets.symmetric(
-        horizontal: AppSize.width(46), vertical: AppSize.width(46)),
+        horizontal: AppSize.width(32), vertical: AppSize.width(32)),
     child: Column(
       children: <Widget>[
         Container(
           alignment: Alignment.centerLeft,
-          margin: EdgeInsets.fromLTRB(AppSize.width(46), AppSize.width(46),
-              AppSize.width(46), AppSize.width(29)),
+          margin: EdgeInsets.fromLTRB(AppSize.width(32), AppSize.width(32),
+              AppSize.width(32), AppSize.width(20)),
           child: Text(
             '主题：',
             style:
-                TextStyle(fontSize: AppSize.sp(46), color: Color(0xFF4A4A4A)),
+                TextStyle(fontSize: AppSize.sp(32), color: Color(0xFF4A4A4A)),
           ),
         ),
         Container(
           alignment: Alignment.centerLeft,
-          margin: EdgeInsets.fromLTRB(AppSize.width(46), AppSize.width(0),
-              AppSize.width(46), AppSize.width(46)),
+          margin: EdgeInsets.fromLTRB(AppSize.width(32), AppSize.width(0),
+              AppSize.width(32), AppSize.width(32)),
           child: Text(
-            state.topicDetail.topic ?? "",
+            state.topicDetail?.topic?.topic ?? '',
             style:
-                TextStyle(fontSize: AppSize.sp(46), color: Color(0xFF4A4A4A)),
+                TextStyle(fontSize: AppSize.sp(30), color: Color(0xFF4A4A4A)),
             maxLines: _headerMaxLines,
           ),
         ),
@@ -69,7 +74,7 @@ Widget _headerWidget(
             children: <Widget>[
               Text(_headerMaxLines == 2 ? "展开详细说明 " : "收起详细说明",
                   style: TextStyle(
-                      fontSize: AppSize.sp(35), color: Color(0xFFBDBDBD))),
+                      fontSize: AppSize.sp(24), color: Color(0xFFBDBDBD))),
               Icon(
                 _headerMaxLines == 2
                     ? Icons.keyboard_arrow_down
@@ -80,7 +85,7 @@ Widget _headerWidget(
             ],
           ),
         ),
-        _startExerciseBtn()
+        _startExerciseBtn(state, dispatch, viewService)
       ],
     ),
     decoration: BoxDecoration(
@@ -111,9 +116,9 @@ Widget _listViewHeader(
   Color hotColor =
       state.sortType == 'hot' ? Color(0xFF1D9DFF) : Color(0xFF999999);
   return Container(
-      margin: EdgeInsets.fromLTRB(AppSize.width(46), AppSize.width(86),
-          AppSize.width(46), AppSize.width(10)),
-      height: AppSize.height(65),
+      margin: EdgeInsets.fromLTRB(AppSize.width(32), AppSize.width(60),
+          AppSize.width(32), AppSize.width(10)),
+      height: AppSize.height(45),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,18 +130,18 @@ Widget _listViewHeader(
               '练习(${state.topicDetail.practice.length})',
               style: TextStyle(
                 color: Color(0xFF4A4A4A),
-                fontSize: Dimens.sp_46,
+                fontSize: Dimens.sp_32,
               ),
             ),
           ),
           _customButton(timeAssetName, " 时间", timeColor, () {
             if (state.sortType != 'time') {
-              dispatch(PracticeTabActionCreator.changeSortType('time'));
+              dispatch(PracticeTabActionCreator.onChangeSortType('time'));
             }
           }),
           _customButton(hotAssetName, " 热度", hotColor, () {
             if (state.sortType != 'hot') {
-              dispatch(PracticeTabActionCreator.changeSortType('hot'));
+              dispatch(PracticeTabActionCreator.onChangeSortType('hot'));
             }
           }),
         ],
@@ -167,11 +172,11 @@ Widget _listCell(int index, PracticeTabState state, Dispatch dispatch,
   int commentNum = _entity.commentNum ?? 0;
   return InkWell(
     onTap: () {
-      _listCellOnTap();
+      _listCellOnTap(state, dispatch, viewService, _entity);
     },
     child: Container(
-      margin: EdgeInsets.fromLTRB(AppSize.width(46), AppSize.height(49),
-          AppSize.width(46), AppSize.height(35)),
+      margin: EdgeInsets.fromLTRB(AppSize.width(32), AppSize.height(35),
+          AppSize.width(32), AppSize.height(20)),
       // color: Colors.red,
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -183,11 +188,11 @@ Widget _listCell(int index, PracticeTabState state, Dispatch dispatch,
             children: <Widget>[
               _headPortrait(''),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSize.width(14)),
+                padding: EdgeInsets.symmetric(horizontal: AppSize.width(10)),
                 child: Text(_entity.userShowName ?? "",
                     style: TextStyle(
                       color: Color(0xFF4A4A4A),
-                      fontSize: AppSize.sp(37),
+                      fontSize: AppSize.sp(26),
                     )),
               )
             ],
@@ -197,12 +202,12 @@ Widget _listCell(int index, PracticeTabState state, Dispatch dispatch,
             child: Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(
-                  0, AppSize.height(30), 0, AppSize.height(14)),
+                  0, AppSize.height(20), 0, AppSize.height(14)),
               child: Text(
                 _entity.title ?? "",
                 style: TextStyle(
                   color: Color(0xFF4A4A4A),
-                  fontSize: AppSize.sp(46),
+                  fontSize: AppSize.sp(32),
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -212,18 +217,18 @@ Widget _listCell(int index, PracticeTabState state, Dispatch dispatch,
           Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(
-                  0, AppSize.height(30), 0, AppSize.height(29)),
+                  0, AppSize.height(10), 0, AppSize.height(20)),
               child: Text(
                 _entity.content ?? "",
                 style: TextStyle(
                   color: Color(0xFF4A4A4A),
-                  fontSize: AppSize.sp(46),
+                  fontSize: AppSize.sp(28),
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               )),
           Container(
-            margin: EdgeInsets.only(bottom: AppSize.height(35)),
+            margin: EdgeInsets.only(bottom: AppSize.height(24)),
             alignment: Alignment.centerLeft,
             child: Row(
               children: <Widget>[
@@ -232,13 +237,13 @@ Widget _listCell(int index, PracticeTabState state, Dispatch dispatch,
                   child: Text(_entity.modifiedAt ?? "",
                       style: TextStyle(
                         color: Color(0xFFBDBDBD),
-                        fontSize: AppSize.sp(35),
+                        fontSize: AppSize.sp(24),
                       )),
                 ),
                 Text('$fab赞 | $commentNum评论',
                     style: TextStyle(
                       color: Color(0xFFBDBDBD),
-                      fontSize: AppSize.sp(35),
+                      fontSize: AppSize.sp(24),
                     ))
               ],
             ),
@@ -256,58 +261,67 @@ Widget _listCell(int index, PracticeTabState state, Dispatch dispatch,
 Widget _headPortrait(uri) {
   return Container(
     child: ClipRRect(
-      borderRadius: BorderRadius.circular(29.0),
+      borderRadius: BorderRadius.circular(20.0),
       child: CachedNetworkImage(
         imageUrl: uri,
         placeholder: (context, url) => Image.asset(
           'assets/images/user_avatar.png',
-          width: AppSize.width(65),
-          height: AppSize.width(65),
+          width: AppSize.width(40),
+          height: AppSize.width(40),
         ),
         fit: BoxFit.fill,
-        width: AppSize.width(65),
-        height: AppSize.width(65),
+        width: AppSize.width(40),
+        height: AppSize.width(40),
       ),
     ),
   );
 }
 
-_listCellOnTap() {
-//   int practiceId = rep.id;
-// //    widget.videoController.pause();
-//   Router.appRouter
-//       .navigateTo(
-//     context,
-//     '${Routes.practiceDetail}?practiceId=$practiceId',
-//     transition: TransitionType.cupertino,
-//   )
-//       .then((bakcValue) {
-//     _bloc.getTopicDetail(widget.topicId, _sortType);
-//   });
+_listCellOnTap(PracticeTabState state, Dispatch dispatch,
+    ViewService viewService, TopicPracticeModel reply) {
+  int practiceId = reply.id;
+  int courseId = state.practiceData.courseId;
+  Application.router
+      .navigateTo(
+    viewService.context,
+    '${Routes.practiceDetail}?courseId=$courseId&practiceId=$practiceId',
+    transition: TransitionType.native,
+  )
+      .then((bakcValue) {
+    dispatch(PracticeTabActionCreator.onFetchData());
+  });
 }
 
-__startExerciseBtnOnTap() {
-//    widget.videoController.pause();
-//   int courseId = widget.couseId;
-//   int practiceId = widget.topicId;
-//   Router.appRouter
-//       .navigateTo(
-//     context,
-//     '${Routes.practiceOverview}?courseId=$courseId&practiceId=$practiceId',
-//     transition: TransitionType.cupertino,
-//   )
-//       .then((bakcValue) {
-//     _bloc.getTopicDetail(widget.topicId, _sortType);
-//   });
+_startExerciseBtnOnTap(
+    PracticeTabState state, Dispatch dispatch, ViewService viewService) async {
+  bool isLogin = await DataUtils.isLogin();
+  if (!isLogin) {
+    showToast('请先登录');
+    return;
+  }
+  int courseId = state.practiceData.courseId;
+  int practiceId = state.practiceData.topicId;
+  Application.router
+      .navigateTo(
+    viewService.context,
+    '${Routes.practiceOverview}?courseId=$courseId&practiceId=$practiceId',
+    transition: TransitionType.native,
+  )
+      .then((bakcValue) {
+    dispatch(PracticeTabActionCreator.onFetchData());
+  });
 }
 
-Widget _startExerciseBtn() {
+Widget _startExerciseBtn(
+    PracticeTabState state, Dispatch dispatch, ViewService viewService) {
   return InkWell(
-    onTap: __startExerciseBtnOnTap,
+    onTap: () {
+      _startExerciseBtnOnTap(state, dispatch, viewService);
+    },
     child: Container(
-      height: AppSize.height(115.0),
-      margin: EdgeInsets.fromLTRB(AppSize.width(86), AppSize.width(58),
-          AppSize.width(86), AppSize.width(40)),
+      height: AppSize.height(80.0),
+      margin: EdgeInsets.fromLTRB(AppSize.width(60), AppSize.width(40),
+          AppSize.width(60), AppSize.width(20)),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -326,7 +340,7 @@ Widget _startExerciseBtn() {
         '开始练习',
         style: TextStyle(
           color: Colors.white,
-          fontSize: Dimens.sp_48,
+          fontSize: Dimens.sp_36,
         ),
       ),
     ),
@@ -336,19 +350,19 @@ Widget _startExerciseBtn() {
 Widget _customButton(
     String assetName, String text, Color textColor, Function onTap) {
   return Container(
-    margin: EdgeInsets.only(left: AppSize.width(58), right: 0),
+    margin: EdgeInsets.only(left: AppSize.width(40), right: 0),
     child: GestureDetector(
       onTap: onTap,
       child: Row(
         children: <Widget>[
           Image.asset(
             assetName,
-            width: AppSize.width(52),
-            height: AppSize.width(52),
+            width: AppSize.width(36),
+            height: AppSize.width(36),
           ),
           Text(
             text,
-            style: TextStyle(fontSize: AppSize.sp(40), color: textColor),
+            style: TextStyle(fontSize: AppSize.sp(28), color: textColor),
             maxLines: 1,
           ),
         ],
