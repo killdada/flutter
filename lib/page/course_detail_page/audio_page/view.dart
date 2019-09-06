@@ -1,14 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:myapp/common/constant/constant.dart';
-import 'package:myapp/common/event/event_bus.dart';
-import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/widget/audio_player_seekbar.dart';

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +86,7 @@ class _MyAppState extends State<MyApp> {
       print('app event: $value');
     });
     initConnectivity();
-    _connectivity?.onConnectivityChanged.listen((status) {
+    _connectivity?.onConnectivityChanged?.listen((status) {
       if (status != AppUtil.connectivityStatus) {
         print('status:$status');
         AppUtil.updateConnectivityStatus(status);
@@ -99,7 +98,6 @@ class _MyAppState extends State<MyApp> {
     ConnectivityResult result;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      var connectivity = _connectivity;
       result = await _connectivity.checkConnectivity();
       AppUtil.updateConnectivityStatus(result);
     } on PlatformException catch (e) {
@@ -158,7 +156,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // AppSize.initDesignSize(context: context);
     return MaterialApp(
       title: 'myapp',
       theme: ThemeData(

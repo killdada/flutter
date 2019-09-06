@@ -144,7 +144,6 @@ class ShareToWeChat extends StatelessWidget {
             )),
       ),
     );
-    ;
   }
 
   Widget _bottomView(BuildContext context) {
@@ -191,7 +190,6 @@ class ShareToWeChat extends StatelessWidget {
     Uint8List pngBytes = byteData.buffer.asUint8List();
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path + '/share_wx.png';
-    String tempPath2 = tempDir.path + '/share_wx1.png';
 
     bool hasExisted = await Directory(tempPath).exists();
     if (hasExisted) {

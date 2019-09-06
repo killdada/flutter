@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/common/dao/course_detail_dao.dart';
 import 'package:myapp/common/model/course-detail/course_detail_model.dart';

@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/common/utils/date_utils.dart';
 import 'package:myapp/page/course_detail_page/audio_page/state.dart';

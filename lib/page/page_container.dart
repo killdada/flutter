@@ -88,7 +88,6 @@ class PageContainerState extends State<PageContainer>
 
   @override
   Widget build(BuildContext context) {
-    AppSize.initDesignSize(context: context);
     _body = IndexedStack(
       children: pages,
       index: _tabIndex,

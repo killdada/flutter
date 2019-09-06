@@ -16,7 +16,7 @@ class DownloadBloc extends BlocBase {
   List<TaskInfo> taskInfos = [];
   List<TaskInfo> checkedTasks = [];
 
-  List <DownloadTask> downloadTasks = [];
+  List<DownloadTask> downloadTasks = [];
 
   /*---------------------------------*/
 
@@ -34,7 +34,6 @@ class DownloadBloc extends BlocBase {
 
   Stream<bool> get handleStream => _handle.stream;
 
-
   BehaviorSubject<List<TaskInfo>> _loadDownload = BehaviorSubject();
 
   Sink<List<TaskInfo>> get _loadDownloadSink => _loadDownload.sink;
@@ -43,13 +42,10 @@ class DownloadBloc extends BlocBase {
 
   /*---------------------------------*/
 
- void pauseAllDownloadTask(){
-
-    taskInfos.forEach((task){
-
-      if(task.status == DownloadTaskStatus.running ||
-          task.status == DownloadTaskStatus.enqueued){
-
+  void pauseAllDownloadTask() {
+    taskInfos.forEach((task) {
+      if (task.status == DownloadTaskStatus.running ||
+          task.status == DownloadTaskStatus.enqueued) {
         task.status = DownloadTaskStatus.paused;
         FlutterDownloader.pause(taskId: task.taskId);
       }
@@ -58,47 +54,37 @@ class DownloadBloc extends BlocBase {
   }
 
   void listenTasksProgress() {
-
-
-    FlutterDownloader.registerCallback((id, status, progress,speed) {
+    FlutterDownloader.registerCallback((id, status, progress, speed) {
 //      print(
 //          '**************Download task ($id) is in status ($status) and process ($progress)');
-      List taksIds = taskInfos.map((task){
+      List taksIds = taskInfos.map((task) {
         return task.taskId;
       }).toList();
       int index = taksIds.indexOf(id);
-      if(taskInfos?.length <= index) return;
+      if (taskInfos.length <= index) return;
       TaskInfo task = taskInfos[index];
-      if(AppUtil.isMobileNotAllowsCellularAccess()){
+      if (AppUtil.isMobileNotAllowsCellularAccess()) {
         FlutterDownloader.pause(taskId: id);
         task.status = DownloadTaskStatus.paused;
-      }else{
+      } else {
         task.status = status;
       }
       task.progress = progress;
-      if(progress >= 100){
-
+      if (progress >= 100) {
         task.status = DownloadTaskStatus.complete;
-      }else if(progress == -1){
-
+      } else if (progress == -1) {
         task.status = DownloadTaskStatus.failed;
       }
-      if(speed >0)
-        task.speed = speed;
+      if (speed > 0) task.speed = speed;
       _loadDownloadSink.add(taskInfos);
     });
   }
 
-  void loadAllDownloadTasks () async{
-
+  void loadAllDownloadTasks() async {
     taskInfos.clear();
     downloadTasks = await FlutterDownloader.loadTasks();
-    downloadTasks.forEach((task){
-
-      TaskInfo _t = TaskInfo(
-
-        link:task.url
-      );
+    downloadTasks.forEach((task) {
+      TaskInfo _t = TaskInfo(link: task.url);
       _t.taskId = task.taskId;
       _t.progress = task.progress;
       _t.status = task.status;
@@ -135,10 +121,8 @@ class DownloadBloc extends BlocBase {
     _loadDownloadSink.add(taskInfos);
   }
 
-  void resumeTask (TaskInfo oldTaks) async{
-
-    CourseRecordEntity entity = CourseRecordEntity.fromJson(json.decode(oldTaks.extra));
-    List taksIds = taskInfos.map((task){
+  void resumeTask(TaskInfo oldTaks) async {
+    List taksIds = taskInfos.map((task) {
       return task.taskId;
     }).toList();
     int index = taksIds.indexOf(oldTaks.taskId);
@@ -146,57 +130,55 @@ class DownloadBloc extends BlocBase {
     TaskInfo task = taskInfos[index];
     task.taskId = taskId;
     task.status = DownloadTaskStatus.enqueued;
-    taskInfos.replaceRange(index, index+1, [task]);
+    taskInfos.replaceRange(index, index + 1, [task]);
     _loadDownloadSink.add(taskInfos);
   }
 
-  void updateTask (TaskInfo oldTaks){
-
-    CourseRecordEntity entity = CourseRecordEntity.fromJson(json.decode(oldTaks.extra));
-    List taksIds = taskInfos.map((task){
+  void updateTask(TaskInfo oldTaks) {
+    CourseRecordEntity entity =
+        CourseRecordEntity.fromJson(json.decode(oldTaks.extra));
+    List taksIds = taskInfos.map((task) {
       return task.taskId;
     }).toList();
     int _index = taksIds.indexOf(oldTaks.taskId);
-    requestDownloadTask(_index,oldTaks.link,oldTaks.taskId,entity);
+    requestDownloadTask(_index, oldTaks.link, oldTaks.taskId, entity);
   }
 
-  void requestDownloadTask(int index,String link,String tId,CourseRecordEntity entity) async{
-
-    String  _localPath = (await _findLocalPath()) + '/Download';
+  void requestDownloadTask(
+      int index, String link, String tId, CourseRecordEntity entity) async {
+    String _localPath = (await _findLocalPath()) + '/Download';
     print(_localPath);
     final savedDir = Directory(_localPath);
     bool hasExisted = await savedDir.exists();
     if (!hasExisted) {
       savedDir.create();
     }
-    CourseRecordEntity newEntity  = CourseRecordEntity(
-
+    CourseRecordEntity newEntity = CourseRecordEntity(
         author: entity.author,
-        imgUrl:entity.imgUrl,
+        imgUrl: entity.imgUrl,
         totalVedioTime: entity.totalVedioTime,
-        courseId:entity.courseId,
+        courseId: entity.courseId,
         cateoryName: entity.cateoryName,
         courseName: entity.courseName,
         desc: entity.desc,
         id: entity.id,
-        fileSize: entity.fileSize
-    );
-    Map<String, String> _extra =  newEntity.toJson();
+        fileSize: entity.fileSize);
+    Map<String, String> _extra = newEntity.toJson();
     //插件默认只能同时下载3个文件，将等待任务保存进db,用户点击或者有任务下载完成的时候，删除db中存在的，将一个新的任务加入下载队列
     FlutterDownloader.remove(taskId: tId);
     String taskId = await FlutterDownloader.enqueue(
-      url:link,
+      url: link,
 //      url:"http://enos.itcollege.ee/~jpoial/allalaadimised/reading/Android-Programming-Cookbook.pdf",
-      savedDir : _localPath,
-      extra:_extra,
+      savedDir: _localPath,
+      extra: _extra,
 //      showNotification: true, // show download progress in status bar (for Android)
 //      openFileFromNotification: true, // click on notification to open downloaded file (for Android)
     );
     TaskInfo task = taskInfos[index];
     task.taskId = taskId;
     task.status = DownloadTaskStatus.enqueued;
-    taskInfos.replaceRange(index, index+1, [task]);
-   _loadDownloadSink.add(taskInfos);
+    taskInfos.replaceRange(index, index + 1, [task]);
+    _loadDownloadSink.add(taskInfos);
   }
 
   Future<String> _findLocalPath() async {
@@ -221,7 +203,8 @@ class DownloadBloc extends BlocBase {
     }
     for (int i = 0; i < checkedTasks.length; i++) {
       TaskInfo task = checkedTasks[i];
-      await FlutterDownloader.remove(taskId: task.taskId, shouldDeleteContent:true);
+      await FlutterDownloader.remove(
+          taskId: task.taskId, shouldDeleteContent: true);
     }
     checkedTasks.forEach(taskInfos.remove);
     checkedTasks.clear();

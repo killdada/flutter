@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:flutter_file_helper/flutter_file_helper.dart';
 import 'package:myapp/common/utils/data_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sprintf/sprintf.dart';
 
 class AppUtil {

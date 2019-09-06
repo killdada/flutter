@@ -164,7 +164,7 @@ Widget _listCell(int index, PracticeTabState state, Dispatch dispatch,
     ViewService viewService) {
   TopicPracticeModel _entity = state.topicDetail.practice[index];
   int fab = _entity.fab ?? 0;
-  int comment_num = _entity.commentNum ?? 0;
+  int commentNum = _entity.commentNum ?? 0;
   return InkWell(
     onTap: () {
       _listCellOnTap();
@@ -235,7 +235,7 @@ Widget _listCell(int index, PracticeTabState state, Dispatch dispatch,
                         fontSize: AppSize.sp(35),
                       )),
                 ),
-                Text('$fab赞 | $comment_num评论',
+                Text('$fab赞 | $commentNum评论',
                     style: TextStyle(
                       color: Color(0xFFBDBDBD),
                       fontSize: AppSize.sp(35),
