@@ -56,8 +56,8 @@ Widget _bodyWidget(
   );
 }
 
-Widget _downloadWidget() {
-  return Text('正在开发');
+Widget _downloadWidget(ViewService viewService) {
+  return viewService.buildComponent('download');
 }
 
 Widget _body(CourseDetailState state, Dispatch dispatch,
@@ -73,7 +73,7 @@ Widget _body(CourseDetailState state, Dispatch dispatch,
           dispatch,
           viewService,
         ),
-        _downloadWidget(),
+        _downloadWidget(viewService),
       ],
     ),
   );

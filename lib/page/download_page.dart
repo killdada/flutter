@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +14,8 @@ import 'package:myapp/common/model/course/course.dart';
 import 'package:myapp/common/utils/appsize.dart';
 import 'package:myapp/common/utils/date_utils.dart';
 import 'package:myapp/common/utils/index.dart';
+import 'package:myapp/router/application.dart';
+import 'package:myapp/router/routers.dart';
 import 'package:myapp/widget/custom_check_box.dart';
 import 'package:myapp/widget/custom_expansion_tile.dart';
 import 'package:myapp/widget/custom_image_view.dart';
@@ -541,11 +544,9 @@ class _DownloadPageState extends State<DownloadPage>
     if (task.status == DownloadTaskStatus.complete) {
       final taskToJson = json.decode(task.extra);
       CourseRecordEntity course = CourseRecordEntity.fromJson(taskToJson);
-      // Router.appRouter.navigateTo(
-      //   context,
-      //   '${Routes.courseDetail}?courseId=${course.courseId}&recordCatalogId=${course.id}',
-      //   transition: TransitionType.cupertino,
-      // );
+      Application.router.navigateTo(
+          context, '${Routes.courseDetail}?courseId=${course.courseId}',
+          transition: TransitionType.native);
       return;
     }
     if (AppUtil.isMobileNotAllowsCellularAccess()) {
