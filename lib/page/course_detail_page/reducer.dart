@@ -17,8 +17,41 @@ Reducer<CourseDetailState> buildReducer() {
       CourseDetailAction.changeCollect: _changeCollect,
       CourseDetailAction.changePptIndex: _changePptIndex,
       CourseDetailAction.changeVideoEvent: _changeVideoEvent,
+      CourseDetailAction.changeCatalogTask: _changeCatalogTask,
+      CourseDetailAction.changeCatalogTasks: _changeCatalogTasks,
+      CourseDetailAction.changeConnectivitySubscription:
+          _changeConnectivitySubscription,
+      CourseDetailAction.changeConnectivityStatus: _changeConnectivityStatus,
     },
   );
+}
+
+CourseDetailState _changeConnectivityStatus(
+    CourseDetailState state, Action action) {
+  final CourseDetailState newState = state.clone();
+  newState.connectivityStatus = action.payload;
+  return newState;
+}
+
+CourseDetailState _changeCatalogTask(CourseDetailState state, Action action) {
+  final CourseDetailState newState = state.clone();
+  Map payload = action.payload;
+  newState.courseDetail.catalogs
+      .fillRange(payload['index'], payload['index'], payload['catalog']);
+  return newState;
+}
+
+CourseDetailState _changeCatalogTasks(CourseDetailState state, Action action) {
+  final CourseDetailState newState = state.clone();
+  newState.tasks = action.payload;
+  return newState;
+}
+
+CourseDetailState _changeConnectivitySubscription(
+    CourseDetailState state, Action action) {
+  final CourseDetailState newState = state.clone();
+  newState.connectivitySubscription = action.payload;
+  return newState;
 }
 
 CourseDetailState _changeVideoEvent(CourseDetailState state, Action action) {

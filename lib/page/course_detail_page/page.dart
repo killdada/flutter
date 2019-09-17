@@ -4,6 +4,7 @@ import 'package:myapp/page/course_detail_page/course_tab_component/component.dar
 import 'package:myapp/page/course_detail_page/vedio_operation_component/component.dart';
 // import 'package:myapp/widget/keep_alive_wrapper.dart';
 
+import 'course_download_component/component.dart';
 import 'effect.dart';
 import 'reducer.dart';
 import 'state.dart';
@@ -31,6 +32,8 @@ class CourseDetailPage extends Page<CourseDetailState, Map<String, dynamic>> {
                 'vedioOperation':
                     VedioOperationConnector() + VedioOperationComponent(),
                 'courseTab': CourseTabConnector() + CourseTabComponent(),
+                'download':
+                    CourseDownloadConnector() + CourseDownloadComponent(),
               }),
           middleware: <Middleware<CourseDetailState>>[],
         );

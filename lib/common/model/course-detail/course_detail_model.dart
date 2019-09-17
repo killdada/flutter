@@ -43,6 +43,10 @@ class CatalogsModel {
   int curPptIndex;
   int totalPptCount;
   String pptTitle;
+  String taskId;
+  dynamic status;
+  int mediaType; //视频3 音频2
+  int videoByteSize;
 
   CatalogsModel({
     this.catalogId,
@@ -55,6 +59,10 @@ class CatalogsModel {
     this.curPptIndex,
     this.pptTitle,
     this.totalPptCount,
+    this.status,
+    this.taskId,
+    this.videoByteSize,
+    this.mediaType,
   });
 
   //不同的类使用不同的mixin即可

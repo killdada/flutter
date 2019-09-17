@@ -1,11 +1,16 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:myapp/common/constant/constant.dart';
 import 'package:myapp/common/event/video_event.dart';
 
 import 'package:myapp/common/model/course-detail/index.dart';
 import 'package:myapp/page/course_detail_page/vedio_operation_component/state.dart';
 
+import 'course_download_component/state.dart';
 import 'course_tab_component/state.dart';
 
 class CourseDetailState implements Cloneable<CourseDetailState> {
@@ -20,6 +25,9 @@ class CourseDetailState implements Cloneable<CourseDetailState> {
   PlayType pageType = PlayType.video; // 传递给操作组件使用
   VideoEvent videoEventData =
       VideoEvent(playType: PlayType.video, videoModel: VideoModel.complex);
+  List<DownloadTask> tasks = [];
+  StreamSubscription<ConnectivityResult> connectivitySubscription;
+  ConnectivityResult connectivityStatus;
 
   @override
   CourseDetailState clone() {
@@ -32,7 +40,10 @@ class CourseDetailState implements Cloneable<CourseDetailState> {
       ..tabController = tabController
       ..showAll = showAll
       ..index = index
-      ..pptIndex = pptIndex;
+      ..tasks = tasks
+      ..connectivitySubscription = connectivitySubscription
+      ..pptIndex = pptIndex
+      ..connectivityStatus = connectivityStatus;
   }
 }
 
@@ -71,6 +82,58 @@ class VedioOperationConnector extends Reselect3<CourseDetailState,
     // throw Exception(
     //     'Unexcepted to set CourseDetailState from VedioOperationState');
   }
+}
+
+class CourseDownloadConnector extends Reselect5<
+    CourseDetailState,
+    CourseDownloadState,
+    CourseDetailModel,
+    CatalogsModel,
+    List<DownloadTask>,
+    StreamSubscription<ConnectivityResult>,
+    ConnectivityResult> {
+  @override
+  CourseDownloadState computed(
+      CourseDetailModel sub0,
+      CatalogsModel sub1,
+      List<DownloadTask> sub2,
+      StreamSubscription<ConnectivityResult> sub3,
+      ConnectivityResult sub4) {
+    return CourseDownloadState()
+      ..courseDetail = sub0
+      ..currentCatalog = sub1
+      ..tasks = sub2
+      ..connectivitySubscription = sub3
+      ..connectivityStatus = sub4;
+  }
+
+  @override
+  CourseDetailModel getSub0(CourseDetailState state) {
+    return state.courseDetail;
+  }
+
+  @override
+  CatalogsModel getSub1(CourseDetailState state) {
+    return state.currentCatalog;
+  }
+
+  @override
+  List<DownloadTask> getSub2(CourseDetailState state) {
+    return state.tasks;
+  }
+
+  @override
+  StreamSubscription<ConnectivityResult> getSub3(CourseDetailState state) {
+    return state.connectivitySubscription;
+  }
+
+  @override
+  ConnectivityResult getSub4(CourseDetailState state) {
+    return state.connectivityStatus;
+  }
+
+  @override
+  void set(CourseDetailState state, CourseDownloadState subState) {}
 }
 
 class CourseTabConnector extends Reselect5<CourseDetailState, CourseTabState,

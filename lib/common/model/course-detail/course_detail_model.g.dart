@@ -50,6 +50,10 @@ CatalogsModel _$CatalogsModelFromJson(Map<String, dynamic> json) {
     curPptIndex: json['curPptIndex'] as int,
     pptTitle: json['pptTitle'] as String,
     totalPptCount: json['totalPptCount'] as int,
+    status: json['status'],
+    taskId: json['taskId'] as String,
+    videoByteSize: json['videoByteSize'] as int,
+    mediaType: json['mediaType'] as int,
   );
 }
 
@@ -65,6 +69,10 @@ Map<String, dynamic> _$CatalogsModelToJson(CatalogsModel instance) =>
       'curPptIndex': instance.curPptIndex,
       'totalPptCount': instance.totalPptCount,
       'pptTitle': instance.pptTitle,
+      'taskId': instance.taskId,
+      'status': instance.status,
+      'mediaType': instance.mediaType,
+      'videoByteSize': instance.videoByteSize,
     };
 
 PptModel _$PptModelFromJson(Map<String, dynamic> json) {

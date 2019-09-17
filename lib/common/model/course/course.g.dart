@@ -43,8 +43,21 @@ CourseRecordEntity _$CourseRecordEntityFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$CourseRecordEntityToJson(CourseRecordEntity instance) =>
-    <String, dynamic>{
+// Map<String, dynamic> _$CourseRecordEntityToJson(CourseRecordEntity instance) =>
+//     <String, dynamic>{
+//       'imgUrl': instance.imgUrl,
+//       'totalVedioTime': instance.totalVedioTime,
+//       'courseName': instance.courseName,
+//       'author': instance.author,
+//       'cateoryName': instance.cateoryName,
+//       'courseId': instance.courseId,
+//       'desc': instance.desc,
+//       'id': instance.id,
+//       'fileSize': instance.fileSize,
+//     };
+
+Map<String, String> _$CourseRecordEntityToJson(CourseRecordEntity instance) =>
+    <String, String>{
       'imgUrl': instance.imgUrl,
       'totalVedioTime': instance.totalVedioTime,
       'courseName': instance.courseName,

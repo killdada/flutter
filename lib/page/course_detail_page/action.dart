@@ -1,8 +1,11 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:myapp/common/event/video_event.dart';
 import 'package:myapp/common/model/course-detail/index.dart';
-
 
 enum CourseDetailAction {
   onFetchDetail,
@@ -13,9 +16,35 @@ enum CourseDetailAction {
   changeCollect,
   changePptIndex,
   changeVideoEvent,
+  changeCatalogTask,
+  changeCatalogTasks,
+  changeConnectivitySubscription,
+  changeConnectivityStatus
 }
 
 class CourseDetailActionCreator {
+  static Action changeConnectivityStatus(ConnectivityResult payload) {
+    return Action(CourseDetailAction.changeConnectivityStatus,
+        payload: payload);
+  }
+
+  static Action changeCatalogTask(int index, CatalogsModel catalog) {
+    return Action(
+      CourseDetailAction.changeCatalogTask,
+      payload: {'index': index, 'catalog': catalog},
+    );
+  }
+
+  static Action changeCatalogTasks(List<DownloadTask> payload) {
+    return Action(CourseDetailAction.changeCatalogTasks, payload: payload);
+  }
+
+  static Action changeConnectivitySubscription(
+      StreamSubscription<ConnectivityResult> payload) {
+    return Action(CourseDetailAction.changeConnectivitySubscription,
+        payload: payload);
+  }
+
   static Action changeVideoEvent(VideoEvent payload) {
     return Action(CourseDetailAction.changeVideoEvent, payload: payload);
   }
@@ -50,10 +79,11 @@ class CourseDetailActionCreator {
       payload: catalog,
     );
   }
+
   static Action changePptIndex(int index, {bool needSeek: true}) {
     return Action(CourseDetailAction.changePptIndex, payload: {
       'index': index,
       'needSeek': needSeek,
-      });
+    });
   }
 }
