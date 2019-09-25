@@ -101,6 +101,7 @@ _downloadItemAction(int index, CatalogsModel catalog, Dispatch dispatch) {
 Widget _downloadListView(
     CourseDownloadState state, Dispatch dispatch, ViewService viewService) {
   List<CatalogsModel> catalogs = state.courseDetail.catalogs;
+
   if (catalogs.isEmpty) return ListPlaceholder.empty();
   return ListView.builder(
       padding: EdgeInsets.all(0),

@@ -84,57 +84,79 @@ class VedioOperationConnector extends Reselect3<CourseDetailState,
   }
 }
 
-class CourseDownloadConnector extends Reselect5<
-    CourseDetailState,
-    CourseDownloadState,
-    CourseDetailModel,
-    CatalogsModel,
-    List<DownloadTask>,
-    StreamSubscription<ConnectivityResult>,
-    ConnectivityResult> {
+// 文档不全，当使用Reselect5去链接的时候，点击下载虽然打印的state已经更改，但是视图没有更新，改用ConnOp连接以后测试正常
+class CourseDownloadConnector
+    extends ConnOp<CourseDetailState, CourseDownloadState> {
   @override
-  CourseDownloadState computed(
-      CourseDetailModel sub0,
-      CatalogsModel sub1,
-      List<DownloadTask> sub2,
-      StreamSubscription<ConnectivityResult> sub3,
-      ConnectivityResult sub4) {
-    return CourseDownloadState()
-      ..courseDetail = sub0
-      ..currentCatalog = sub1
-      ..tasks = sub2
-      ..connectivitySubscription = sub3
-      ..connectivityStatus = sub4;
+  CourseDownloadState get(CourseDetailState state) {
+    // TODO: implement get
+    CourseDownloadState data = CourseDownloadState();
+    data.courseDetail = state.courseDetail;
+    data.currentCatalog = state.currentCatalog;
+    data.tasks = state.tasks;
+    data.connectivityStatus = state.connectivityStatus;
+    data.connectivitySubscription = state.connectivitySubscription;
+    return data;
   }
 
   @override
-  CourseDetailModel getSub0(CourseDetailState state) {
-    return state.courseDetail;
+  void set(CourseDetailState state, CourseDownloadState subState) {
+    // TODO: implement set
+    super.set(state, subState);
   }
-
-  @override
-  CatalogsModel getSub1(CourseDetailState state) {
-    return state.currentCatalog;
-  }
-
-  @override
-  List<DownloadTask> getSub2(CourseDetailState state) {
-    return state.tasks;
-  }
-
-  @override
-  StreamSubscription<ConnectivityResult> getSub3(CourseDetailState state) {
-    return state.connectivitySubscription;
-  }
-
-  @override
-  ConnectivityResult getSub4(CourseDetailState state) {
-    return state.connectivityStatus;
-  }
-
-  @override
-  void set(CourseDetailState state, CourseDownloadState subState) {}
 }
+
+// class CourseDownloadConnector extends Reselect5<
+//     CourseDetailState,
+//     CourseDownloadState,
+//     CourseDetailModel,
+//     CatalogsModel,
+//     List<DownloadTask>,
+//     StreamSubscription<ConnectivityResult>,
+//     ConnectivityResult> {
+//   @override
+//   CourseDownloadState computed(
+//       CourseDetailModel sub0,
+//       CatalogsModel sub1,
+//       List<DownloadTask> sub2,
+//       StreamSubscription<ConnectivityResult> sub3,
+//       ConnectivityResult sub4) {
+//     return CourseDownloadState()
+//       ..courseDetail = sub0
+//       ..currentCatalog = sub1
+//       ..tasks = sub2
+//       ..connectivitySubscription = sub3
+//       ..connectivityStatus = sub4;
+//   }
+
+//   @override
+//   CourseDetailModel getSub0(CourseDetailState state) {
+//     return state.courseDetail;
+//   }
+
+//   @override
+//   CatalogsModel getSub1(CourseDetailState state) {
+//     return state.currentCatalog;
+//   }
+
+//   @override
+//   List<DownloadTask> getSub2(CourseDetailState state) {
+//     return state.tasks;
+//   }
+
+//   @override
+//   StreamSubscription<ConnectivityResult> getSub3(CourseDetailState state) {
+//     return state.connectivitySubscription;
+//   }
+
+//   @override
+//   ConnectivityResult getSub4(CourseDetailState state) {
+//     return state.connectivityStatus;
+//   }
+
+//   @override
+//   void set(CourseDetailState state, CourseDownloadState subState) {}
+// }
 
 class CourseTabConnector extends Reselect5<CourseDetailState, CourseTabState,
     CatalogsModel, CourseDetailModel, bool, int, VideoEvent> {
