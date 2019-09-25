@@ -37,14 +37,14 @@ class ShareToWeChat extends StatelessWidget {
             Container(
               alignment: Alignment.bottomRight,
               margin: EdgeInsets.symmetric(
-                  horizontal: AppSize.width(121), vertical: AppSize.height(58)),
+                  horizontal: AppSize.width(84), vertical: AppSize.height(40)),
               height: AppSize.width(69),
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Image.asset(
                   'assets/images/icn_popup_close.png',
-                  width: AppSize.width(69),
-                  height: AppSize.width(69),
+                  width: AppSize.width(50),
+                  height: AppSize.width(50),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -67,37 +67,38 @@ class ShareToWeChat extends StatelessWidget {
     return RepaintBoundary(
       key: repaintBoundaryKey,
       child: Container(
-        margin: EdgeInsets.only(left: 0, right: 0, bottom: AppSize.height(180)),
+        margin: EdgeInsets.only(left: 0, right: 0, bottom: AppSize.height(160)),
         child: AspectRatio(
-            aspectRatio: 0.95,
+            aspectRatio: 1,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: AppSize.width(121)),
+              margin: EdgeInsets.symmetric(horizontal: AppSize.width(84)),
               decoration: BoxDecoration(
                 color: _bgColor,
-                borderRadius: BorderRadius.all(Dimens.radius_12),
+                borderRadius: BorderRadius.all(Dimens.radius_8),
               ),
               child: Column(
                 children: <Widget>[
                   _cacheBgImage(coverImageUrl),
                   Container(
+                    alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(
-                        left: AppSize.width(43),
-                        right: AppSize.width(43),
-                        top: AppSize.height(15),
-                        bottom: AppSize.height(15)),
+                        left: AppSize.width(30),
+                        right: AppSize.width(30),
+                        top: AppSize.height(20),
+                        bottom: AppSize.height(10)),
                     child: Text(
                       title,
                       style: TextStyle(
-                          fontSize: AppSize.sp(43), color: Color(0xFF4A4A4A)),
+                          fontSize: AppSize.sp(30), color: Color(0xFF4A4A4A)),
                     ),
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(horizontal: AppSize.width(43)),
+                    margin: EdgeInsets.symmetric(horizontal: AppSize.width(30)),
                     child: Text(
                       author,
                       style: TextStyle(
-                          fontSize: AppSize.sp(35), color: Color(0xFFA4A4A4)),
+                          fontSize: AppSize.sp(24), color: Color(0xFFA4A4A4)),
                     ),
                   ),
                   Expanded(
@@ -119,20 +120,20 @@ class ShareToWeChat extends StatelessWidget {
                           Text(
                             '长按扫描二维码\n观看精彩课程知识点\n与我一起学习吧',
                             style: TextStyle(
-                                fontSize: AppSize.sp(35),
+                                fontSize: AppSize.sp(24),
                                 color: Color(0xFF4A4A4A),
                                 height: 1.3),
                             textAlign: TextAlign.right,
                           ),
                           SizedBox(
-                            width: AppSize.width(52),
+                            width: AppSize.width(36),
                           ),
                           Container(
                             margin: EdgeInsets.symmetric(
                                 vertical: AppSize.height(20)),
                             child: QrImage(
                               data: 'http://www.baidu.com',
-                              size: AppSize.width(300),
+                              size: AppSize.width(250),
                             ),
                           ),
                         ],
@@ -148,13 +149,12 @@ class ShareToWeChat extends StatelessWidget {
 
   Widget _bottomView(BuildContext context) {
     return Container(
-//      aspectRatio: 3.29,
       child: Container(
         margin: EdgeInsets.all(0),
         decoration: BoxDecoration(
           color: _bgColor,
-          borderRadius: BorderRadius.horizontal(
-              left: Dimens.radius_23, right: Dimens.radius_23),
+          borderRadius: BorderRadius.only(
+              topLeft: Dimens.radius_16, topRight: Dimens.radius_16),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -202,11 +202,11 @@ class ShareToWeChat extends StatelessWidget {
   Widget _cacheBgImage(String uri) {
     return ClipRRect(
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(AppSize.width(12.0)),
-        topRight: Radius.circular(AppSize.width(12.0)),
+        topLeft: Radius.circular(AppSize.width(8.0)),
+        topRight: Radius.circular(AppSize.width(8.0)),
       ),
       child: AspectRatio(
-          aspectRatio: 1.7,
+          aspectRatio: 1.8,
           child: CachedNetworkImage(
             fit: BoxFit.fitWidth,
             imageUrl: uri,
@@ -229,20 +229,20 @@ class ShareToWeChat extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(
-                  top: AppSize.height(42), bottom: AppSize.height(20)),
+                  top: AppSize.height(30), bottom: AppSize.height(30)),
               child: Image.asset(
                 assetName,
-                width: AppSize.width(72),
-                height: AppSize.width(72),
+                width: AppSize.width(50),
+                height: AppSize.width(50),
                 fit: BoxFit.fill,
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: AppSize.height(42)),
+              padding: EdgeInsets.only(bottom: AppSize.height(30)),
               child: Text(
                 text,
                 style: TextStyle(
-                    fontSize: AppSize.sp(37), color: Color(0xFF666666)),
+                    fontSize: AppSize.sp(26), color: Color(0xFF666666)),
                 maxLines: 1,
               ),
             )

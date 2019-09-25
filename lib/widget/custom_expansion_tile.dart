@@ -102,7 +102,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
                   widget.title,
                   style: TextStyle(
                     color: _headerColor.value,
-                    fontSize: Dimens.sp_36,
+                    fontSize: Dimens.sp_28,
                   ),
                 ),
                 widget.indicator ??
@@ -175,8 +175,7 @@ class ExpandTile extends StatelessWidget {
   List<Widget> _contentWidget(List<Widget> elements) {
     List<Widget> list = [];
     for (int i = 0; i < elements.length; i++) {
-
-      if(i >= maxNum)break;
+      if (i >= maxNum) break;
       Widget ele = elements[i];
       list.add(ele);
     }
@@ -188,7 +187,7 @@ class ExpandTile extends StatelessWidget {
         indicator: indicator,
         initiallyExpanded: initiallyExpanded,
         onExpansionChanged: onExpansionChanged,
-        children:children.length > maxNum?children.sublist(maxNum):null,
+        children: children.length > maxNum ? children.sublist(maxNum) : null,
       ),
     );
     list.add(last);

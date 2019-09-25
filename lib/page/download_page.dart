@@ -168,25 +168,25 @@ class _DownloadPageState extends State<DownloadPage>
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(
-            top: AppSize.height(26.0),
+            top: AppSize.height(14.0),
           ),
           padding: EdgeInsets.symmetric(
-            horizontal: AppSize.width(46.0),
+            horizontal: AppSize.width(32.0),
           ),
           child: Row(
             children: <Widget>[
               Text(
                 '正在下载',
                 style: TextStyles.style.copyWith(
-                  fontSize: Dimens.sp_40,
+                  fontSize: Dimens.sp_28,
                 ),
               ),
               SizedBox(
                 width: AppSize.width(6.0),
               ),
               Container(
-                width: AppSize.width(46.0),
-                height: AppSize.width(46.0),
+                width: AppSize.width(28.0),
+                height: AppSize.width(28.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color(0xFFF73E4D),
@@ -195,7 +195,7 @@ class _DownloadPageState extends State<DownloadPage>
                   child: Text(
                     '${tasks.length}',
                     style: TextStyle(
-                      fontSize: AppSize.sp(33.0),
+                      fontSize: AppSize.sp(22.0),
                       color: Colors.white,
                     ),
                   ),
@@ -207,14 +207,13 @@ class _DownloadPageState extends State<DownloadPage>
         ExpandTile(
           title: '展开全部下载',
           titlePadding: EdgeInsets.only(
-            bottom: AppSize.height(30.0),
+            bottom: AppSize.height(20.0),
           ),
           children: tasks.map((task) {
             return _downloadItem(
               task: task,
               index: tasks.indexOf(task),
               infoWidget: Container(
-//                color: Colors.red,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
@@ -263,10 +262,10 @@ class _DownloadPageState extends State<DownloadPage>
                         children: <Widget>[
                           Image.asset(
                             'assets/images/icn_attention.png',
-                            width: AppSize.width(35.0),
+                            width: AppSize.width(24.0),
                           ),
                           SizedBox(
-                            width: AppSize.width(9.0),
+                            width: AppSize.width(6.0),
                           ),
                           Text('重试',
                               style: TextStyles.style2.copyWith(
@@ -303,15 +302,15 @@ class _DownloadPageState extends State<DownloadPage>
         Container(
           width: double.infinity,
           margin: EdgeInsets.only(
-            top: AppSize.height(26.0),
+            top: AppSize.height(14.0),
           ),
           padding: EdgeInsets.symmetric(
-            horizontal: AppSize.width(46.0),
+            horizontal: AppSize.width(32.0),
           ),
           child: Text(
             '已下载',
             style: TextStyles.style.copyWith(
-              fontSize: Dimens.sp_40,
+              fontSize: Dimens.sp_28,
             ),
           ),
         ),
@@ -339,8 +338,8 @@ class _DownloadPageState extends State<DownloadPage>
       behavior: HitTestBehavior.opaque,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSize.width(46.0),
-          vertical: AppSize.height(29.0),
+          horizontal: AppSize.width(32.0),
+          vertical: AppSize.height(14.0),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -353,7 +352,7 @@ class _DownloadPageState extends State<DownloadPage>
                   offstage: !snapshot.data,
                   child: Padding(
                     padding: EdgeInsets.only(
-                      right: AppSize.width(25.0),
+                      right: AppSize.width(15.0),
                     ),
                     child: ImageCheckBox(
                       value: downloadBloc.isChecked(task),
@@ -371,12 +370,12 @@ class _DownloadPageState extends State<DownloadPage>
                 children: <Widget>[
                   CustomImageView.square(
                     path: course.imgUrl ?? '',
-                    size: AppSize.width(228.0),
+                    size: AppSize.width(158.0),
                   ),
                   Expanded(
                     flex: 1,
                     child: Padding(
-                      padding: EdgeInsets.only(left: AppSize.width(37.0)),
+                      padding: EdgeInsets.only(left: AppSize.width(25.0)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -385,7 +384,7 @@ class _DownloadPageState extends State<DownloadPage>
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyles.style
-                                .copyWith(fontSize: Dimens.sp_45),
+                                .copyWith(fontSize: Dimens.sp_30),
                           ),
                           SizedBox(
                             height: AppSize.height(10.0),
@@ -398,31 +397,37 @@ class _DownloadPageState extends State<DownloadPage>
                             children: <Widget>[
                               Image.asset(
                                 'assets/images/icn_time.png',
-                                width: AppSize.width(35.0),
+                                width: AppSize.width(24.0),
                               ),
                               SizedBox(
-                                width: AppSize.width(9.0),
+                                width: AppSize.width(6.0),
                               ),
                               Expanded(
-                                flex: 4,
+                                flex: 3,
                                 child: Text(
                                   '${DateUtil.formatTimeString(course.totalVedioTime)}',
-                                  style: TextStyles.style2,
+                                  style: TextStyle(
+                                    fontSize: Dimens.sp_24,
+                                    color: Color(0xFF666666),
+                                  ),
                                 ),
                               ),
                               Image.asset(
                                 'assets/images/icn_filesize.png',
-                                width: AppSize.width(35.0),
+                                width: AppSize.width(24.0),
                               ),
                               SizedBox(
-                                width: AppSize.width(9.0),
+                                width: AppSize.width(6.0),
                               ),
                               Expanded(
-                                flex: 4,
+                                flex: 3,
                                 child: Text(
                                   StorageUtil.convert(
                                       double.parse(course.fileSize)),
-                                  style: TextStyles.style2,
+                                  style: TextStyle(
+                                    fontSize: Dimens.sp_24,
+                                    color: Color(0xFF666666),
+                                  ),
                                 ),
                               ),
                               Expanded(
@@ -449,7 +454,7 @@ class _DownloadPageState extends State<DownloadPage>
     return Stack(
       children: <Widget>[
         Container(
-          height: AppSize.height(58.0),
+          height: AppSize.height(40.0),
           color: const Color(0xFFF4F5F7),
           child: Center(
             child: FutureBuilder(
@@ -461,7 +466,7 @@ class _DownloadPageState extends State<DownloadPage>
                   text: TextSpan(
                     text: '已使用',
                     style: TextStyle(
-                      fontSize: Dimens.sp_30,
+                      fontSize: AppSize.sp(20.0),
                       color: Colours.textFirst,
                     ),
                     children: <TextSpan>[
@@ -491,15 +496,15 @@ class _DownloadPageState extends State<DownloadPage>
               offstage: !snapshot.data,
               child: Container(
                 padding: EdgeInsets.symmetric(
-                  horizontal: AppSize.width(46.0),
-                  vertical: AppSize.height(30.0),
+                  horizontal: AppSize.width(32.0),
+                  vertical: AppSize.height(20.0),
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
                       color: Color(0xFFEEEEEE),
-                      blurRadius: 8.0,
+                      blurRadius: 6.0,
                     ),
                   ],
                 ),
@@ -587,11 +592,11 @@ class _DownloadPageState extends State<DownloadPage>
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: AppSize.height(100.0),
+        height: AppSize.height(80.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
             Radius.circular(
-              AppSize.width(14.0),
+              AppSize.width(8.0),
             ),
           ),
           border: Border.all(
@@ -602,9 +607,8 @@ class _DownloadPageState extends State<DownloadPage>
         child: Center(
           child: Text(
             text,
-            style: TextStyles.style.copyWith(
-              color: textColor,
-            ),
+            style: TextStyles.style
+                .copyWith(color: textColor, fontSize: AppSize.sp(30)),
           ),
         ),
       ),

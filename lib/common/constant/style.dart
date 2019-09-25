@@ -44,9 +44,11 @@ class Dimens {
   static double divider = AppSize.width(2.0);
 
   static Radius radius_6 = Radius.circular(AppSize.width(6.0));
-  static Radius radius_12 = Radius.circular(AppSize.width(12.0));
   static Radius radius_8 = Radius.circular(AppSize.width(8.0));
+  static Radius radius_10 = Radius.circular(AppSize.width(10.0));
+  static Radius radius_12 = Radius.circular(AppSize.width(12.0));
   static Radius radius_15 = Radius.circular(AppSize.width(15.0));
+  static Radius radius_16 = Radius.circular(AppSize.width(16.0));
   static Radius radius_23 = Radius.circular(AppSize.width(23.0));
 
   static double appBarHeight = AppSize.height(90);

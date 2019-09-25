@@ -62,22 +62,23 @@ Widget _downloadBttomBtn(String btnTitle, int state, Dispatch dispatch) {
       dispatch(CourseDownloadActionCreator.onClickItem(state));
     },
     child: Container(
-      height: AppSize.height(115.0),
+      //   color: Colors.red,
+      height: AppSize.height(80.0),
       // color: Colors.white,
       margin: EdgeInsets.only(right: AppSize.width(space)),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
-          Dimens.radius_15,
+          Dimens.radius_10,
         ),
         color: _bgColor,
-        border: Border.all(color: _boardColor, width: AppSize.width(3)),
+        border: Border.all(color: _boardColor, width: AppSize.width(2)),
       ),
       child: Text(
         btnTitle,
         style: TextStyle(
           color: _textColor,
-          fontSize: Dimens.sp_46,
+          fontSize: Dimens.sp_32,
         ),
       ),
     ),
@@ -126,11 +127,11 @@ Widget _downloadListView(
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.only(
-                          left: AppSize.width(55), right: AppSize.width(58)),
+                          left: AppSize.width(34), right: AppSize.width(38)),
                       child: Text(
                         "$index",
                         style: TextStyle(
-                            fontSize: AppSize.sp(43), color: Color(0xFFBDBDBD)),
+                            fontSize: AppSize.sp(30), color: Color(0xFFBDBDBD)),
                       ),
                     ),
                     Expanded(
@@ -141,16 +142,15 @@ Widget _downloadListView(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            // color: Colors.grey,
                             margin: EdgeInsets.only(
-                                bottom: AppSize.width(20),
-                                top: AppSize.width(40)),
+                                bottom: AppSize.width(14),
+                                top: AppSize.width(30)),
                             width: MediaQuery.of(context).size.width -
                                 AppSize.width(190),
                             child: Text(
                               title,
                               style: TextStyle(
-                                  fontSize: AppSize.sp(43),
+                                  fontSize: AppSize.sp(30),
                                   color: Color(0xFF4A4A4A)),
                               textAlign: TextAlign.left,
                               maxLines: 2,
@@ -158,35 +158,34 @@ Widget _downloadListView(
                             ),
                           ),
                           Container(
-                            // color: Colors.purple,
                             alignment: Alignment.topLeft,
                             child: Row(
                               children: <Widget>[
                                 Container(
                                   margin:
-                                      EdgeInsets.only(right: AppSize.width(10)),
+                                      EdgeInsets.only(right: AppSize.width(6)),
                                   child: Image.asset(
                                     'assets/images/icn_time.png',
-                                    width: AppSize.width(35.0),
-                                    height: AppSize.width(29.0),
+                                    width: AppSize.width(24.0),
+                                    height: AppSize.width(20.0),
                                   ),
                                 ),
                                 Container(
                                   child: Text(
                                     playTime ??= "",
                                     style: TextStyle(
-                                        fontSize: AppSize.sp(35),
+                                        fontSize: AppSize.sp(24),
                                         color: Color(0xFF999999)),
                                   ),
                                 ),
                                 Container(
                                   margin: EdgeInsets.only(
-                                      left: AppSize.width(35),
+                                      left: AppSize.width(24),
                                       right: AppSize.width(10)),
                                   child: Image.asset(
                                     'assets/images/icn_filesize.png',
-                                    width: AppSize.width(35.0),
-                                    height: AppSize.width(29.0),
+                                    width: AppSize.width(24.0),
+                                    height: AppSize.width(24.0),
                                   ),
                                 ),
                                 Container(
@@ -194,7 +193,7 @@ Widget _downloadListView(
                                     StorageUtil.convert(
                                         _catalog.videoByteSize.toDouble()),
                                     style: TextStyle(
-                                        fontSize: AppSize.sp(35),
+                                        fontSize: AppSize.sp(24),
                                         color: Color(0xFF999999)),
                                   ),
                                 )
@@ -213,8 +212,8 @@ Widget _downloadListView(
                         margin: EdgeInsets.only(right: AppSize.width(23)),
                         child: Image.asset(
                           'assets/images/icn_playing.png',
-                          width: AppSize.width(35.0),
-                          height: AppSize.width(29.0),
+                          width: AppSize.width(24.0),
+                          height: AppSize.width(24.0),
                         ),
                       ),
                     ),
@@ -230,13 +229,13 @@ Widget _downloadListView(
                                           DownloadTaskStatus.failed
                                   ? ""
                                   : 'assets/images/icn_download.png',
-                          width: AppSize.width(35.0),
-                          height: AppSize.width(29.0),
+                          width: AppSize.width(24.0),
+                          height: AppSize.width(24.0),
                         ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(right: AppSize.width(23)),
+                      margin: EdgeInsets.only(right: AppSize.width(16)),
                       child: Offstage(
                         offstage: _catalog.status == DownloadTaskStatus.failed
                             ? false
@@ -245,7 +244,7 @@ Widget _downloadListView(
                           children: <Widget>[
                             Image.asset(
                               'assets/images/icn_attention.png',
-                              width: AppSize.width(35.0),
+                              width: AppSize.width(28.0),
                             ),
                             SizedBox(
                               width: AppSize.width(9.0),
@@ -266,9 +265,9 @@ Widget _downloadListView(
                     color: !hideLine ? Color(0xFFDDDDDD) : Color(0x0000000),
                     alignment: Alignment.bottomCenter,
                     margin: EdgeInsets.only(
-                        left: AppSize.width(58),
-                        right: AppSize.width(58),
-                        top: AppSize.height(29)),
+                        left: AppSize.width(40),
+                        right: AppSize.width(40),
+                        top: AppSize.height(20)),
                     height: AppSize.height(2),
                   ),
                 )

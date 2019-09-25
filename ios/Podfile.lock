@@ -103,7 +103,7 @@ SPEC CHECKSUMS:
   audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
   auto_orientation: 2941c44ebe5c3d41016001597ab03e81a92a26ce
   connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
-  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_downloader: 058b9c41564a90500f67f3e432e3524613a7fd83
   flutter_file_helper: 0216ef5ab504a27749c446f6bfb921f027ec8d0c
   flutter_screenshot_listener: c293c6f66ce6e85b4ae3974335613534371da177

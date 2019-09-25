@@ -97,7 +97,7 @@ class FloatWindow {
                                 '反馈问题',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: AppSize.sp(40),
+                                  fontSize: AppSize.sp(36),
                                 ),
                               ),
                             ],
@@ -143,7 +143,7 @@ class FloatWindow {
                                 '分享页面',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: AppSize.sp(40),
+                                  fontSize: AppSize.sp(36),
                                 ),
                               ),
                             ],
