@@ -28,7 +28,8 @@ dependencies:
   # 轻量级存储
   shared_preferences: ^0.5.2+1
   # toast提示
-  fluttertoast: ^3.0.1
+  fluttertoast:
+    git: git://github.com/killdada/flutter_toast
   # 网络请求
   dio: ^2.1.5
   # 事件总栈
@@ -38,9 +39,7 @@ dependencies:
   fluro:
     git: git://github.com/theyakka/fluro.git
   # 加载指示器
-  flutter_spinkit:
-    "^3.1.0"
-    # https://github.com/best-flutter/flutter_swiper
+  flutter_spinkit: "^3.1.0"
   flutter_swiper: ^1.1.6
   # store管理，组件页面级别的,复杂页面并且不需要全局共享的store使用这个
   fish_redux: "^0.2.4"
@@ -55,30 +54,18 @@ dependencies:
   # 图片
   cached_network_image: ^1.1.1
   orientation: ^1.0.5
-  #https://github.com/jogboms/flutter_spinkit
-  # https://github.com/zourw/flutter_seekbar
   seekbar: ^0.0.2
   photo_view: ^0.4.2
   image_handle:
-    git:
-      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_image_handle.git
-  #   flutter_video_player:
-  #     git:
-  #       url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_video_player.git
-  # https://github.com/flutter/plugins/tree/master/packages/image_picker
+    git: git://github.com/killdada/flutter_image_handle
   image_picker: ^0.6.0+10
-  # https://github.com/fluttercommunity/flutter_downloader
 
   flutter_file_helper:
-    git:
-      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_file_helper.git
-  # https://github.com/Naddiseo/dart-sprintf
+    git: git://github.com/killdada/flutter_file_helper
   sprintf: ^4.0.2
   flutter_downloader:
-    git:
-      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_file_downloader.git
+    git: git://github.com/killdada/flutter_file_downloader
   wave: ^0.0.8
-
   chewie: ^0.9.7
   auto_orientation: ^1.0.5
   video_player: ^0.10.1+6
@@ -88,11 +75,9 @@ dependencies:
   fluwx: ^1.0.0
   rxdart: ^0.22.0
   connectivity: ^0.4.3
-  path_provider : ^1.2.0
+  path_provider: ^1.2.0
   flutter_screenshot_listener:
-    git:
-      url: git@gitlab.mypaas.com.cn:appcloud/peiban/flutter_screenshot_listener.git
-
+    git: git://github.com/killdada/flutter_screenshot_listener
 dev_dependencies:
   flutter_test:
     sdk: flutter
